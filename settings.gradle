@@ -1,0 +1,4 @@
+rootProject.name = 'NoteProject'
+include 'Markup'
+include 'webclient'
+
