@@ -8,14 +8,11 @@ export default class Image extends Component {
 
     _markup() {
         const {classNames, src, alternativeText} = this;
-        const rootElement = document.createElement('img');
-        rootElement.classList.add(classNames);
-        rootElement.setAttribute('src', src);
-        rootElement.setAttribute('alt', alternativeText);
-        rootElement.setAttribute('data-type', 'image-component');
-        rootElement.setAttribute('data-test', 'image-component-rendered');
 
-        return rootElement;
+        return `
+            <img class="${classNames}" src="${src}" alt="${alternativeText}" data-type="image-component"
+                data-test="image-component-rendered">
+        `;
     }
 
     _addEventListeners() {

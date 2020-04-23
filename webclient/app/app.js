@@ -4,12 +4,9 @@ import LoginPage from "./pages/login-page.js";
 export default class Application extends Component {
 
     _markup() {
-        const rootElement = document.createElement('div');
-        rootElement.classList.add('application');
-        rootElement.setAttribute('data-type', 'application-component');
-        rootElement.setAttribute('data-test', 'application-component-rendered');
-
-        return rootElement;
+        return `
+            <div class="application" data-type="application-component" data-test="application-component-rendered"></div>
+        `;
     }
 
     _addEventListeners() {
