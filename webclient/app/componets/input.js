@@ -8,16 +8,13 @@ export default class Input extends Component {
 
     _markup() {
         const {inputAttributeId, labelTextContent, inputAttributeType} = this;
-        const rootElement = document.createElement('div');
-        rootElement.setAttribute('data-type', 'input-component');
-        rootElement.setAttribute('data-test', 'input-component-rendered');
 
-        rootElement.innerHTML = `
-            <label for="${inputAttributeId}">${labelTextContent}</label>
-            <input id="${inputAttributeId}" type="${inputAttributeType}">
+        return `
+            <div data-type="input-component" data-test="input-component-rendered">
+                <label for="${inputAttributeId}">${labelTextContent}</label>
+                <input id="${inputAttributeId}" type="${inputAttributeType}">
+            </div>
         `;
-
-        return rootElement;
     }
 
     _addEventListeners() {

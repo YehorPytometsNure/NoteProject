@@ -5,16 +5,11 @@ import Button from "./button.js";
 export default class LoginForm extends Component {
 
     _markup() {
-        const rootElement = document.createElement('form');
-        rootElement.classList.add('left', 'side');
-        rootElement.setAttribute('data-type', 'login-form');
-        rootElement.setAttribute('data-test', 'login-form-rendered');
-
-        rootElement.innerHTML = `
-            <div class="header">Hello! Are you ready to log in?</div>
+        return `
+            <form class="left side" data-type="login-form" data-test="login-form-rendered">
+                <div class="header">Hello! Are you ready to log in?</div>
+            </form>
         `;
-
-        return rootElement;
     }
 
     _initNestedComponents() {

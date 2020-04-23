@@ -9,15 +9,12 @@ export default class Button extends Component {
 
     _markup() {
         const {href, textContent, type} = this;
-        const rootElement = document.createElement('a');
-        rootElement.classList.add('buttons');
-        rootElement.setAttribute('href', href);
-        rootElement.setAttribute('type', type);
-        rootElement.setAttribute('data-type', 'button-component');
-        rootElement.setAttribute('data-test', 'button-rendered');
-        rootElement.textContent = textContent;
 
-        return  rootElement;
+        return `
+            <a class="buttons" href="${href}" type="${type}" data-type="button-component" data-test="button-rendered">
+                ${textContent}
+            </a>
+        `;
     }
 
     _addEventListeners() {

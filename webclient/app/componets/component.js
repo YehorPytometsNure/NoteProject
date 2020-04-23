@@ -31,7 +31,7 @@ export default class Component {
 
     /**
      * @abstract
-     * @return {HTMLElement}
+     * @return {string}
      */
     _markup() {
         return undefined;
