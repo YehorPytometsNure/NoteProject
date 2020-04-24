@@ -27,13 +27,14 @@ export default class PageManager {
     /**
      * Instantiates PageManager.
      *
-     * @param {{key: string, value: (function(): Component)}} pageMappings - is map of key value pairs, where key is a
-     * hash and value is a creator of component.
-     * @param {function(properties: object): Component} notFoundPageCreator  - creates a page to display in case of
-     * wrongly-typed hash.
-     * @param {Element} rootElement - element, content of which will be cleared before page rendering.
+     * @param {object} properties - page manager configuration properties.
+     * @param {{key: string, value: (function(): Component)}} properties.pageMappings - is map of key value pairs,
+     * where key is a hash and value is a creator of component.
+     * @param {function(properties: object): Component} properties.notFoundPageCreator - creates a page to display in
+     * case of wrongly-typed hash.
+     * @param {Element} properties.rootElement - element, content of which will be cleared before page rendering.
      */
-    constructor(pageMappings, notFoundPageCreator, rootElement) {
+    constructor({pageMappings, notFoundPageCreator, rootElement}) {
         Object.assign(this, {pageMappings, notFoundPageCreator, rootElement});
     }
 
@@ -50,7 +51,6 @@ export default class PageManager {
      *
      * @param {string} key - is a kay, which may be mapped to pages.
      * @param {object} properties - properties, that should be passed to page..
-     * @private
      */
     renderPage(key, properties) {
         const createPage = this._retrievePageCreator(key);
