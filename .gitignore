@@ -3,3 +3,5 @@
 /.gradle
 /gradlew.bat
 /gradlew
+node_modules
+package-lock.json
