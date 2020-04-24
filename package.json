@@ -1,0 +1,29 @@
+{
+  "name": "sealthenote",
+  "version": "1.0.0",
+  "description": "A note-keeping manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YehorPytometsNure/NoteProject.git"
+  },
+  "keywords": [
+    "notes",
+    "keep",
+    "seal",
+    "note",
+    "sealthenote"
+  ],
+  "author": "SealTheNote team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YehorPytometsNure/NoteProject/issues"
+  },
+  "homepage": "https://github.com/YehorPytometsNure/NoteProject#readme",
+  "dependencies": {
+    "fetch-mock": "^9.4.0"
+  }
+}
