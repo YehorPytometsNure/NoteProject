@@ -4,6 +4,7 @@ import Image from "../componets/image.js";
 
 export default class LoginPage extends Component {
 
+    // TODO: refactor markup of login page.
     _markup() {
         const rootElement = document.createElement('div');
         rootElement.classList.add('bottom', 'side');
