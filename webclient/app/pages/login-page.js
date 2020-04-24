@@ -4,7 +4,6 @@ import Image from "../componets/image.js";
 
 export default class LoginPage extends Component {
 
-    // TODO: refactor markup of login page.
     _markup() {
         return `
             <div class="bottom side" data-type="login-page-component" data-test="login-page-component-rendered">

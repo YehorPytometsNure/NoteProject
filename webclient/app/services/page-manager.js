@@ -26,7 +26,7 @@ export default class PageManager {
 
     /**
      * Instantiates PageManager.
-     *
+     * TODO: make it accept object.
      * @param {{key: string, value: (function(): Component)}} pageMappings - is map of key value pairs, where key is a
      * hash and value is a creator of component.
      * @param {function(properties: object): Component} notFoundPageCreator  - creates a page to display in case of
@@ -47,10 +47,9 @@ export default class PageManager {
     /**
      * Renders ui page, mapped to specified hash.
      * Before rendering new page, clears content root container, e.g. previous page.
-     *
+     * TODO: make it public
      * @param {string} key - is a kay, which may be mapped to pages.
      * @param {object} properties - properties, that should be passed to page..
-     * @private
      */
     renderPage(key, properties) {
         const createPage = this._retrievePageCreator(key);
