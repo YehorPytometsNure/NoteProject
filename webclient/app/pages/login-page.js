@@ -5,15 +5,11 @@ import Image from "../componets/image.js";
 export default class LoginPage extends Component {
 
     _markup() {
-        const rootElement = document.createElement('div');
-        rootElement.classList.add('bottom', 'side');
-        rootElement.setAttribute('data-type', 'login-page-component');
-        rootElement.setAttribute('data-test', 'login-page-component-rendered');
-        rootElement.innerHTML = `
-            <div class="content" data-type="login-page-content"></div>
+        return `
+            <div class="bottom side" data-type="login-page-component" data-test="login-page-component-rendered">
+                <div class="content" data-type="login-page-content"></div>
+            </div>
         `;
-
-        return rootElement;
     }
 
     _initNestedComponents() {
