@@ -12,33 +12,42 @@ export default class Component {
         this._initComponent();
     }
 
+    /**
+     * @private
+     */
     _initComponent() {
         this._render();
         this._initNestedComponents();
         this._addEventListeners();
     }
 
+    /**
+     * @private
+     */
     _render() {
-        const {rootElement, container} = this;
-
-        if (rootElement) {
-            rootElement.remove();
+        if (this.rootElement) {
+            this.rootElement.remove();
         }
 
-        this.rootElement = this._markup();
-        container.appendChild(this.rootElement);
+        const fakeElement = document.createElement('div');
+        fakeElement.innerHTML = this._markup();
+
+        this.rootElement = fakeElement.firstElementChild;
+        this.container.appendChild(this.rootElement);
     }
 
     /**
      * @abstract
+     * @private
      * @return {string}
      */
     _markup() {
-        return undefined;
+
     }
 
     /**
      * @abstract
+     * @private
      * @return {void}
      */
     _initNestedComponents() {
@@ -47,9 +56,26 @@ export default class Component {
 
     /**
      * @abstract
+     * @private
      * @return {void}
      */
     _addEventListeners() {
 
+    }
+
+    /**
+     * Destroys component.
+     */
+    willDestroy() {
+
+    }
+
+    /**
+     * Clears content of root element.
+     *
+     * @param {Element} element - element, content of which is to be cleared.
+     */
+    clearElementContent(element) {
+        element.innerHTML = '';
     }
 }

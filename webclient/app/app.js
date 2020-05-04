@@ -15,23 +15,22 @@ export default class Application extends Component {
     }
 
     _initNestedComponents() {
-        new LoginPage(this.rootElement);
         const {rootElement} = this;
-        const pageContainer = rootElement.querySelector('[data-type="application-component"]');
         const pageMappings = {
-            '/login': (properties) => new LoginPage(pageContainer, properties),
+            '/login': (properties) => new LoginPage(rootElement, properties),
         };
 
         const pageManager = new PageManager({
             pageMappings,
             notFoundPageCreator: () => {
             },
-            rootElement: pageContainer,
+            rootElement,
         });
 
         new Router({
             defaultUrlHash: '/login',
             pageManager,
+            window,
         });
     }
 }

@@ -39,7 +39,7 @@ export default class Router {
      * @param {Window} properties.window - global window object.
      * @param {string} properties.defaultUrlHash - default uri hash used to refer to page when no hash provided.
      */
-    constructor({defaultUrlHash, pageManager, window = window}) {
+    constructor({defaultUrlHash, pageManager, window}) {
         Object.assign(this, {defaultUrlHash, pageManager, window});
         this.hashChangeHandlers = [];
         this.init();
