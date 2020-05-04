@@ -22,7 +22,7 @@ export default class Router {
      * @type {PageManager}
      * @private
      */
-    pageManger;
+    pageManager;
 
     /**
      * Default uri hash used to refer to page when no hash provided.
@@ -39,7 +39,7 @@ export default class Router {
      * @param {Window} properties.window - global window object.
      * @param {string} properties.defaultUrlHash - default uri hash used to refer to page when no hash provided.
      */
-    constructor({defaultUrlHash, pageManager, window = window}) {
+    constructor({defaultUrlHash, pageManager, window}) {
         Object.assign(this, {defaultUrlHash, pageManager, window});
         this.hashChangeHandlers = [];
         this.init();
@@ -53,25 +53,27 @@ export default class Router {
      * @private
      */
     init() {
-        const {window, hashChangeHandlers, pageManger} = this;
+        const {window, hashChangeHandlers, pageManager} = this;
 
         hashChangeHandlers.push((hash) => {
-            pageManger.clearRootElement();
-            pageManger.renderPage(hash, {router: this});
+            pageManager.clearRootElement();
+            pageManager.renderPage(hash, {
+                router: this,
+            });
         });
 
         window.addEventListener('hashchange', () => {
-            this._proceedPageRendering();
+            this._initiatePageRendering();
         });
 
-        this._proceedPageRendering();
+        this._initiatePageRendering();
     }
 
     /**
      * Proceeds page rendering, considering current url.
      * @private
      */
-    _proceedPageRendering() {
+    _initiatePageRendering() {
         const urlHash = this._getUrlHash();
 
         if (urlHash) {
