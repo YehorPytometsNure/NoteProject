@@ -28,7 +28,7 @@ export default class LoginForm extends Component {
         });
 
         this.buttonComponent = new Button(rootElement, {
-            href: '#',
+            href: '#/registration',
             textContent: 'Log in',
             type: 'submit',
         })
