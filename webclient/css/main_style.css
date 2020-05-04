@@ -40,6 +40,10 @@ body {
     align-items: center;
 }
 
+.left.side.registration {
+    height: 170px;
+}
+
 .left.side > div {
     display: flex;
     flex-direction: row;
@@ -93,7 +97,8 @@ a.buttons {
     -moz-transition: background-color 0.1s linear;
     -o-transition: background-color 0.1s linear;
     transition: background-color 0.1s linear;
-    margin: -7px auto 20px;
+    /*margin: -7px auto 20px;*/
+    margin: 7px auto 20px;
 }
 
 a.buttons:hover {

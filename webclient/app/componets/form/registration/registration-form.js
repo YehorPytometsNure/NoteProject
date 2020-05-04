@@ -1,13 +1,13 @@
-import Component from "./component.js";
-import Input from "./input.js";
-import Button from "./button.js";
+import Component from "../../component.js";
+import Input from "../../input.js";
+import Button from "../../button.js";
 
-export default class LoginForm extends Component {
+export default class RegistrationForm extends Component {
 
     _markup() {
         return `
-            <form class="left side" data-type="login-form" data-test="login-form-rendered">
-                <div class="header">Hello! Are you ready to log in?</div>
+            <form class="left side registration" data-type="registration-form" data-test="registration-form-rendered">
+                <div class="header">Hello! Are you ready to sign up?</div>
             </form>
         `;
     }
@@ -27,11 +27,17 @@ export default class LoginForm extends Component {
             inputAttributeType: 'password',
         });
 
+        new Input(rootElement, {
+            inputAttributeId: 'confirm-password-input',
+            labelTextContent: 'Confirm Password: ',
+            inputAttributeType: 'password',
+        });
+
         this.buttonComponent = new Button(rootElement, {
-            href: '#',
-            textContent: 'Log in',
+            href: '#/login',
+            textContent: 'Register',
             type: 'submit',
-        })
+        });
     }
 
     _addEventListeners() {
