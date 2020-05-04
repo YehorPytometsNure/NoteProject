@@ -50,8 +50,7 @@ export default class PageManager {
      * Before rendering new page, clears content root container, e.g. previous page.
      *
      * @param {string} key - is a kay, which may be mapped to pages.
-     * @param {object} properties - properties, that should be passed to page..
-     * @private
+     * @param {object} properties - properties, that should be passed to page.
      */
     renderPage(key, properties) {
         const createPage = this._retrievePageCreator(key);
