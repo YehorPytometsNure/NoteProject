@@ -51,6 +51,7 @@ export default class PageManager {
      *
      * @param {string} key - is a kay, which may be mapped to pages.
      * @param {object} properties - properties, that should be passed to page..
+     * @private
      */
     renderPage(key, properties) {
         const createPage = this._retrievePageCreator(key);
