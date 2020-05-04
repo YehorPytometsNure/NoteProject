@@ -1,6 +1,6 @@
-import Component from "./component.js";
-import Input from "./input.js";
-import Button from "./button.js";
+import Component from "../../component.js";
+import Input from "../../input.js";
+import Button from "../../button.js";
 
 export default class LoginForm extends Component {
 

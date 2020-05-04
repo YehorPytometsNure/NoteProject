@@ -1,8 +1,13 @@
 import Component from "../componets/component.js";
-import LoginForm from "../componets/login-form.js";
+import LoginForm from "../componets/form/login/login-form.js";
 import Image from "../componets/image.js";
 
 export default class LoginPage extends Component {
+
+    _initComponent() {
+        super._initComponent();
+        document.title = 'Authentication';
+    }
 
     _markup() {
         return `
