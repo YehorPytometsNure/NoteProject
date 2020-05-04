@@ -1,16 +1,16 @@
-import Component from "../componets/component.js";
+import Component from '../componets/component.js';
 
 // TODO implement NotFoundPage.
 export default class NotFoundPage extends Component {
 
-    _markup() {
-        return "";
-    }
+  _markup() {
+    return '';
+  }
 
-    _addEventListeners() {
-    }
+  _addEventListeners() {
+  }
 
-    _initNestedComponents() {
-        super._initNestedComponents();
-    }
+  _initNestedComponents() {
+    super._initNestedComponents();
+  }
 }

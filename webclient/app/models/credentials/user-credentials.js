@@ -3,29 +3,29 @@
  */
 export default class UserCredentials {
 
-    /**
-     * User login.
-     * @type {Login}.
-     * @readonly
-     */
-    login;
+  /**
+   * User login.
+   * @type {Login}.
+   * @readonly
+   */
+  login;
 
-    /**
-     * User password.
-     * @type {Password}.
-     * @readonly
-     */
-    password;
+  /**
+   * User password.
+   * @type {Password}.
+   * @readonly
+   */
+  password;
 
-    /**
-     * Instantiates UserCredentials value object.
-     *
-     * @param {Login} login - user login.
-     * @param {Password} password - password.
-     */
-    constructor(login, password) {
-        this.login = login;
-        this.password = password;
-        Object.freeze(this);
-    }
+  /**
+   * Instantiates UserCredentials value object.
+   *
+   * @param {Login} login - user login.
+   * @param {Password} password - password.
+   */
+  constructor(login, password) {
+    this.login = login;
+    this.password = password;
+    Object.freeze(this);
+  }
 }
