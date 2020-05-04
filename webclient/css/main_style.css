@@ -1,0 +1,103 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #EB7F00;
+    overflow: hidden;
+}
+
+.header {
+    font-size: 100px;
+    margin-top: -75px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.left.side {
+    background-color: orange;
+    float: left;
+    height: 100px;
+    display: flex;
+    border: 5px solid white;
+    border-radius: 15px;
+    flex-direction: column;
+    margin-right: 40px;
+    padding: 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left.side > div {
+    display: flex;
+    flex-direction: row;
+    font-size: 25px;
+    font-family: 'Oleo Script', cursive;
+    align-items: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.left.side > div input {
+    margin-left: 10px;
+    border: 0;
+    background-color: orange;
+    font-size: 15px;
+    text-indent: 5px;
+    flex-direction: row;
+    color: white;
+}
+
+.right.side {
+    width: 500px;
+    margin-top: -10px;
+
+}
+
+.bottom.side .header {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 40px;
+}
+
+a.buttons {
+    background-color: #1695A3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    color: #fff;
+    display: block;
+    width: 100px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: background-color 0.1s linear;
+    -moz-transition: background-color 0.1s linear;
+    -o-transition: background-color 0.1s linear;
+    transition: background-color 0.1s linear;
+    margin: -7px auto 20px;
+}
+
+a.buttons:hover {
+    background-color: #ACF0F2;
+}
+
+
