@@ -1,7 +1,7 @@
 {
   "name": "sealthenote",
   "version": "1.0.0",
-  "description": "A note keeping manager.",
+  "description": "A note-keeping manager.",
   "main": "index.js",
   "dependencies": {
     "fetch-mock": "^9.4.0"
@@ -19,6 +19,7 @@
   "keywords": [
     "notes",
     "keep",
+    "seal",
     "note",
     "sealthenote"
   ],
