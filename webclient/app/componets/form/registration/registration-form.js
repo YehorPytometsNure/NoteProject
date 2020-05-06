@@ -1,8 +1,21 @@
-import Component from '../../component.js';
 import Input from '../../input.js';
-import Button from '../../button.js';
+import Anchor from '../../anchor.js';
+import RegistrationFormValidator from './registration-form-validator.js';
+import ValidationUnit from '../../../models/validation-unit.js';
+import Form from '../form.js';
 
-export default class RegistrationForm extends Component {
+export default class RegistrationForm extends Form {
+
+  /**
+   * Instantiates RegistrationForm component.
+   *
+   * @param {HTMLElement} container - parent container.
+   * @param {object} properties - configuration properties of the component.
+   * @param {FormValidator} properties.formValidator - form delegates validation to formValidator.
+   */
+  constructor(container, {formValidator = new RegistrationFormValidator()} = {}) {
+    super(container, {formValidator});
+  }
 
   _markup() {
     return `
@@ -15,34 +28,44 @@ export default class RegistrationForm extends Component {
   _initNestedComponents() {
     const {rootElement} = this;
 
-    new Input(rootElement, {
+    this.loginComponent = new Input(rootElement, {
       inputAttributeId: 'email-input',
       labelTextContent: 'Email:',
       inputAttributeType: 'email',
+      inputName: 'login',
     });
 
-    new Input(rootElement, {
+    this.passwordComponent = new Input(rootElement, {
       inputAttributeId: 'password-input',
       labelTextContent: 'Password:',
       inputAttributeType: 'password',
+      inputName: 'password',
     });
 
-    new Input(rootElement, {
+    this.confirmPasswordComponent = new Input(rootElement, {
       inputAttributeId: 'confirm-password-input',
       labelTextContent: 'Confirm Password: ',
       inputAttributeType: 'password',
+      inputName: 'confirmPassword',
     });
 
-    this.buttonComponent = new Button(rootElement, {
-      href: '#/login',
+    this.inputComponents = [this.loginComponent, this.passwordComponent, this.confirmPasswordComponent];
+
+    this.submitButton = new Anchor(rootElement, {
       textContent: 'Register',
-      type: 'submit',
     });
   }
 
-  _addEventListeners() {
-    this.buttonComponent.onClickHandler((event) => {
+  /**
+   * @inheritdoc
+   */
+  _collectValidationUnits() {
+    const {loginComponent, passwordComponent, confirmPasswordComponent} = this;
 
-    });
+    return {
+      [loginComponent.inputName]: new ValidationUnit(loginComponent),
+      [passwordComponent.inputName]: new ValidationUnit(passwordComponent),
+      [confirmPasswordComponent.inputName]: new ValidationUnit(confirmPasswordComponent),
+    };
   }
 }

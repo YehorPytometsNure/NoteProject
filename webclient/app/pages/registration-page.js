@@ -1,8 +1,9 @@
-import Component from '../componets/component.js';
 import Image from '../componets/image.js';
 import RegistrationForm from '../componets/form/registration/registration-form.js';
+import ErrorMessageBubble from '../componets/form/error-message-bubble.js';
+import AbstractFormPage from './abstract-form-page.js';
 
-export default class RegistrationPage extends Component {
+export default class RegistrationPage extends AbstractFormPage {
 
   _initComponent() {
     super._initComponent();
@@ -11,25 +12,30 @@ export default class RegistrationPage extends Component {
 
   _markup() {
     return `
-      <div class="bottom side" 
-        data-type="registration-page-component" 
-        data-test="registration-page-component-rendered">
-          <div class="content" data-type="registration-page-content"></div>
+      <div class="bottom side"> 
+        <div class="content" data-type="registration-page-content">
+          <div data-type="registration-page-form-container"></div>
+          <div class="mascot-container" data-type="registration-page-bubble-container"></div>
+        </div>  
       </div>
     `;
   }
 
   _initNestedComponents() {
-    const contentContainer = this.rootElement.querySelector('[data-type="registration-page-content"]');
-    new RegistrationForm(contentContainer);
+    const formContainer = this.rootElement.querySelector('[data-type="registration-page-form-container"]');
+    this.formComponent = new RegistrationForm(formContainer);
 
-    new Image(contentContainer, {
+    const bubbleContainer = this.getBubbleContainer();
+    new Image(bubbleContainer, {
       classNames: ['right', 'side'],
       src: 'images/tutorial.png',
       alternativeText: 'Mascot',
     });
+
+    this.errorMessageBubble = new ErrorMessageBubble(bubbleContainer);
   }
 
-  _addEventListeners() {
+  getBubbleContainer() {
+    return this.rootElement.querySelector('[data-type="registration-page-bubble-container"]');
   }
 }

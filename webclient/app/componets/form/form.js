@@ -31,11 +31,17 @@ export default class Form extends Component {
    */
   _onSubmitHandlers = [];
 
+  _initComponent() {
+    super._initComponent();
+    this._beforeValidadationHandlers = [];
+    this._onValidadationErrorHandlers = [];
+  }
+
   /**
    * @inheritdoc
    */
   _addEventListeners() {
-    this.rootElement.addEventListener('submit', (event) => {
+    this.submitButton.onClickHandler((event) => {
       event.preventDefault();
       event.stopPropagation();
       this._validateForm();
@@ -48,14 +54,14 @@ export default class Form extends Component {
    */
   _validateForm() {
     const validationUnits = this._collectValidationUnits();
-    this._hideErrorMessages();
+    this._beforeValidadationHandlers.forEach((handler) => handler());
 
-    this.properties.formValidator.validate(validationUnits)
+    this.formValidator.validate(validationUnits)
       .then(() => {
         this._handleSubmitEvent();
       })
       .catch((errorCase) => {
-        this._resolveValidationFailure([errorCase]);
+        this.resolveValidationFailure([errorCase]);
       });
   }
 
@@ -70,11 +76,12 @@ export default class Form extends Component {
 
   }
 
-  /**
-   * Hides error messages on the form input components.
-   */
-  hideErrorMessages() {
-    this.inputComponents.forEach((component) => component.hideErrorMessage());
+  beforeValidation(handler) {
+    this._beforeValidadationHandlers.push(handler);
+  }
+
+  onValidationError(handler) {
+    this._onValidadationErrorHandlers.push(handler);
   }
 
   /**
@@ -105,17 +112,8 @@ export default class Form extends Component {
       const errorCase = errorCases.find((errorCase) => errorCase.field === inputName);
 
       if (errorCase) {
-        component.showErrorMessage(errorCase.message);
+        this._onValidadationErrorHandlers.forEach((handler) => handler(errorCase.message));
       }
     });
-  }
-
-  /**
-   * Resolves authentication error.
-   *
-   * @param {AuthenticationError} error - authentication error.
-   */
-  showAuthenticationError(error) {
-    this.inputComponents[0].showErrorMessage(error.message);
   }
 }
