@@ -21,14 +21,8 @@ class FetchMockMode {
     fetchMock.post('/login', (url, options) => {
       const data = JSON.parse(options.body);
 
-      if (data.login !== validLogin) {
-        return this._createAuthenticationError(`Password or login is incorrect. Please, try again.`,
-          'login',
-        );
-      }
-
-      if (data.password !== validPassword) {
-        return this._createAuthenticationError('Wrong password.', 'password');
+      if (data.login !== validLogin || data.password !== validPassword) {
+        return this._createAuthenticationError('Password or login is incorrect. Please, try again.');
       }
 
       this._adminToken = this._mockToken;
@@ -66,9 +60,7 @@ class FetchMockMode {
    */
   _createAuthenticationError(message) {
     return {
-      body: {
-        message,
-      },
+      body: message,
       status: 401,
     };
   }

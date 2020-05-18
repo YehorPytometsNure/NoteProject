@@ -43,8 +43,6 @@ export default class AbstractFormPage extends Component {
       const password = passwordComponent.inputValue;
       const userCredentials = new UserCredentials(login, password);
 
-      //TODO: do I need to hide error messages here, or not?
-
       return this._makeRequest(userCredentials)
         .then((response) => {
           this._handleSuccessfulResponse(response);
@@ -95,8 +93,7 @@ export default class AbstractFormPage extends Component {
    * @private
    */
   _handleAuthenticationError(authenticationError) {
-    //TODO: do.
-    alert(authenticationError);
+    this.errorMessageBubble.showErrorMessage(authenticationError.message);
   }
 
   /**
