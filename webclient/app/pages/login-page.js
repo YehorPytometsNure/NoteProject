@@ -7,7 +7,7 @@ export default class LoginPage extends AbstractFormPage {
 
   _initComponent() {
     super._initComponent();
-    document.title = 'Authentication';
+    this.pageTitle = 'Authentication';
   }
 
   _markup() {
@@ -37,5 +37,9 @@ export default class LoginPage extends AbstractFormPage {
 
   getBubbleContainer() {
     return this.rootElement.querySelector('[data-type="login-page-bubble-container"]');
+  }
+
+  _makeRequest(userCredentials) {
+    return this.apiService.logIn(userCredentials);
   }
 }

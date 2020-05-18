@@ -1,4 +1,8 @@
 import Component from '../componets/component.js';
+import UserCredentials from '../models/credentials/user-credentials.js';
+import ServerValidationError from '../models/errors/server-validation-error.js';
+import GeneralServerError from '../models/errors/general-server-error.js';
+import AuthenticationError from '../models/errors/authentication-error.js';
 
 /**
  * Adds-on for form component.
@@ -33,11 +37,13 @@ export default class AbstractFormPage extends Component {
     formComponent.beforeValidation(() => errorMessageBubble.hideErrorMessage());
     formComponent.onValidationError((message) => errorMessageBubble.showErrorMessage(message));
 
-    /*formComponent.onSubmit(() => {
+    formComponent.onSubmit(() => {
       const {passwordComponent, loginComponent} = formComponent;
       const login = loginComponent.inputValue;
       const password = passwordComponent.inputValue;
       const userCredentials = new UserCredentials(login, password);
+
+      //TODO: do I need to hide error messages here, or not?
 
       return this._makeRequest(userCredentials)
         .then((response) => {
@@ -46,7 +52,7 @@ export default class AbstractFormPage extends Component {
         .catch((responseError) => {
           this._handleResponseError(responseError);
         });
-    });*/
+    });
   }
 
   /**
@@ -89,7 +95,8 @@ export default class AbstractFormPage extends Component {
    * @private
    */
   _handleAuthenticationError(authenticationError) {
-
+    //TODO: do.
+    alert(authenticationError);
   }
 
   /**
@@ -112,7 +119,7 @@ export default class AbstractFormPage extends Component {
    * @private
    */
   _handleSuccessfulResponse(response) {
-    this.properties.successfulResponseHandler();
+    this.successfulResponseHandler();
   }
 
   /**
@@ -121,6 +128,6 @@ export default class AbstractFormPage extends Component {
    * @param {string} title - title of the page.
    */
   set pageTitle(title) {
-    this.properties.titleService.setPage(title);
+    this.titleService.setPage(title);
   }
 }

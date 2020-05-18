@@ -7,7 +7,7 @@ export default class RegistrationPage extends AbstractFormPage {
 
   _initComponent() {
     super._initComponent();
-    document.title = 'Registration';
+    this.pageTitle = 'Registration';
   }
 
   _markup() {
@@ -37,5 +37,9 @@ export default class RegistrationPage extends AbstractFormPage {
 
   getBubbleContainer() {
     return this.rootElement.querySelector('[data-type="registration-page-bubble-container"]');
+  }
+
+  _makeRequest(userCredentials) {
+    return this.apiService.register(userCredentials);
   }
 }
