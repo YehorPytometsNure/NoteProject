@@ -1,4 +1,5 @@
-import fetchMock from 'fetch-mock/cjs/client.js';
+// import '../../../../../../node_modules/fetch-mock/cjs/client.js'
+//TODO: think of not just commenting import, but rather disabling it.
 
 /**
  * Simulates server.
