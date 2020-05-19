@@ -97,69 +97,6 @@ export default class ApiService {
   }
 
   /**
-   * Retrieves list items from the server.
-   *
-   * @param {string} folderId - retrieve folder content by that id.
-   * @return {Promise<Response, Error>} - promise, resolved for client processing.
-   */
-  async getFolderContent(folderId) {
-    return fetch(`/folder/${folderId}/content`, this._createInitObject())
-      .catch((networkError) => {
-        console.error(`Network error: ${networkError}.`);
-      })
-      .then(this._validateResponse)
-      .then((response) => response.json());
-  }
-
-  /**
-   * Makes fetch request to retrieve folder entity.
-   *
-   * @param {string} folderId - retrieve folder meta data by that id.
-   * @return {Promise<void, Error>} - resulting promise.
-   */
-  async getFolder(folderId) {
-    return fetch(`/folder/${folderId}`, this._createInitObject())
-      .catch((networkError) => {
-        console.error(`Network error: ${networkError}.`);
-      })
-      .then(this._validateResponse)
-      .then((response) => response.json());
-  }
-
-  /**
-   * Makes fetch request to retrieve root folder meta data.
-   *
-   * @return {Promise} - resulting promise wrapping root folder meta data.
-   */
-  async getRootFolder() {
-    return fetch(`/folder/root`, this._createInitObject())
-      .catch((networkError) => {
-        console.error(`Network error: ${networkError}.`);
-      })
-      .then(this._validateResponse)
-      .then((response) => response.json());
-  }
-
-  /**
-   * Makes request to delete listItem from server.
-   *
-   * @param {ListItemModel} listItem - folder to delete.
-   * @return {Promise} - resolved response promise.
-   */
-  async deleteListItem(listItem) {
-    return fetch(`/${listItem.type}/${listItem.id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: this._getBearerAccessToken(),
-      },
-    })
-      .catch((networkError) => {
-        console.error(`Network error: ${networkError}.`);
-      })
-      .then(this._validateResponse);
-  }
-
-  /**
    * Creates init object for folder requests.
    *
    * @return {RequestInit} - init object.
