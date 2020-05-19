@@ -5,14 +5,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import spark.Request;
 import spark.Response;
-import ua.nure.sealthenote.models.token.Token;
-import ua.nure.sealthenote.models.token.TokenSerializer;
+import ua.nure.sealthenote.models.errors.ValidationError;
+import ua.nure.sealthenote.models.errors.ValidationErrorsSerializer;
 import ua.nure.sealthenote.models.userCredentails.UserCredentials;
 import ua.nure.sealthenote.models.userCredentails.UserCredentialsDeserializer;
 
 import static ua.nure.sealthenote.server.StatusCode.*;
 
-public class LogInHandler {
+public class RegistrationHandler {
 
     public static Object handle(Request request, Response response) {
 
@@ -32,25 +32,28 @@ public class LogInHandler {
             return "Cannot read duck program.";
         }
 
-        if (!userCredentials.login().equals("admin")
-                || !userCredentials.password().equals("qwerty123A")) {
+        if (userCredentials.login().equals("admin")) {
 
-            response.status(AUTHENTICATION_ERROR.value());
+            response.status(VALIDATION_ERROR.value());
 
-            return "Password or login is incorrect. Please, try again.";
+            ValidationError validationError = new ValidationError(
+                    "login",
+                    "Login admin already exists. Please try a new one."
+            );
+
+            return jsonParser.toJson(new ValidationError[]{
+                    validationError,
+            }, ValidationError[].class);
         }
 
-        Token accessToken = new Token("access-token-mock");
-        response.status(OK.value());
-
-        return jsonParser.toJson(accessToken, Token.class);
+        return OK.value();
     }
 
     private static GsonBuilder setUpGsonBuilder() {
 
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(UserCredentials.class, new UserCredentialsDeserializer());
-        builder.registerTypeAdapter(Token.class, new TokenSerializer());
+        builder.registerTypeAdapter(ValidationError[].class, new ValidationErrorsSerializer());
 
         return builder;
     }
