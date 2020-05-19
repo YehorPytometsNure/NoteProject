@@ -1,4 +1,4 @@
-import fetchMock from '../../../node_modules/fetch-mock/esm/client.js';
+import fetchMock from 'fetch-mock/cjs/client.js';
 
 /**
  * Simulates server.
