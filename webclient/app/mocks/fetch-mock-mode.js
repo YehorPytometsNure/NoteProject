@@ -4,7 +4,7 @@ import fetchMock from '../../../node_modules/fetch-mock/esm/client.js';
  * Simulates server.
  * For development and testing purposes only.
  */
-export default class FetchMockMode {
+class FetchMockMode {
 
   _mockToken = 'admin-token';
   _adminToken = '';
@@ -21,19 +21,33 @@ export default class FetchMockMode {
     fetchMock.post('/login', (url, options) => {
       const data = JSON.parse(options.body);
 
-      if (data.login.value !== validLogin) {
-        return this._createAuthenticationError(`User with login ${data.login} doesn't exist. Please check your login or create your account.`,
-          'login',
-        );
-      }
-
-      if (data.password.value !== validPassword) {
-        return this._createAuthenticationError('Wrong password.', 'password');
+      if (data.login !== validLogin || data.password !== validPassword) {
+        return this._createAuthenticationError('Password or login is incorrect. Please, try again.');
       }
 
       this._adminToken = this._mockToken;
 
       return this._createTokenResponse();
+    });
+
+    fetchMock.post('/registration', (url, options) => {
+      const data = JSON.parse(options.body);
+
+      if (data.login === validLogin) {
+        return {
+          body: {
+            validationErrors: [
+              {
+                field: 'login',
+                message: `Login ${data.login} already exists. Please try a new one.`,
+              },
+            ],
+          },
+          status: 422,
+        };
+      }
+
+      return 200;
     });
   }
 
@@ -41,16 +55,12 @@ export default class FetchMockMode {
    * Creates object of authentication error.
    *
    * @param {string} message - error message.
-   * @param {string} fieldName - erroneous field name.
-   * @return {{body: {field: string, message: string}, status: number}} - authentication error response.
+   * @return {{body: {message: *}, status: number}} - erroneous json.
    * @private
    */
-  _createAuthenticationError(message, fieldName = null) {
+  _createAuthenticationError(message) {
     return {
-      body: {
-        field: fieldName,
-        message: message,
-      },
+      body: message,
       status: 401,
     };
   }
@@ -58,15 +68,15 @@ export default class FetchMockMode {
   /**
    * Creates object of token response.
    *
-   * @return {{body: {token: string}, status: number}} token response.
+   * @return {{token: string}}
    * @private
    */
   _createTokenResponse() {
     return {
-      body: {
-        token: this._adminToken,
-      },
-      status: 200,
+      token: this._adminToken,
     };
   }
 }
+
+const fetchMockMode = new FetchMockMode();
+export default fetchMockMode;

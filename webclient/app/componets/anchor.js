@@ -1,17 +1,17 @@
 import Component from './component.js';
 
-export default class Button extends Component {
+export default class Anchor extends Component {
 
-  constructor(container, {href, textContent, type}) {
-    super(container, {href, textContent, type});
+  constructor(container, {href = '', textContent}) {
+    super(container, {href, textContent});
     this.onClickHandlers = [];
   }
 
   _markup() {
-    const {href, textContent, type} = this;
+    const {href, textContent} = this;
 
     return `
-      <a class="buttons" href="${href}" type="${type}" data-type="button-component" data-test="button-rendered">
+      <a class="buttons" href="${href}" data-type="button-component" data-test="button-rendered">
         ${textContent}
       </a>
     `;

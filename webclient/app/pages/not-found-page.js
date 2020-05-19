@@ -4,7 +4,7 @@ import Component from '../componets/component.js';
 export default class NotFoundPage extends Component {
 
   _markup() {
-    return '';
+    return 'Nothing was found.';
   }
 
   _addEventListeners() {

@@ -46,7 +46,6 @@ export default class Component {
   }
 
   /**
-   * @abstract
    * @private
    * @return {void}
    */
@@ -55,7 +54,6 @@ export default class Component {
   }
 
   /**
-   * @abstract
    * @private
    * @return {void}
    */
