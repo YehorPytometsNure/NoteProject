@@ -30,7 +30,7 @@ body {
 .left.side {
     background-color: orange;
     float: left;
-    height: 100px;
+    height: 300px;
     display: flex;
     border: 5px solid white;
     border-radius: 15px;
@@ -42,7 +42,7 @@ body {
 }
 
 .left.side.registration {
-    height: 170px;
+    height: 320px;
 }
 
 .left.side > div {
@@ -106,7 +106,7 @@ a.buttons:hover {
     background-color: #ACF0F2;
 }
 
-.mascot-container {
+.auth-mascot-container {
     position: relative;
 }
 

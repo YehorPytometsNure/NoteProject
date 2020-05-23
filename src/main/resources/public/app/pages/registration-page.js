@@ -15,7 +15,7 @@ export default class RegistrationPage extends AbstractFormPage {
       <div class="bottom side"> 
         <div class="content" data-type="registration-page-content">
           <div data-type="registration-page-form-container"></div>
-          <div class="mascot-container" data-type="registration-page-bubble-container"></div>
+          <div class="auth-mascot-container" data-type="registration-page-bubble-container"></div>
         </div>  
       </div>
     `;
@@ -27,7 +27,7 @@ export default class RegistrationPage extends AbstractFormPage {
 
     const bubbleContainer = this.getBubbleContainer();
     new Image(bubbleContainer, {
-      classNames: ['right', 'side'],
+      classNames: 'right side',
       src: 'images/tutorial.png',
       alternativeText: 'Mascot',
     });
