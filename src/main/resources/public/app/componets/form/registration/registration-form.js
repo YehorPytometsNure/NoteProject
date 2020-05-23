@@ -1,5 +1,5 @@
-import Input from '../../input.js';
-import Anchor from '../../anchor.js';
+import Input from '../input.js';
+import Anchor from '../anchor.js';
 import RegistrationFormValidator from './registration-form-validator.js';
 import ValidationUnit from '../../../models/validation-unit.js';
 import Form from '../form.js';

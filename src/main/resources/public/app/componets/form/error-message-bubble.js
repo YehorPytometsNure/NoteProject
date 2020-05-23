@@ -1,4 +1,4 @@
-import Component from '../component.js';
+import Component from './component.js';
 
 /**
  * Components for displaying error messages on login and registration forms.

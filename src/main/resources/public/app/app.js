@@ -1,4 +1,4 @@
-import Component from './componets/component.js';
+import Component from './componets/form/component.js';
 import LoginPage from './pages/login-page.js';
 import Router from './services/router.js';
 import RegistrationPage from './pages/registration-page.js';

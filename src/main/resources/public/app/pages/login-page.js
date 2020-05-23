@@ -1,5 +1,5 @@
 import LoginForm from '../componets/form/login/login-form.js';
-import Image from '../componets/image.js';
+import Image from '../componets/form/image.js';
 import ErrorMessageBubble from '../componets/form/error-message-bubble.js';
 import AbstractFormPage from './abstract-form-page.js';
 
