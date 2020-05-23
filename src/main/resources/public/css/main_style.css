@@ -120,9 +120,9 @@ a.buttons:hover {
     min-height:40px;
     margin:20px;
     position:absolute;
-    top: 30px;
+    top: -50px;
     left: -50px;
-    right: 350px;
+    right: 330px;
     align-items:center;
     justify-content:center;
     text-align:center;
