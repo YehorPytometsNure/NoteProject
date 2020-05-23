@@ -1,4 +1,4 @@
-import Component from '../componets/form/component.js';
+import Component from '../componets/component.js';
 
 // TODO implement NotFoundPage.
 export default class NotFoundPage extends Component {

@@ -1,4 +1,4 @@
-import Component from '../componets/form/component.js';
+import Component from '../componets/component.js';
 import UserCredentials from '../models/credentials/user-credentials.js';
 import ServerValidationError from '../models/errors/server-validation-error.js';
 import GeneralServerError from '../models/errors/general-server-error.js';
