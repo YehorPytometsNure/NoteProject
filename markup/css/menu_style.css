@@ -139,21 +139,14 @@ body {
     text-align: center;
 }
 
-/*.div3 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}*/
-
 .plus {
     border-radius: 50%;
     background: #225378;
     box-shadow: 0 0 7px #666;
     width: 60px;
-    position: absolute;
-    top: 300px;
+    position: fixed;
+    bottom: 50px;
     right: 50px;
-
 }
 
 .module_window {
