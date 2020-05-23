@@ -1,5 +1,5 @@
 /**
- * State of Note Explorer.
+ * State of NoteModel Explorer.
  */
 export default class State {
 }

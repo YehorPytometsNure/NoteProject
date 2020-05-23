@@ -10,6 +10,7 @@ import TokenService from './services/token-service.js';
 import State from './state/state.js';
 import TitleService from './services/title-service.js';
 import fetchMockMode from './mocks/fetch-mock-mode.js';
+import NotesPage from './pages/notes-page.js';
 
 /**
  * Enumeration of possible url templates.
@@ -19,6 +20,7 @@ import fetchMockMode from './mocks/fetch-mock-mode.js';
 const UrlTemplates = Object.freeze({
   LOGIN: '/login',
   REGISTRATION: '/registration',
+  NOTES_PAGE: '/notes/:tag-name',
 });
 
 export default class Application extends Component {
@@ -53,7 +55,7 @@ export default class Application extends Component {
 
   _initNestedComponents() {
     const {rootElement} = this;
-    const {LOGIN, REGISTRATION} = UrlTemplates;
+    const {LOGIN, REGISTRATION, NOTES_PAGE} = UrlTemplates;
     const tokenService = new TokenService(window.localStorage);
     const apiService = new ApiService(tokenService);
     const state = new State();
@@ -62,15 +64,16 @@ export default class Application extends Component {
 
     const pageMappings = {
       [LOGIN]: (router) => new LoginPage(rootElement, {
-        successfulResponseHandler: () => router.redirectTo(REGISTRATION),
+        successfulResponseHandler: () => router.redirectTo('/notes'),
         titleService,
         apiService,
       }),
       [REGISTRATION]: (router) => new RegistrationPage(rootElement, {
-        successfulResponseHandler: () => router.redirectTo(LOGIN),
+        successfulResponseHandler: () => router.redirectTo('/notes'),
         titleService,
         apiService,
       }),
+      [NOTES_PAGE]: (router) => new NotesPage(rootElement, stateManager, {titleService}),
     };
 
     Router.getBuilder()
