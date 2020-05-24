@@ -1,6 +1,8 @@
 package ua.nure.sealthenote.server;
 
 import spark.Spark;
+import ua.nure.sealthenote.server.handlers.GetNotesHandler;
+import ua.nure.sealthenote.server.handlers.GetPreviouslyVisitedTagsHandler;
 import ua.nure.sealthenote.server.handlers.LogInHandler;
 import ua.nure.sealthenote.server.handlers.RegistrationHandler;
 
@@ -16,5 +18,7 @@ public class Server {
 
         Spark.post("/login", LogInHandler::handle);
         Spark.post("/registration", RegistrationHandler::handle);
+        Spark.get("/notes/:tagId/content", GetNotesHandler::handle);
+        Spark.get("/tags/previous", GetPreviouslyVisitedTagsHandler::handle);
     }
 }

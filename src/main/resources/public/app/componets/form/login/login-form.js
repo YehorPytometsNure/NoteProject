@@ -20,7 +20,7 @@ export default class LoginForm extends Form {
   _markup() {
     return `
       <form class="left side" data-type="login-form" data-test="login-form-rendered">
-        <div class="header">Hello! Are you ready to log in?</div>
+        <div class="form-header">Hello! Are you ready to log in?</div>
       </form>
     `;
   }

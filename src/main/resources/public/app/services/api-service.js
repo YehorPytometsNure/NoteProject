@@ -62,6 +62,35 @@ export default class ApiService {
   }
 
   /**
+   * Retrieves notes mapped to a tag from the server.
+   *
+   * @param {string} tagId - retrieve notes by that tag id.
+   * @return {Promise} - promise, resolved for client processing.
+   */
+  async getNotes(tagId) {
+    return fetch(`/notes/${tagId}/content`, this._createInitObject())
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse)
+      .then((response) => response.json());
+  }
+
+  /**
+   * Makes fetch request to retrieve last-visited tags meta data.
+   *
+   * @return {Promise} - resulting promise wrapping previously visited tags meta data.
+   */
+  async getPreviouslyVisitedTags() {
+    return fetch('/tags/previous', this._createInitObject())
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse)
+      .then((response) => response.json());
+  }
+
+  /**
    * Validates response status code.
    *
    * @param {Response} response - fetch response.

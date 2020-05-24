@@ -20,7 +20,7 @@ export default class RegistrationForm extends Form {
   _markup() {
     return `
       <form class="left side registration" data-type="registration-form" data-test="registration-form-rendered">
-        <div class="header">Hello! Are you ready to sign up?</div>
+        <div class="form-header">Hello! Are you ready to sign up?</div>
       </form>
     `;
   }

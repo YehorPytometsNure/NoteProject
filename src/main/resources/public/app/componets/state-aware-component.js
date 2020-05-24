@@ -19,19 +19,11 @@ export default class StateAwareComponent extends Component {
   }
 
   /**
-   * @inheritdoc
-   */
-  initComponent() {
-    super.initComponent();
-    this._onStateChangedHandlers = [];
-  }
-
-  /**
    * Initializes State.
    * @abstract
    */
   initState() {
-
+    this._onStateChangedHandlers = [];
   }
 
   /**
@@ -49,7 +41,7 @@ export default class StateAwareComponent extends Component {
    */
   onStateChanged(field, handler) {
     const {_onStateChangedHandlers} = this;
-    const {stateManager} = this.properties;
+    const {stateManager} = this;
     const wrapperHandler = (event) => handler(event);
     stateManager.onStateChanged(field, wrapperHandler);
     _onStateChangedHandlers.push({
@@ -64,7 +56,7 @@ export default class StateAwareComponent extends Component {
    */
   _removeStateChangedEventListeners() {
     const {_onStateChangedHandlers} = this;
-    const {stateManager} = this.properties;
+    const {stateManager} = this;
     _onStateChangedHandlers.forEach(({field, handler}) => stateManager.removeStateChangedHandler(field, handler));
   }
 
@@ -75,6 +67,6 @@ export default class StateAwareComponent extends Component {
    * @return {Promise} resulting promise.
    */
   async dispatch(action) {
-    return this.properties.stateManager.dispatchAction(action);
+    return this.stateManager.dispatchAction(action);
   }
 }

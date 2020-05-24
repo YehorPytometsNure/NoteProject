@@ -20,7 +20,7 @@ import NotesPage from './pages/notes-page.js';
 const UrlTemplates = Object.freeze({
   LOGIN: '/login',
   REGISTRATION: '/registration',
-  NOTES_PAGE: '/notes/:tag-name',
+  NOTES_PAGE: '/notes',
 });
 
 export default class Application extends Component {
@@ -64,12 +64,12 @@ export default class Application extends Component {
 
     const pageMappings = {
       [LOGIN]: (router) => new LoginPage(rootElement, {
-        successfulResponseHandler: () => router.redirectTo('/notes'),
+        successfulResponseHandler: () => router.redirectTo(NOTES_PAGE),
         titleService,
         apiService,
       }),
       [REGISTRATION]: (router) => new RegistrationPage(rootElement, {
-        successfulResponseHandler: () => router.redirectTo('/notes'),
+        successfulResponseHandler: () => router.redirectTo(NOTES_PAGE),
         titleService,
         apiService,
       }),

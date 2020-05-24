@@ -106,12 +106,23 @@ body {
 .name_tag {
     color: #169BD5;
     text-align: center;
-    width: 160px;
+
+    display: inline-block;
+    min-width: 160px;
+    width: auto;
+    max-width: 250px;
+    padding-left: 10px;
+    padding-right: 10px;
+
     height: 60px;
     border: 3px groove #ACF0F2;
     background: #ACF0F2;
     margin-left: 30px;
     margin-top: 10px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .note_tag {

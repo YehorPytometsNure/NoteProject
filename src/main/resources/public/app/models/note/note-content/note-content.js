@@ -1,27 +1,28 @@
+/**
+ * @abstract
+ */
 export default class NoteContent {
+
+  /**
+   * Note's content type.
+   * @type {string}
+   */
+  type
 
   /**
    * Note's content.
    * @type {*}
-   * @private
    */
-  _data;
+  data;
 
   /**
    * Instantiates NoteContent.
    *
-   * @param {*} data - data of Note Content.
+   * @param {object} content - note's content.
+   * @param {*} content.data - data of Note Content.
+   * @param {string} content.type - type of note's content.
    */
-  constructor(data) {
-    this._data = data;
-  }
-
-  /**
-   * Getter for data.
-   *
-   * @return {*} returned content.
-   */
-  get data() {
-    return this._data;
+  constructor(content) {
+    Object.assign(this, content);
   }
 }

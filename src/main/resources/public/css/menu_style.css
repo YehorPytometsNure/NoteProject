@@ -90,9 +90,11 @@ body {
 }
 
 .tags {
+    height: 100%;
     font-family: 'Comic Sans MS', serif;
     font-size: 30px;
     padding: 100px;
+    background: #fff;
 }
 
 .tag {
@@ -106,12 +108,21 @@ body {
 .name_tag {
     color: #169BD5;
     text-align: center;
-    width: 160px;
+    display: inline-block;
+    min-width: 160px;
+    width: auto;
+    max-width: 250px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
     height: 60px;
     border: 3px groove #ACF0F2;
     background: #ACF0F2;
     margin-left: 30px;
     margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .note_tag {
@@ -135,6 +146,11 @@ body {
     background: #225378;
     border: 1px solid #225378;
     text-align: center;
+    padding: 10px;
+}
+
+.note-content-text {
+    padding: 5px;
 }
 
 .plus {
@@ -147,7 +163,12 @@ body {
     right: 50px;
 }
 
+.profile_menu {
+    display: none;
+}
+
 .module_window {
+    display: none;
     width: 100%;
     height: 100%;
     position: fixed;

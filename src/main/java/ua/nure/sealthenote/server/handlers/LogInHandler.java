@@ -29,7 +29,7 @@ public class LogInHandler {
 
             response.status(NOT_FOUND_ERROR.value());
 
-            return "Cannot read duck program.";
+            return "Cannot read user credentials.";
         }
 
         if (!userCredentials.login().equals("admin")
