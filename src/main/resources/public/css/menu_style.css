@@ -161,18 +161,18 @@ body {
     position: fixed;
     bottom: 50px;
     right: 50px;
+    cursor: pointer;
 }
 
 .profile_menu {
     display: none;
 }
 
-.module_window {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-}
+/*.module_window {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    position: fixed;*/
+/*}*/
 
 .ex_note {
     font-size: 20px;

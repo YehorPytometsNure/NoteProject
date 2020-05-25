@@ -3,6 +3,8 @@ import NotesPageLoader from '../componets/notes/notes-page-loader.js';
 import GetNotesAction from '../actions/get-notes-action.js';
 import NotesGrid from '../componets/notes/notes-grid.js';
 import GetPreviouslyVisitedTagsAction from '../actions/get-previously-visited-tags-action.js';
+import NoteWindow from '../componets/notes/pop-up/note-window.js';
+import CreateNoteAction from '../actions/create-note-action.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -29,9 +31,9 @@ export default class NotesPage extends StateAwareComponent {
                 <img class="arrow_right" src="./././images/arrow_right.png" alt="arrow_right">
             </div>
             <div class="tags" data-type="tags-container"></div>
-            <img class="plus" src="./././images/plus.png" alt="plus">
+            <img class="plus" src="./././images/plus.png" alt="plus" data-type="add-note-button">
             <div class="profile_menu"></div>
-            <div class="module_window"></div>
+            <div data-type="note-window-container"></div>
             <div class="mascot-container">
                 <img src="./././images/menu-mascot/tutorial.png" class="tutorial-seal" alt="mascot"/>
             </div>  
@@ -58,6 +60,28 @@ export default class NotesPage extends StateAwareComponent {
 
     const notesGridContainer = rootElement.querySelector('[data-type="tags-container"]');
     this._notesGrid = new NotesGrid(notesGridContainer);
+
+    const noteEditingWindowContainer = rootElement.querySelector('[data-type="note-window-container"]');
+    this._noteEditingWindow = new NoteWindow(noteEditingWindowContainer);
+  }
+
+  _addEventListeners() {
+    const addNoteButton = this.rootElement.querySelector('[data-type="add-note-button"]');
+
+    this._noteEditingWindow.onAccept(async ({header, content}) => {
+      await this.dispatch(new CreateNoteAction({header, content}));
+
+      this._noteEditingWindow.hide();
+
+      const tags = this.stateManager.state.previouslyVisitedTags;
+      for (const tag of tags) {
+        await this.dispatch(new GetNotesAction(tag));
+      }
+    });
+
+    addNoteButton.addEventListener('click', () => {
+      this._noteEditingWindow.show();
+    });
   }
 
   initState() {

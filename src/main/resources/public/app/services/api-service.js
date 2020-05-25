@@ -90,6 +90,20 @@ export default class ApiService {
       .then((response) => response.json());
   }
 
+  async createNote(noteObject) {
+    return fetch('/note', {
+      method: 'POST',
+      body: JSON.stringify(noteObject),
+      headers: {
+        Authorization: this._getBearerAccessToken(),
+      },
+    })
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse);
+  }
+
   /**
    * Validates response status code.
    *
