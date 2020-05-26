@@ -8,6 +8,7 @@ export default class NoteWindow extends Component {
   _initComponent() {
     super._initComponent();
     this.hide();
+    this._isRecognizing = false;
     this._onAcceptCreatingHandlers = new EventHandlersStorage();
     this._onAcceptEditingHandlers = new EventHandlersStorage();
     this._onDeleteButtonClickHandlers = new EventHandlersStorage();
@@ -25,7 +26,7 @@ export default class NoteWindow extends Component {
             <div class="footer_module">
                 <div class="images1">
                     <img class="button2" src="././././images/goru.jpg">
-                    <img class="button3" src="././././images/micro.png">
+                    <img class="button3" src="././././images/micro.png" data-type="micro-button">
                     <img class="button4" src="././././images/planner.png">
                     <img class="button5" src="././././images/calendar.png">
                     <img class="button6" src="././././images/paint.png">
@@ -77,22 +78,143 @@ export default class NoteWindow extends Component {
         this._onDeleteButtonClickHandlers.executeHandlers(this._note);
       }
     });
+
+    const microButton = this.rootElement.querySelector('[data-type="micro-button"]');
+    microButton.addEventListener('click', () => {
+
+      this._isRecognizing = !this._isRecognizing;
+
+      if (!this._isRecognizing) {
+        return;
+      }
+
+      const windowText = this.rootElement.querySelector('[data-type="note-window-text"]');
+      const recognition = new (SpeechRecognition || webkitSpeechRecognition)();
+      recognition.continuous = true;
+      recognition.lang = 'en-US';
+      // recognition.lang = 'uk-UA';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      let result = '';
+
+      const assertResult = () => {
+        if (result.trim().toLowerCase() === 'stop' || result.trim().toLowerCase() === 'стоп' || !this._isRecognizing) {
+          recognition.abort();
+          return false;
+        }
+
+        return true;
+      }
+
+      function retrieveCommand(input) {
+        switch (input) {
+          case 'newline':
+          case 'new-line':
+          case 'new line':
+          case 'новий рядок':
+          case 'нью лайн':
+          case 'нова лінія':
+            {
+            return '\n';
+          }
+          case 'dot':
+          case 'point':
+          case 'крапка':
+            {
+            return '.';
+          }
+          default: {
+            return null;
+          }
+        }
+      }
+
+      recognition.addEventListener('result', (event) => {
+        result = event.results[0][0].transcript;
+        console.log(event);
+        console.log(result);
+
+        if (!assertResult()) {
+          return;
+        }
+
+        const command = retrieveCommand(result.trim().toLowerCase());
+
+        if (command) {
+          windowText.textContent += command;
+        } else {
+          windowText.textContent += result;
+        }
+      });
+
+      recognition.addEventListener('end', (event) => {
+        console.log(event);
+        if (result === 'stop') {
+          recognition.stop();
+          this._isRecognizing = false;
+        } else {
+          recognition.start();
+        }
+      });
+
+      recognition.addEventListener('audiostart', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.addEventListener('audioend', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.addEventListener('error', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.addEventListener('nomatch', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.addEventListener('soundstart', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.addEventListener('soundend', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.addEventListener('speechstart', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.addEventListener('speechend', (event) => {
+        console.log(event);
+        assertResult();
+      });
+
+      recognition.start();
+    });
   }
 
   creatingMode() {
     this._creatingMode = true;
     this._editingMode = false;
-    this.rootElement.style.display = "block";
+    this.rootElement.style.display = 'block';
   }
 
   editingMode() {
     this._creatingMode = false;
     this._editingMode = true;
-    this.rootElement.style.display = "block";
+    this.rootElement.style.display = 'block';
   }
 
   hide() {
-    this.rootElement.style.display = "none";
+    this.rootElement.style.display = 'none';
     this.rootElement.querySelector('[data-type="note-window-header"]').value = '';
     this.rootElement.querySelector('[data-type="note-window-text"]').textContent = '';
   }
@@ -122,9 +244,9 @@ export default class NoteWindow extends Component {
   set _contents(contents) {
     // TODO: think of rendering different types of data.
     contents.forEach(({type, data}) => {
-      if (type === "text") {
+      if (type === 'text') {
         this.rootElement.querySelector('[data-type="note-window-text"]').textContent += data;
       }
-    })
+    });
   }
 }
