@@ -10,6 +10,7 @@ export default class NoteWindow extends Component {
     this.hide();
     this._onAcceptCreatingHandlers = new EventHandlersStorage();
     this._onAcceptEditingHandlers = new EventHandlersStorage();
+    this._onDeleteButtonClickHandlers = new EventHandlersStorage();
   }
 
   _markup() {
@@ -28,6 +29,7 @@ export default class NoteWindow extends Component {
                     <img class="button4" src="././././images/planner.png">
                     <img class="button5" src="././././images/calendar.png">
                     <img class="button6" src="././././images/paint.png">
+                    <img class="button10" src="././././images/paint.png" data-type="delete-button">
                 </div>
                 <div class="images2">
                     <img class="button7" src="././././images/network.png">
@@ -67,6 +69,14 @@ export default class NoteWindow extends Component {
 
       this._onAcceptCreatingHandlers.executeHandlers(noteObjectToSend);
     });
+
+    const deleteButton = this.rootElement.querySelector('[data-type="delete-button"]');
+    deleteButton.addEventListener('click', () => {
+
+      if (this._editingMode) {
+        this._onDeleteButtonClickHandlers.executeHandlers(this._note);
+      }
+    });
   }
 
   creatingMode() {
@@ -93,6 +103,10 @@ export default class NoteWindow extends Component {
 
   onAcceptEditing(handler) {
     this._onAcceptEditingHandlers.addEventHandler(handler);
+  }
+
+  onDeleteButtonClick(handler) {
+    this._onDeleteButtonClickHandlers.addEventHandler(handler);
   }
 
   set note(note) {

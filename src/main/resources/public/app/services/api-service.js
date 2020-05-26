@@ -118,6 +118,19 @@ export default class ApiService {
       .then(this._validateResponse);
   }
 
+  async deleteNote(noteObject) {
+    return fetch(`/note/${noteObject.id}`, {
+      method: 'DELETE',
+      body: JSON.stringify(noteObject),
+      headers: {
+        Authorization: this._getBearerAccessToken(),
+      },
+    })
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      });
+  }
+
   /**
    * Validates response status code.
    *

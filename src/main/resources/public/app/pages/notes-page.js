@@ -6,6 +6,7 @@ import GetPreviouslyVisitedTagsAction from '../actions/get-previously-visited-ta
 import NoteWindow from '../componets/notes/pop-up/note-window.js';
 import CreateNoteAction from '../actions/create-note-action.js';
 import UpdateNoteAction from '../actions/update-note-action.js';
+import DeleteNoteAction from '../actions/delete-note-action.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -98,6 +99,17 @@ export default class NotesPage extends StateAwareComponent {
     this._notesGrid.onItemSelected((note) => {
       this._noteEditingWindow.note = note;
       this._noteEditingWindow.editingMode();
+    });
+
+    this._noteEditingWindow.onDeleteButtonClick(async (note) => {
+      await this.dispatch(new DeleteNoteAction(note));
+
+      const tags = this.stateManager.state.previouslyVisitedTags;
+      for (const tag of tags) {
+        await this.dispatch(new GetNotesAction(tag));
+      }
+
+      this._noteEditingWindow.hide();
     });
   }
 
