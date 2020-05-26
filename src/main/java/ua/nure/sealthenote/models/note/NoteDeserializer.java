@@ -14,8 +14,9 @@ public class NoteDeserializer implements JsonDeserializer<Note> {
     @Override
     public Note deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
+        //TODO: create both id and add tag for note.
         JsonObject jsonObject = json.getAsJsonObject();
-        String headerJson = jsonObject.getAsJsonPrimitive("header").getAsString();
+        String headerJson = jsonObject.getAsJsonPrimitive("name").getAsString();
         JsonArray contentsJson = jsonObject.getAsJsonArray("content");
         NoteContent[] noteContents = new NoteContent[contentsJson.size()];
         AtomicInteger i = new AtomicInteger();

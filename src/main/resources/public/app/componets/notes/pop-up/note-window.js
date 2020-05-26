@@ -3,10 +3,13 @@ import EventHandlersStorage from '../../../event/event-handlers-storage.js';
 
 export default class NoteWindow extends Component {
 
+  _note = {};
+
   _initComponent() {
     super._initComponent();
     this.hide();
-    this._onAcceptHandlers = new EventHandlersStorage();
+    this._onAcceptCreatingHandlers = new EventHandlersStorage();
+    this._onAcceptEditingHandlers = new EventHandlersStorage();
   }
 
   _markup() {
@@ -42,34 +45,72 @@ export default class NoteWindow extends Component {
     const okButton = this.rootElement.querySelector('[data-type="ok-button"]');
     okButton.addEventListener('click', (event) => {
       const header = this.rootElement.querySelector('[data-type="note-window-header"]');
-      const headerContent = header.textContent;
+      const headerContent = header.value;
 
       const windowText = this.rootElement.querySelector('[data-type="note-window-text"]');
       const windowTextContent = windowText.textContent;
 
-      const content = {
-        header: headerContent,
+      const noteObjectToSend = Object.assign(this._note, {
+        name: headerContent,
         content: [
           {
             type: 'text',
             data: windowTextContent,
           },
         ],
-      };
+      });
 
-      this._onAcceptHandlers.executeHandlers(content);
+      if (this._editingMode) {
+        this._onAcceptEditingHandlers.executeHandlers(noteObjectToSend);
+        return;
+      }
+
+      this._onAcceptCreatingHandlers.executeHandlers(noteObjectToSend);
     });
   }
 
-  show() {
+  creatingMode() {
+    this._creatingMode = true;
+    this._editingMode = false;
+    this.rootElement.style.display = "block";
+  }
+
+  editingMode() {
+    this._creatingMode = false;
+    this._editingMode = true;
     this.rootElement.style.display = "block";
   }
 
   hide() {
     this.rootElement.style.display = "none";
+    this.rootElement.querySelector('[data-type="note-window-header"]').value = '';
+    this.rootElement.querySelector('[data-type="note-window-text"]').textContent = '';
   }
 
-  onAccept(handler) {
-    this._onAcceptHandlers.addEventHandler(handler);
+  onAcceptCreating(handler) {
+    this._onAcceptCreatingHandlers.addEventHandler(handler);
+  }
+
+  onAcceptEditing(handler) {
+    this._onAcceptEditingHandlers.addEventHandler(handler);
+  }
+
+  set note(note) {
+    this._note = Object.assign({}, note);
+    this._header = note.name;
+    this._contents = note.contents;
+  }
+
+  set _header(header) {
+    this.rootElement.querySelector('[data-type="note-window-header"]').value = header;
+  }
+
+  set _contents(contents) {
+    // TODO: think of rendering different types of data.
+    contents.forEach(({type, data}) => {
+      if (type === "text") {
+        this.rootElement.querySelector('[data-type="note-window-text"]').textContent += data;
+      }
+    })
   }
 }

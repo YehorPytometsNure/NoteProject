@@ -18,5 +18,6 @@ public class Server {
         Spark.get("/notes/:tagId/content", GetNotesHandler::handle);
         Spark.get("/tags/previous", GetPreviouslyVisitedTagsHandler::handle);
         Spark.post("/note", CreateNoteHandler::handle);
+        Spark.put("/note/:id", UpdateNoteHandler::handle);
     }
 }

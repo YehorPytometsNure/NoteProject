@@ -5,6 +5,7 @@ import NotesGrid from '../componets/notes/notes-grid.js';
 import GetPreviouslyVisitedTagsAction from '../actions/get-previously-visited-tags-action.js';
 import NoteWindow from '../componets/notes/pop-up/note-window.js';
 import CreateNoteAction from '../actions/create-note-action.js';
+import UpdateNoteAction from '../actions/update-note-action.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -68,8 +69,19 @@ export default class NotesPage extends StateAwareComponent {
   _addEventListeners() {
     const addNoteButton = this.rootElement.querySelector('[data-type="add-note-button"]');
 
-    this._noteEditingWindow.onAccept(async ({header, content}) => {
-      await this.dispatch(new CreateNoteAction({header, content}));
+    this._noteEditingWindow.onAcceptCreating(async (note) => {
+      await this.dispatch(new CreateNoteAction(note));
+
+      this._noteEditingWindow.hide();
+
+      const tags = this.stateManager.state.previouslyVisitedTags;
+      for (const tag of tags) {
+        await this.dispatch(new GetNotesAction(tag));
+      }
+    });
+
+    this._noteEditingWindow.onAcceptEditing(async (note) => {
+      await this.dispatch(new UpdateNoteAction(note));
 
       this._noteEditingWindow.hide();
 
@@ -80,7 +92,12 @@ export default class NotesPage extends StateAwareComponent {
     });
 
     addNoteButton.addEventListener('click', () => {
-      this._noteEditingWindow.show();
+      this._noteEditingWindow.creatingMode();
+    });
+
+    this._notesGrid.onItemSelected((note) => {
+      this._noteEditingWindow.note = note;
+      this._noteEditingWindow.editingMode();
     });
   }
 

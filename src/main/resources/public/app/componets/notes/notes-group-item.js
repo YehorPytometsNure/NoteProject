@@ -1,6 +1,7 @@
 import Component from '../component.js';
 import NoteContentText from '../../models/note/note-content/note-content-text.js';
 import NoteContentTextComponent from './notes-content/note-content-text-component.js';
+import EventHandlersStorage from '../../event/event-handlers-storage.js';
 
 export default class NotesGroupItem extends Component {
 
@@ -11,6 +12,11 @@ export default class NotesGroupItem extends Component {
    */
   constructor(container, {note}) {
     super(container, {note});
+  }
+
+  _initComponent() {
+    super._initComponent();
+    this._onItemClickHandlers = new EventHandlersStorage();
   }
 
   _markup() {
@@ -37,5 +43,17 @@ export default class NotesGroupItem extends Component {
 
       throw new TypeError("No component for such content type.");
     });
+  }
+
+  _addEventListeners() {
+    super._addEventListeners();
+
+    this.rootElement.addEventListener('click', () => {
+      this._onItemClickHandlers.executeHandlers();
+    });
+  }
+
+  onItemClick(handler) {
+    this._onItemClickHandlers.addEventHandler(handler);
   }
 }

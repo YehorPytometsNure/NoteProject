@@ -104,6 +104,20 @@ export default class ApiService {
       .then(this._validateResponse);
   }
 
+  async updateNote(noteObject) {
+    return fetch(`/note/${noteObject.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(noteObject),
+      headers: {
+        Authorization: this._getBearerAccessToken(),
+      },
+    })
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse);
+  }
+
   /**
    * Validates response status code.
    *

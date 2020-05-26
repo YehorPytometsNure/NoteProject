@@ -1,10 +1,16 @@
 import Component from '../component.js';
 import NotesGroupItem from './notes-group-item.js';
+import EventHandlersStorage from '../../event/event-handlers-storage.js';
 
 export default class NotesGroup extends Component {
 
   constructor(container, {tag, notes}) {
     super(container, {tag, notes});
+  }
+
+  _initComponent() {
+    super._initComponent();
+    this._onGroupItemClickHandlers = new EventHandlersStorage();
   }
 
   _markup() {
@@ -23,7 +29,15 @@ export default class NotesGroup extends Component {
     const itemsContainer = rootElement.querySelector('[data-type="notes-group-notes-container"]');
 
     notes.forEach((note) => {
-      new NotesGroupItem(itemsContainer, {note});
+      const component = new NotesGroupItem(itemsContainer, {note});
+
+      component.onItemClick(() => {
+        this._onGroupItemClickHandlers.executeHandlers(note);
+      });
     });
+  }
+
+  onGroupItemClick(handler) {
+    this._onGroupItemClickHandlers.addEventHandler(handler);
   }
 }

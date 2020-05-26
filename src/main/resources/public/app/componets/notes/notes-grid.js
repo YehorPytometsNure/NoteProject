@@ -1,5 +1,6 @@
 import Component from '../component.js';
 import NotesGroup from './notes-group.js';
+import EventHandlersStorage from '../../event/event-handlers-storage.js';
 
 export default class NotesGrid extends Component {
 
@@ -7,6 +8,11 @@ export default class NotesGrid extends Component {
     return `
         <div data-type="notes-grid"></div>
     `;
+  }
+
+  _initComponent() {
+    super._initComponent();
+    this._onNoteClickedHandlers = new EventHandlersStorage();
   }
 
   /**
@@ -19,7 +25,15 @@ export default class NotesGrid extends Component {
     rootElement.innerHTML = '';
 
     notesMap.forEach((notes, tag) => {
-      new NotesGroup(rootElement, {tag, notes});
-    })
+      const component = new NotesGroup(rootElement, {tag, notes});
+
+      component.onGroupItemClick((note) => {
+        this._onNoteClickedHandlers.executeHandlers(note);
+      });
+    });
+  }
+
+  onItemSelected(handler) {
+    this._onNoteClickedHandlers.addEventHandler(handler);
   }
 }
