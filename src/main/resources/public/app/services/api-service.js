@@ -128,7 +128,17 @@ export default class ApiService {
     })
       .catch((networkError) => {
         console.error(`Network error: ${networkError}.`);
-      });
+      })
+      .then(this._validateResponse);
+  }
+
+  async getAllTags() {
+    return fetch('/tags/all', this._createInitObject())
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse)
+      .then((response) => response.json());
   }
 
   /**

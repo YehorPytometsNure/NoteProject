@@ -40,6 +40,12 @@ public class GetNotesHandler {
             return jsonParser.toJson(getEducationNotes(), Note[].class);
         }
 
+        if (request.params("tagId").equals("tag3")) {
+            response.status(OK.value());
+
+            return jsonParser.toJson(getJobNotes(), Note[].class);
+        }
+
         response.status(NOT_FOUND_ERROR.value());
 
         return "Notes for asked tag don't exist.";
@@ -78,6 +84,10 @@ public class GetNotesHandler {
                         new NoteContentText("Done.\nMark: 200 / 100."),
                 }),
         };
+    }
+
+    private static Note[] getJobNotes() {
+        return new Note[0];
     }
 
     private static GsonBuilder setUpGsonBuilder() {

@@ -3,7 +3,7 @@ import Tag from '../models/note/tag.js';
 
 export default class PreviouslyVisitedTagsMutator extends Mutator {
 
-  _tagObjects
+  _tagObjects;
 
   constructor(tagObjects) {
     super();

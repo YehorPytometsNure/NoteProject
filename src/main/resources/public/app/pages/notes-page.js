@@ -7,6 +7,9 @@ import NoteWindow from '../componets/notes/pop-up/note-window.js';
 import CreateNoteAction from '../actions/create-note-action.js';
 import UpdateNoteAction from '../actions/update-note-action.js';
 import DeleteNoteAction from '../actions/delete-note-action.js';
+import NavigationMenu from '../componets/notes/navigation-menu/navigation-menu.js';
+import GetAllTagsAction from '../actions/get-all-tags-action.js';
+import ClearCurrentNotesMutator from '../mutators/clear-current-notes-mutator.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -30,7 +33,9 @@ export default class NotesPage extends StateAwareComponent {
                 </div>
             </header>
             <div class="menu">
-                <img class="arrow_right" src="./././images/arrow_right.png" alt="arrow_right">
+                <img class="arrow_right" src="./././images/arrow_right.png" alt="arrow_right" 
+                    data-type="navigation-menu-opener">
+                <div data-type="side-navigation-menu-container"></div>
             </div>
             <div class="tags" data-type="tags-container"></div>
             <img class="plus" src="./././images/plus.png" alt="plus" data-type="add-note-button">
@@ -65,6 +70,9 @@ export default class NotesPage extends StateAwareComponent {
 
     const noteEditingWindowContainer = rootElement.querySelector('[data-type="note-window-container"]');
     this._noteEditingWindow = new NoteWindow(noteEditingWindowContainer);
+
+    const navigationMenuContainer = rootElement.querySelector('[data-type="side-navigation-menu-container"]');
+    this._sideNavigationMenu = new NavigationMenu(navigationMenuContainer);
   }
 
   _addEventListeners() {
@@ -110,6 +118,17 @@ export default class NotesPage extends StateAwareComponent {
       }
 
       this._noteEditingWindow.hide();
+    });
+
+    this._sideNavigationMenu.onTagSelected(async (tag) => {
+      this._sideNavigationMenu.closeMenu();
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
+      await this.dispatch(new GetNotesAction(tag));
+    });
+
+    const navigationMenuOpener = this.rootElement.querySelector('[data-type="navigation-menu-opener"]');
+    navigationMenuOpener.addEventListener('click', () => {
+      this._sideNavigationMenu.openMenu();
     });
   }
 
@@ -188,7 +207,12 @@ export default class NotesPage extends StateAwareComponent {
 
       if (location === '/notes') {
         await this.dispatch(new GetPreviouslyVisitedTagsAction());
+        await this.dispatch(new GetAllTagsAction());
       }
+    });
+
+    this.onStateChanged('allTags', (event) => {
+      this._sideNavigationMenu.tags = event.detail.state.allTags;
     });
   }
 }

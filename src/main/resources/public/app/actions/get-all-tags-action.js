@@ -1,23 +1,15 @@
 import Action from './action.js';
 import CurrentNotesLoadingMutator from '../mutators/current-notes-loading-mutator.js';
-import AddCurrentNotesMutator from '../mutators/add-current-notes-mutator.js';
+import AllTagsMutator from '../mutators/all-tags-mutator.js';
 import CurrentNotesLoadingErrorMutator from '../mutators/current-notes-loading-error-mutator.js';
-import ClearCurrentNotesMutator from '../mutators/clear-current-notes-mutator.js';
 
-export default class GetNotesAction extends Action {
-
-  _tag;
-
-  constructor(tag) {
-    super();
-    this._tag = tag;
-  }
+export default class GetAllTagsAction extends Action {
 
   async apply(stateManager) {
-
     stateManager.mutate(new CurrentNotesLoadingMutator(true));
-    return stateManager.apiService.getNotes(this._tag.id)
-      .then((notes) => stateManager.mutate(new AddCurrentNotesMutator(this._tag, notes)))
+
+    return stateManager.apiService.getAllTags()
+      .then((tags) => stateManager.mutate(new AllTagsMutator(tags)))
       .catch((error) => stateManager.mutate(new CurrentNotesLoadingErrorMutator(error)))
       .finally(() => stateManager.mutate(new CurrentNotesLoadingMutator(false)));
   }
