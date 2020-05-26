@@ -1,0 +1,93 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #EB7F00;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ACF0F2;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #1695A3;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+.slide_menu
+{
+    text-indent: 15px;
+    font-family: 'Comic Sans MS', serif;
+    font-size: larger;
+    color: #F3FFE2;
+}
+
+.slide_menu_header {
+    font-size: 35px;
+}
+
+.slide_menu_subheader {
+    font-size: 25px;
+    font-style: italic;
+    border-bottom: 1px solid;
+}
+
+.slide_menu_item {
+    margin-left: 20px;
+    margin-top: -10px;
+    color: #ACF0F2;
+}
+
+.create_new_tag {
+    font-weight: bold;
+    color: #1695A3;
+    margin-top: -15px;
+    margin-left: 20px;
+}
+
+.bin {
+    color: #ACF0F2;
+    font-size: 25px;
+}
+
+.hide_helper {
+    font-weight: bold;
+    color: #F3FFE2;
+    font-size: 25px;
+    text-align: center;
+    border: 2px solid #F3FFE2;
+    width: 215px;
+    margin-left: 15px
+}

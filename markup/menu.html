@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="./css/reset.css">
     <link rel="stylesheet" type="text/css" href="./css/menu_style.css">
     <link rel="stylesheet" type="text/css" href="./css/module_style.css">
+    <script src="scripts/side_nav.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/side_nav.css">
     <title>Menu</title>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -33,7 +35,30 @@
     </div>
 </header>
 <div class="menu">
-    <img class="arrow_right" src="./images/arrow_right.png" alt="arrow_right">
+    <img class="arrow_right" src="./images/arrow_right.png" alt="arrow_right" onclick="openNav()">
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        <div class="slide_menu">
+            <p class="slide_menu_header">Menu</p>
+            <p class="slide_menu_subheader">Samples</p>
+            <div class="first_menu">
+                <p class="slide_menu_item">diary</p>
+                <p class="slide_menu_item">calendar</p>
+                <p class="slide_menu_item">to do list</p>
+            </div>
+            <p class="slide_menu_subheader">Tags</p>
+            <div class="second_menu">
+                <p class="slide_menu_item">Work</p>
+                <p class="slide_menu_item">Home</p>
+                <p class="slide_menu_item">Unorginized</p>
+                <div class="create_new_tag">+ create new</div>
+                <p class="bin">Bin</p>
+            </div>
+            <div class="hide_helper">Hide helper</div>
+        </div>
+    </div>
 </div>
 <div class="tags">
     <div class="name_tag">
