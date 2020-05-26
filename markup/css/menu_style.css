@@ -60,6 +60,13 @@ body {
     color: #F3FFE2;
 }
 
+.sidenav .input {
+    margin-top: 15px;
+    background: #EB7F00;
+    border: 0;
+    color: #F3FFE2;
+}
+
 .name {
     font-family: 'Comic Sans MS', serif;
     font-size: larger;

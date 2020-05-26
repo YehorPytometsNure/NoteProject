@@ -19,7 +19,8 @@ export default class NavigationMenu extends Component {
 <!--                </div>-->
                 <p class="slide_menu_subheader">Tags</p>
                 <div class="second_menu" data-type="navigation-menu-tags-container"></div>
-                <div class="create_new_tag">+ create new</div>
+                <input class="input" type="text" placeholder="Enter tag name and press Enter" data-type="tag-input">
+                <div class="create_new_tag" data-type="create-new-tag-button">create new tag</div>
                 <p class="bin">Bin</p>
                 <div class="hide_helper">Hide helper</div>
             </div>
@@ -30,6 +31,12 @@ export default class NavigationMenu extends Component {
   _initComponent() {
     super._initComponent();
     this._onTagSelectedHandlers = new EventHandlersStorage();
+    this._onTagInputSubmitHandlers = new EventHandlersStorage();
+  }
+
+  _initNestedComponents() {
+    super._initNestedComponents();
+    this.hideTagInput();
   }
 
   _addEventListeners() {
@@ -39,10 +46,27 @@ export default class NavigationMenu extends Component {
     closeButton.addEventListener('click', () => {
       this.closeMenu();
     });
+
+    const tagInput = this.rootElement.querySelector('[data-type="tag-input"]');
+    tagInput.addEventListener('keyup', (event) => {
+
+      if (event.key !== "Enter") {
+        return;
+      }
+
+      this._onTagInputSubmitHandlers.executeHandlers(tagInput.value);
+    });
+
+    const createNewTagButton = this.rootElement.querySelector('[data-type="create-new-tag-button"]');
+    createNewTagButton.addEventListener('click', () => {
+      this.showTagInput();
+    });
   }
 
   set tags(tags) {
     const tagsContainer = this.rootElement.querySelector('[data-type="navigation-menu-tags-container"]');
+
+    tagsContainer.innerHTML = '';
 
     tags.forEach((tag) => {
       const tagComponent = new NavigationMenuTag(tagsContainer, {tag});
@@ -63,5 +87,19 @@ export default class NavigationMenu extends Component {
 
   openMenu() {
     this.rootElement.style.width = '250px';
+  }
+
+  hideTagInput() {
+    const tagInput = this.rootElement.querySelector('[data-type="tag-input"]');
+    tagInput.style.display = "none";
+  }
+
+  showTagInput() {
+    const tagInput = this.rootElement.querySelector('[data-type="tag-input"]');
+    tagInput.style.display = "block";
+  }
+
+  onTagInputSubmit(handler) {
+    this._onTagInputSubmitHandlers.addEventHandler(handler);
   }
 }

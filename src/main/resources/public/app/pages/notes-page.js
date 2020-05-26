@@ -10,6 +10,7 @@ import DeleteNoteAction from '../actions/delete-note-action.js';
 import NavigationMenu from '../componets/notes/navigation-menu/navigation-menu.js';
 import GetAllTagsAction from '../actions/get-all-tags-action.js';
 import ClearCurrentNotesMutator from '../mutators/clear-current-notes-mutator.js';
+import CreateTagAction from '../actions/create-tag-action.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -54,8 +55,6 @@ export default class NotesPage extends StateAwareComponent {
    * TODO: search bar
    * TODO: user details
    * TODO: mascot
-   * TODO: add note button
-   * TODO: menu
    *
    * @private
    */
@@ -129,6 +128,12 @@ export default class NotesPage extends StateAwareComponent {
     const navigationMenuOpener = this.rootElement.querySelector('[data-type="navigation-menu-opener"]');
     navigationMenuOpener.addEventListener('click', () => {
       this._sideNavigationMenu.openMenu();
+    });
+
+    this._sideNavigationMenu.onTagInputSubmit(async (inputValue) => {
+      this._sideNavigationMenu.hideTagInput();
+      await this.dispatch(new CreateTagAction(inputValue));
+      await this.dispatch(new GetAllTagsAction());
     });
   }
 

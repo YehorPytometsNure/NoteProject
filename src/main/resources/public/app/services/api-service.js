@@ -141,6 +141,20 @@ export default class ApiService {
       .then((response) => response.json());
   }
 
+  async createTag(name) {
+    return fetch('/tag', {
+      method: 'POST',
+      body: name,
+      headers: {
+        Authorization: this._getBearerAccessToken(),
+      },
+    })
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse);
+  }
+
   /**
    * Validates response status code.
    *
