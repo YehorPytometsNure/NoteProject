@@ -32,7 +32,7 @@ export default class TitleService {
    * @param {string} titles.caption - Main part of the title.
    * @param {string} titles.page - name of the page.
    */
-  constructor(document, {caption = 'FileHub', page = ''} = {}) {
+  constructor(document, {caption = 'Notes', page = ''} = {}) {
     this._document = document;
     this._caption = caption;
     this._page = page;
