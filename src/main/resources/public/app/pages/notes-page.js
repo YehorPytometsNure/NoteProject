@@ -11,6 +11,7 @@ import NavigationMenu from '../componets/notes/navigation-menu/navigation-menu.j
 import GetAllTagsAction from '../actions/get-all-tags-action.js';
 import ClearCurrentNotesMutator from '../mutators/clear-current-notes-mutator.js';
 import CreateTagAction from '../actions/create-tag-action.js';
+import NotesPageMascot from '../componets/notes/pop-up/notes-page-mascot.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -20,7 +21,7 @@ export default class NotesPage extends StateAwareComponent {
 
   _markup() {
     return `
-        <div data-type="notes-page">
+        <div data-type="notes-page" class="notes-page">
             <header class="header">
                 <div class="column-left">
                     <img class="logo" src="./././images/logo.png" alt="logo">
@@ -42,9 +43,7 @@ export default class NotesPage extends StateAwareComponent {
             <img class="plus" src="./././images/plus.png" alt="plus" data-type="add-note-button">
             <div class="profile_menu"></div>
             <div data-type="note-window-container"></div>
-            <div class="mascot-container">
-                <img src="./././images/menu-mascot/tutorial.png" class="tutorial-seal" alt="mascot"/>
-            </div>  
+            <div data-type="mascot-container"></div>  
         </div>
     `;
   }
@@ -54,7 +53,6 @@ export default class NotesPage extends StateAwareComponent {
    * Add following components^
    * TODO: search bar
    * TODO: user details
-   * TODO: mascot
    *
    * @private
    */
@@ -72,6 +70,10 @@ export default class NotesPage extends StateAwareComponent {
 
     const navigationMenuContainer = rootElement.querySelector('[data-type="side-navigation-menu-container"]');
     this._sideNavigationMenu = new NavigationMenu(navigationMenuContainer);
+
+    const mascotContainer = this.rootElement.querySelector('[data-type="mascot-container"]');
+    this._mascotComponent = new NotesPageMascot(mascotContainer);
+    this._mascotComponent.hideMascot();
   }
 
   _addEventListeners() {
@@ -134,6 +136,20 @@ export default class NotesPage extends StateAwareComponent {
       this._sideNavigationMenu.hideTagInput();
       await this.dispatch(new CreateTagAction(inputValue));
       await this.dispatch(new GetAllTagsAction());
+    });
+
+    this._noteEditingWindow.onRecognizingStart(() => {
+      this._mascotComponent.showMessage('Say a sentence!');
+      this._mascotComponent.displayMascot();
+    });
+
+    this._noteEditingWindow.onRecognizingPause(() => {
+      this._mascotComponent.showMessage('Wait!\nI\'m thinking.');
+      this._mascotComponent.displayMascot();
+    });
+
+    this._noteEditingWindow.onRecognizingStop(() => {
+      this._mascotComponent.hideMascot();
     });
   }
 

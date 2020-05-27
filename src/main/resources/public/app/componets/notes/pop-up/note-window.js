@@ -12,6 +12,9 @@ export default class NoteWindow extends Component {
     this._onAcceptCreatingHandlers = new EventHandlersStorage();
     this._onAcceptEditingHandlers = new EventHandlersStorage();
     this._onDeleteButtonClickHandlers = new EventHandlersStorage();
+    this._onStartRecognizingHandlers = new EventHandlersStorage();
+    this._onRecognizingPauseHandlers = new EventHandlersStorage();
+    this._onRecognizingStopHandlers = new EventHandlersStorage();
   }
 
   _markup() {
@@ -149,9 +152,9 @@ export default class NoteWindow extends Component {
 
       recognition.addEventListener('end', (event) => {
         console.log(event);
-        if (result === 'stop') {
-          recognition.stop();
+        if (!assertResult()) {
           this._isRecognizing = false;
+          this._onRecognizingStopHandlers.executeHandlers();
         } else {
           recognition.start();
         }
@@ -159,7 +162,10 @@ export default class NoteWindow extends Component {
 
       recognition.addEventListener('audiostart', (event) => {
         console.log(event);
-        assertResult();
+
+        if (assertResult()) {
+          this._onStartRecognizingHandlers.executeHandlers();
+        }
       });
 
       recognition.addEventListener('audioend', (event) => {
@@ -194,7 +200,10 @@ export default class NoteWindow extends Component {
 
       recognition.addEventListener('speechend', (event) => {
         console.log(event);
-        assertResult();
+
+        if (assertResult()) {
+          this._onRecognizingPauseHandlers.executeHandlers();
+        }
       });
 
       recognition.start();
@@ -229,6 +238,16 @@ export default class NoteWindow extends Component {
 
   onDeleteButtonClick(handler) {
     this._onDeleteButtonClickHandlers.addEventHandler(handler);
+  }
+
+  onRecognizingStart(handler) {
+    this._onStartRecognizingHandlers.addEventHandler(handler);
+  }
+  onRecognizingPause(handler) {
+    this._onRecognizingPauseHandlers.addEventHandler(handler);
+  }
+  onRecognizingStop(handler) {
+    this._onRecognizingStopHandlers.addEventHandler(handler);
   }
 
   set note(note) {
