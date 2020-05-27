@@ -18,13 +18,46 @@ export default class NotesGrid extends Component {
   /**
    *
    * @param {Map<Tag, NoteModel[]>} notesMap
+   * @param {string} sortOrder
    */
-  renderNotesMap(notesMap) {
+  renderNotesMap(notesMap, sortOrder = '') {
     const {rootElement} = this;
 
     rootElement.innerHTML = '';
 
-    notesMap.forEach((notes, tag) => {
+    let notesArray = Array.from(notesMap);
+    debugger;
+    if (sortOrder === 'tag') {
+      notesArray.sort(([tag1], [tag2]) => {
+
+        if (tag1.name < tag2.name) {
+          return -1;
+        }
+
+        if (tag1.name > tag2.name) {
+          return 1;
+        }
+
+        return 0;
+      });
+    } else if (sortOrder === 'name') {
+      notesArray.forEach(([tag, notes]) => {
+        notes.sort((note1, note2) => {
+
+          if (note1.name < note2.name) {
+            return -1;
+          }
+
+          if (note1.name > note2.name) {
+            return 1;
+          }
+
+          return 0;
+        });
+      });
+    }
+    debugger;
+    notesArray.forEach(([tag, notes]) => {
       const component = new NotesGroup(rootElement, {tag, notes});
 
       component.onGroupItemClick((note) => {

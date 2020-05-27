@@ -41,7 +41,17 @@ export default class NotesPage extends StateAwareComponent {
                     data-type="navigation-menu-opener">
                 <div data-type="side-navigation-menu-container"></div>
             </div>
-            <div class="tags" data-type="tags-container"></div>
+            <div class="tags" data-type="tags-container">
+                <div class="name_tag tags_actions_name">
+                    <p data-type="notes-group-tag-name">Sort By: </p>
+                </div>                
+                <div class="name_tag tags_actions" data-type="sort-by-name-button">
+                    <p data-type="notes-group-tag-name">Name</p>
+                </div>                
+                <div class="name_tag tags_actions" data-type="sort-by-tag-button">
+                    <p data-type="notes-group-tag-name">Tag</p>
+                </div>
+            </div>
             <img class="plus" src="./././images/plus.png" alt="plus" data-type="add-note-button">
             <div class="profile_menu"></div>
             <div data-type="note-window-container"></div>
@@ -158,6 +168,16 @@ export default class NotesPage extends StateAwareComponent {
 
     this._noteEditingWindow.onRecognizingStop(() => {
       this._mascotComponent.hideMascot();
+    });
+
+    const sortByNameButton = this.rootElement.querySelector('[data-type="sort-by-name-button"]');
+    sortByNameButton.addEventListener('click', () => {
+      this._notesGrid.renderNotesMap(this.stateManager.state.currentNotes, 'name');
+    });
+
+    const sortByTagButton = this.rootElement.querySelector('[data-type="sort-by-tag-button"]');
+    sortByTagButton.addEventListener('click', () => {
+      this._notesGrid.renderNotesMap(this.stateManager.state.currentNotes, 'tag');
     });
   }
 

@@ -125,6 +125,28 @@ body {
     white-space: nowrap;
 }
 
+.name_tag.tags_actions_name {
+    background: #fff;
+    color: #225378;
+    border: 0;
+    font-size: 24px;
+}
+
+.name_tag.tags_actions {
+    width: 100px;
+    min-width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 13px;
+    font-size: 20px;
+    text-decoration: underline;
+    background: #fff;
+    border: 0;
+    color: #225378;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
 .note_tag {
     border: 1px solid;
     flex-basis: 250px;
