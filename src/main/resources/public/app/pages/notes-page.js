@@ -12,6 +12,8 @@ import GetAllTagsAction from '../actions/get-all-tags-action.js';
 import ClearCurrentNotesMutator from '../mutators/clear-current-notes-mutator.js';
 import CreateTagAction from '../actions/create-tag-action.js';
 import NotesPageMascot from '../componets/notes/pop-up/notes-page-mascot.js';
+import SearchBar from '../componets/notes/search-bar.js';
+import GetNotesByNameAction from '../actions/get-notes-by-name-action.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -25,7 +27,7 @@ export default class NotesPage extends StateAwareComponent {
             <header class="header">
                 <div class="column-left">
                     <img class="logo" src="./././images/logo.png" alt="logo">
-                    <div class="find"><input class="input" type="text" placeholder="Type in to find a note..."></div>
+                    <div class="find" data-type="search-bar-container"></div>
                 </div>
                 <div class="column-right">
                     <img class="profile_ava" src="./././images/profile_ava.jpg" alt="profile_ava">
@@ -74,6 +76,12 @@ export default class NotesPage extends StateAwareComponent {
     const mascotContainer = this.rootElement.querySelector('[data-type="mascot-container"]');
     this._mascotComponent = new NotesPageMascot(mascotContainer);
     this._mascotComponent.hideMascot();
+
+    const searchBarContainer = this.rootElement.querySelector('[data-type="search-bar-container"]');
+    this._searchBar = new SearchBar(searchBarContainer);
+    this._searchBar.onInputSubmit(async (input) => {
+      await this.dispatch(new GetNotesByNameAction(input));
+    });
   }
 
   _addEventListeners() {

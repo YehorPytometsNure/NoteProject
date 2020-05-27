@@ -76,6 +76,15 @@ export default class ApiService {
       .then((response) => response.json());
   }
 
+  async getNotesByName(name) {
+    return fetch(`/notes/${name}/contentByName`, this._createInitObject())
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse)
+      .then((response) => response.json());
+  }
+
   /**
    * Makes fetch request to retrieve last-visited tags meta data.
    *

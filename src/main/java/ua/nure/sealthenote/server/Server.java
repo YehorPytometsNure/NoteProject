@@ -22,5 +22,6 @@ public class Server {
         Spark.delete("/note/:id", DeleteNoteHandler::handle);
         Spark.get("/tags/all", GetAllTagsHandler::handle);
         Spark.post("/tag", CreateTagHandler::handle);
+        Spark.get("/notes/:name/contentByName", GetNotesByNameHandler::handle);
     }
 }
