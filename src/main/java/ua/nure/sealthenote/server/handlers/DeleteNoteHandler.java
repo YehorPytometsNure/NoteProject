@@ -25,7 +25,7 @@ public class DeleteNoteHandler {
         }
 
         //TODO: notfound error for not existing id parameter, passed in url.
-        // TODO: delete impl.
+        // TODO: delete impl with db.
         String id = request.params("id");
         
         return 200;
