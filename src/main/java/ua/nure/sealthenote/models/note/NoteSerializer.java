@@ -19,6 +19,7 @@ public class NoteSerializer implements JsonSerializer<Note> {
         JsonObject wrapper = new JsonObject();
         wrapper.addProperty("id", note.getId());
         wrapper.addProperty("name", note.getName());
+        wrapper.addProperty("password", note.getPassword());
         wrapper.add("tag", new TagSerializer().serialize(note.getTag(), Tag.class, context));
         wrapper.add("contents", new NoteContentsArraySerializer().serialize(note.getContents(), NoteContent[].class, context));
 

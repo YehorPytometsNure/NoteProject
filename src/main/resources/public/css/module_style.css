@@ -79,3 +79,13 @@
     margin-top: 10px;
     margin-right: -100px;
 }
+
+.note_password {
+    font-size: 22px;
+    font-family: 'Comic Sans MS';
+    color: #F3FFE2;
+    padding: 10px;
+    width: 600px;
+    border: 0;
+    background: #EB7F00;
+}

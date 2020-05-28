@@ -50,24 +50,24 @@ public class GetNotesByNameHandler {
                 new Note("note1", "John Lennon", tag, new NoteContent[]{
                         new NoteContentText("Born at 1940"),
                         new NoteContentText("Singer of The Beatles."),
-                }),
+                }, ""),
                 new Note("note2", "Okean Elzy", tag, new NoteContent[]{
                         new NoteContentText("Singer: S. Vakarchuk"),
-                }),
+                }, ""),
                 new Note("note3", "Skryabin", tag, new NoteContent[]{
                         new NoteContentText("Skryabin (Ukrainian:, also transliterated as Scriabin or Skriabin)" +
                                 " is a famous Ukrainian rock, pop band formed in 1989 in Novoyarivsk, Ukraine. Prominent" +
                                 " Ukrainian musician Andriy \"Kuzma\" Kuzmenko (Ukrainian) was the " +
                                 "band's lead singer until his death in 2015"),
-                }),
+                }, ""),
                 new Note("note4", "University Project", tag, new NoteContent[]{
                         new NoteContentText("TODO: todo-list"),
                         new NoteContentText("Don't break anything!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" +
                                 "Please !!!!!!!!!!!!!!!!"),
-                }),
+                }, ""),
                 new Note("note5", "Project Classes", tag, new NoteContent[]{
                         new NoteContentText("Done.\nMark: 200 / 100."),
-                }),
+                }, ""),
         };
 
         List<Note> filteredNotes = new ArrayList<>();

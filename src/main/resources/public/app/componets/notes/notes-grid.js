@@ -26,7 +26,6 @@ export default class NotesGrid extends Component {
     rootElement.innerHTML = '';
 
     let notesArray = Array.from(notesMap);
-    debugger;
     if (sortOrder === 'tag') {
       notesArray.sort(([tag1], [tag2]) => {
 
@@ -56,7 +55,6 @@ export default class NotesGrid extends Component {
         });
       });
     }
-    debugger;
     notesArray.forEach(([tag, notes]) => {
       const component = new NotesGroup(rootElement, {tag, notes});
 

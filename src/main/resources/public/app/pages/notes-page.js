@@ -79,6 +79,7 @@ export default class NotesPage extends StateAwareComponent {
 
     const noteEditingWindowContainer = rootElement.querySelector('[data-type="note-window-container"]');
     this._noteEditingWindow = new NoteWindow(noteEditingWindowContainer);
+    this._noteEditingWindow.hide();
 
     const navigationMenuContainer = rootElement.querySelector('[data-type="side-navigation-menu-container"]');
     this._sideNavigationMenu = new NavigationMenu(navigationMenuContainer);
@@ -120,11 +121,13 @@ export default class NotesPage extends StateAwareComponent {
     });
 
     addNoteButton.addEventListener('click', () => {
+      this._noteEditingWindow.tags = this.stateManager.state.allTags;
       this._noteEditingWindow.creatingMode();
     });
 
     this._notesGrid.onItemSelected((note) => {
       this._noteEditingWindow.note = note;
+      this._noteEditingWindow.tags = this.stateManager.state.allTags;
       this._noteEditingWindow.editingMode();
     });
 

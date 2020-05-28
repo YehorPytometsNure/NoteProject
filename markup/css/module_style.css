@@ -35,6 +35,16 @@
     background: #EB7F00;
 }
 
+.note_password {
+    font-size: 22px;
+    font-family: 'Comic Sans MS';
+    color: #F3FFE2;
+    padding: 10px;
+    width: 600px;
+    border: 0;
+    background: #EB7F00;
+}
+
 .button1, .button2, .button3, .button4, .button5, .button6, .button7, .button8, .button9 {
     cursor: pointer;
     width: 50px;

@@ -25,6 +25,8 @@ export default class NoteModel {
    */
   tag;
 
+  password;
+
   constructor(noteObject) {
     const contentFactory = new NoteContentFactory();
     Object.assign(this, noteObject, {

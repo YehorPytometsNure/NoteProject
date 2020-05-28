@@ -9,12 +9,14 @@ public class Note {
     private final String name;
     private final Tag tag;
     private final NoteContent[] contents;
+    private String password;
 
-    public Note(String id, String name, Tag tag, NoteContent[] contents) {
+    public Note(String id, String name, Tag tag, NoteContent[] contents, String password) {
         this.id = id;
         this.name = name;
         this.tag = tag;
         this.contents = contents;
+        this.password = password;
     }
 
     public String getId() {
@@ -31,5 +33,9 @@ public class Note {
 
     public NoteContent[] getContents() {
         return contents;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
