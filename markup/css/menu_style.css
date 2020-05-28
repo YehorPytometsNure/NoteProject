@@ -175,6 +175,12 @@ body {
     font-size: 20px;
 }
 
+.ex_note.passworded {
+    user-select: none;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 .mascot-container {
     position: fixed;
     bottom: 150px;

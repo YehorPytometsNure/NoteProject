@@ -79,7 +79,7 @@ public class GetNotesHandler {
                         new NoteContentText("TODO: todo-list"),
                         new NoteContentText("Don't break anything!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" +
                                 "Please !!!!!!!!!!!!!!!!"),
-                }, ""),
+                }, "200"),
                 new Note("note5", "Project Classes", educationTag, new NoteContent[]{
                         new NoteContentText("Done.\nMark: 200 / 100."),
                 }, ""),

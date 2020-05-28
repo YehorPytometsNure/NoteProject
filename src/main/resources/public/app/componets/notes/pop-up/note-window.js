@@ -59,11 +59,6 @@ export default class NoteWindow extends Component {
     `;
   }
 
-  _initNestedComponents() {
-    super._initNestedComponents();
-    // this._tagChoices = new Choices(this.rootElement.querySelector('.js-choice'));
-  }
-
   _addEventListeners() {
     super._addEventListeners();
 
@@ -262,6 +257,28 @@ export default class NoteWindow extends Component {
   }
 
   editingMode() {
+
+    if (this._note.password) {
+      const self = this;
+      vex.dialog.prompt({
+        message: 'Please, Input Note Password',
+        placeholder: 'Password...',
+        type: 'password',
+        callback: (password) => {
+          if (password !== self._note.password) {
+            return;
+          }
+
+          self._creatingMode = false;
+          self._editingMode = true;
+          self.rootElement.style.display = 'block';
+          self.renderTags();
+        },
+      });
+
+      return;
+    }
+
     this._creatingMode = false;
     this._editingMode = true;
     this.rootElement.style.display = 'block';
@@ -311,9 +328,11 @@ export default class NoteWindow extends Component {
 
   set _contents(contents) {
     // TODO: think of rendering different types of data.
+    const contentContainer = this.rootElement.querySelector('[data-type="note-window-text"]');
+    contentContainer.innerHTML = '';
     contents.forEach(({type, data}) => {
       if (type === 'text') {
-        this.rootElement.querySelector('[data-type="note-window-text"]').textContent += data;
+        contentContainer.textContent += data;
       }
     });
   }

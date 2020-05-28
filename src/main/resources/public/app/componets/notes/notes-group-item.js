@@ -23,7 +23,7 @@ export default class NotesGroupItem extends Component {
     return `
         <div class="note_tag">
             <div class="name_note_tag" data-type="note-name">${this.note.name}</div>
-            <div class="ex_note" data-type="note-content">
+            <div class="ex_note ${this.note.password ? 'passworded' : ''}" data-type="note-content">
             </div>
         </div>
     `;
