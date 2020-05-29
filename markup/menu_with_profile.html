@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/menu_style.css">
+    <link rel="stylesheet" type="text/css" href="./css/message_bubble_style.css">
+    <link rel="stylesheet" type="text/css" href="./css/module_style.css">
+    <link rel="stylesheet" type="text/css" href="./css/profile_style.css">
+    <script src="scripts/side_nav.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/side_nav.css">
+    <title>Menu</title>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="header">
+    <div class="column-left">
+        <img class="logo" src="./images/logo.png" alt="logo">
+        <div class="find"><input class="input" type="text" placeholder="Type in to find a note..."></div>
+    </div>
+    <div class="column-right">
+        <img class="profile_ava" src="./images/profile_ava.jpg" alt="profile_ava">
+        <img class="arrow_down" src="./images/arrow_down.png" alt="arrow_down">
+        <div class="name">Vasya Pupkin</div>
+        <div>
+            <div class="loadingio-spinner-eclipse-vg05wjn3dtp">
+                <div class="ldio-yftvigrggm8">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="menu">
+    <img class="arrow_right" src="./images/arrow_right.png" alt="arrow_right" onclick="openNav()">
+
+    <div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+            <div class="slide_menu">
+                <p class="slide_menu_header">Menu</p>
+                <p class="slide_menu_subheader">Tags</p>
+                <div class="second_menu">
+                    <p class="slide_menu_item">Work</p>
+                    <p class="slide_menu_item">Home</p>
+                    <p class="slide_menu_item">Unorginized</p>
+                </div>
+                <input class="input" type="text" placeholder="Type in to find a note...">
+                <div class="create_new_tag">+ create new</div>
+                <p class="bin">Bin</p>
+                <div class="hide_helper">Hide helper</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tags">
+    <div class="name_tag">
+        <p>Work</p>
+    </div>
+    <div class="tag">
+        <div class="note_tag">
+            <div class="name_note_tag">Agenda</div>
+            <div class="ex_note passworded">
+                <p>
+                    project X prepare <br>buy donuts for everyone <br>drink coffee <br>go home
+                    project X prepare <br>buy donuts for everyone <br>drink coffee <br>go home
+                    project X prepare <br>buy donuts for everyone <br>drink coffee <br>go home
+                    project X prepare <br>buy donuts for everyone <br>drink coffee <br>go home
+                </p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Meeting</div>
+            <div class="ex_note">
+                <p>risks:new competition</p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Boss asked</div>
+            <div class="ex_note">
+                <p>ProjectX</p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Boss asked</div>
+            <div class="ex_note">
+                <p>ProjectX</p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Boss asked</div>
+            <div class="ex_note">
+                <p>ProjectX</p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Boss asked</div>
+            <div class="ex_note">
+                <p>ProjectX</p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Boss asked</div>
+            <div class="ex_note">
+                <p>ProjectX</p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Boss asked</div>
+            <div class="ex_note">
+                <p>ProjectX</p>
+            </div>
+        </div>
+        <div class="note_tag">
+            <div class="name_note_tag">Boss asked</div>
+            <div class="ex_note">
+                <p>ProjectX</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img class="plus" src="./images/plus.png" alt="plus">
+<div class="profile_menu">
+    <div class="profile_window">
+        <div class="header_profile">
+            <p class="profile_info_header">INFO</p>
+            <img class="button_profile_close" src="images/close.png" alt="close">
+        </div>
+        <div class="info_profile">
+            <div class="profile_menu_ava">
+                <img class="profile_menu_ava_img" src="images/profile_ava.jpg" alt="profile_ava">
+                <button class="set_profile_picture">Set profile picture</button>
+            </div>
+            <div class="textarea_menu">
+                <input class="name_profile" value="Vasya Pupkin">
+                <p class="settings">Name</p>
+                <input class="birthday" type="date" value="19/09/2007">
+                <p class="settings"> Birth </p>
+                <input class="login" type="email" value="vasya.pupkin@nure.ua">
+                <p class="settings">Login</p>
+                <input class="password" type="password" value="200">
+                <p class="settings">Password</p>
+            </div>
+        </div>
+        <div class="footer_profile">
+            <img class="footer_profile_ok" src="images/ok.png">
+        </div>
+    </div>
+</div>
+
+<!--<div class="module_window">-->
+    <!--
+    <img src="images/menu-mascot/resting.png" class="module-window-seal"/>
+    <div class="head_module">
+        <input class="name_module" type="text" value="Name this">
+        <img class="button1" src="images/close.png" alt="close">
+    </div>
+    <textarea class="text_module">Write your text here...</textarea>
+    <div class="footer_module">
+        <div class="images1">
+            <img class="button2" src="images/goru.jpg">
+            <img class="button3" src="images/micro.png">
+            <img class="button4" src="images/planner.png">
+            <img class="button5" src="images/calendar.png">
+            <img class="button6" src="images/paint.png">
+        </div>
+        <div class="images2">
+            <img class="button7" src="images/network.png">
+            <img class="button8" src="images/mail.png">
+            <img class="button9" src="images/ok.png">
+        </div>
+    </div>
+    <input class="note_password" type="text" placeholder="Type password for your note...">
+    -->
+<!--</div>-->
+
+<div>
+    <div class="mascot-container">
+        <div class="message-bubble">Login component should not be less than 3.</div>
+        <img src="./images/menu-mascot/tutorial.png" class="tutorial-seal" alt="mascot"/>
+    </div>
+</div>
+</body>
+</html>
+
+

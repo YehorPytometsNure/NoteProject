@@ -1,0 +1,88 @@
+.profile_window {
+    width: 600px;
+    height: 600px;
+    background: #FFFFFF;
+    border: 1px solid;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.header_profile {
+    background: #EB7F00;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile_info_header {
+    padding: 10px;
+    font-family: 'Comic Sans MS';
+    font-size: 30px;
+    color: #F3FFE2;
+}
+
+.button_profile_close {
+    border-radius: 50%;
+    background: #225378;
+    width: 35px;
+    height: 35px;
+    margin-left: 450px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.profile_menu_ava {
+    height: 175px;
+    background: #FFFFF0;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_menu_ava_img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    box-shadow: 0 0 7px #666;
+    margin-left: 260px;
+    margin-top: 30px;
+}
+
+.set_profile_picture {
+    width: 150px;
+    margin-left: 215px;
+    margin-top: 20px;
+    background: #225378;
+    color: white;
+    border-radius: 20px;
+}
+
+.textarea_menu {
+    height: 305px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.settings {
+    font-family: 'Comic Sans MS';
+    font-size: larger;
+}
+
+.footer_profile {
+    background: #EB7F00;
+}
+
+.footer_profile_ok {
+    width: 50px;
+    height: 50px;
+    margin-left: 540px;
+    margin-top: 6px;
+    cursor: pointer;
+}
+
+
