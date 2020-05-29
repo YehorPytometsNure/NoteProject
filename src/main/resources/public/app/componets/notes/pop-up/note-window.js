@@ -35,7 +35,7 @@ export default class NoteWindow extends Component {
             <img src="././././images/menu-mascot/resting.png" class="module-window-seal"/>
             <div class="head_module">
                 <input class="name_module" type="text" value="Name this" maxlength="9" data-type="note-window-header">
-                <img class="button1" src="././././images/close.png" alt="close">
+                <img class="button1" src="././././images/close.png" alt="close" data-type="close-note-window-button">
             </div>
             <textarea class="text_module" data-type="note-window-text">Write your text here...</textarea>
             <div class="footer_module">
@@ -235,6 +235,11 @@ export default class NoteWindow extends Component {
     sealTheNoteButton.addEventListener('click', () => {
       this.runPasswordMode();
     });
+
+    const closeNoteWindowButton = this.rootElement.querySelector('[data-type="close-note-window-button"]');
+    closeNoteWindowButton.addEventListener('click', () => {
+      this.hide();
+    });
   }
 
   runPasswordMode() {
@@ -266,6 +271,8 @@ export default class NoteWindow extends Component {
         type: 'password',
         callback: (password) => {
           if (password !== self._note.password) {
+            vex.dialog.alert('Wrong password.');
+
             return;
           }
 

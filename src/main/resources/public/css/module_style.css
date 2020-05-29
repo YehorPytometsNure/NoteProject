@@ -49,6 +49,7 @@
     height: 35px;
     margin-left: 255px;
     margin-top: 17px;
+    z-index: 1000;
 }
 
 .text_module {
