@@ -186,15 +186,11 @@ body {
     cursor: pointer;
 }
 
-.profile_menu {
-    display: none;
+.module_window {
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }
-
-/*.module_window {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    position: fixed;*/
-/*}*/
 
 .ex_note {
     font-size: 20px;
@@ -203,7 +199,7 @@ body {
 .ex_note.passworded {
     user-select: none;
     color: transparent;
-    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .mascot-container {

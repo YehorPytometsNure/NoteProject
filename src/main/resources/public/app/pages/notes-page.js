@@ -14,6 +14,9 @@ import CreateTagAction from '../actions/create-tag-action.js';
 import NotesPageMascot from '../componets/notes/pop-up/notes-page-mascot.js';
 import SearchBar from '../componets/notes/search-bar.js';
 import GetNotesByNameAction from '../actions/get-notes-by-name-action.js';
+import ProfileMenu from '../componets/notes/pop-up/profile-menu.js';
+import UploadUserAction from '../actions/upload-user-action.js';
+import GetUserAction from '../actions/get-user-action.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -30,9 +33,9 @@ export default class NotesPage extends StateAwareComponent {
                     <div class="find" data-type="search-bar-container"></div>
                 </div>
                 <div class="column-right">
-                    <img class="profile_ava" src="./././images/profile_ava.jpg" alt="profile_ava">
+                    <img class="profile_ava" src="./././images/profile_ava.jpg" alt="profile_ava" data-type="profile-button">
                     <img class="arrow_down" src="./././images/arrow_down.png" alt="arrow_down">
-                    <div class="name">admin</div>
+                    <div class="name" data-type="notes-page-user-name"></div>
                     <div data-type="page-loader-container"></div>
                 </div>
             </header>
@@ -53,7 +56,7 @@ export default class NotesPage extends StateAwareComponent {
                 </div>
             </div>
             <img class="plus" src="./././images/plus.png" alt="plus" data-type="add-note-button">
-            <div class="profile_menu"></div>
+            <div data-type="profile-menu-container"></div>
             <div data-type="note-window-container"></div>
             <div data-type="mascot-container"></div>  
         </div>
@@ -64,7 +67,6 @@ export default class NotesPage extends StateAwareComponent {
   /**
    * Add following components^
    * TODO: search bar
-   * TODO: user details
    *
    * @private
    */
@@ -92,6 +94,16 @@ export default class NotesPage extends StateAwareComponent {
     this._searchBar = new SearchBar(searchBarContainer);
     this._searchBar.onInputSubmit(async (input) => {
       await this.dispatch(new GetNotesByNameAction(input));
+    });
+
+    const profileMenuContainer = this.rootElement.querySelector('[data-type="profile-menu-container"]');
+    this._profileMenu = new ProfileMenu(profileMenuContainer);
+    this._profileMenu.hide();
+
+    this._profileMenu.onUserSubmit(async (user) => {
+      await this.dispatch(new UploadUserAction(user));
+      this._profileMenu.hide();
+      await this.dispatch(new GetUserAction());
     });
   }
 
@@ -182,6 +194,11 @@ export default class NotesPage extends StateAwareComponent {
     sortByTagButton.addEventListener('click', () => {
       this._notesGrid.renderNotesMap(this.stateManager.state.currentNotes, 'tag');
     });
+
+    const profileButton = this.rootElement.querySelector('[data-type="profile-button"]');
+    profileButton.addEventListener('click', () => {
+      this._profileMenu.show();
+    });
   }
 
   initState() {
@@ -258,6 +275,7 @@ export default class NotesPage extends StateAwareComponent {
       const {location} = event.detail.state;
 
       if (location === '/notes') {
+        await this.dispatch(new GetUserAction());
         await this.dispatch(new GetPreviouslyVisitedTagsAction());
         await this.dispatch(new GetAllTagsAction());
       }
@@ -265,6 +283,14 @@ export default class NotesPage extends StateAwareComponent {
 
     this.onStateChanged('allTags', (event) => {
       this._sideNavigationMenu.tags = event.detail.state.allTags;
+    });
+
+    this.onStateChanged('currentUser', (event) => {
+      const user = event.detail.state.currentUser;
+      const {rootElement} = this;
+      this._profileMenu.user = user;
+      rootElement.querySelector('[data-type="notes-page-user-name"]').textContent = user.name;
+      rootElement.querySelector('[data-type="profile-button"]').src = URL.createObjectURL(user.avatar);
     });
   }
 }

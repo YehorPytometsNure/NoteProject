@@ -59,4 +59,9 @@ export default class State {
    * @type {Error}
    */
   currentNotesLoadingError;
+
+  /**
+   * @type {UserModel}
+   */
+  currentUser;
 }

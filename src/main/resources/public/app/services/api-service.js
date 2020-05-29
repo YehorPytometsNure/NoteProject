@@ -165,6 +165,58 @@ export default class ApiService {
   }
 
   /**
+   *
+   * @param {UserModel} user
+   * @return {Promise<Response>}
+   */
+  async uploadUser(user) {
+    const formData = new FormData();
+    formData.set('avatar', user.avatar, user.avatar.name);
+
+    return fetch('/user', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'user-name': user.name,
+        'user-id': user.id,
+        'user-email': user.email,
+        'user-password': user.password,
+        'user-birthDate': user.birthDate,
+        Authorization: this._getBearerAccessToken(),
+      },
+    })
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse);
+  }
+
+  /**
+   * @return {Promise<Blob>}
+   */
+  async getUser() {
+    return fetch('/user', {
+      method: 'GET',
+      headers: {
+        Authorization: this._getBearerAccessToken(),
+      },
+    })
+      .catch((networkError) => {
+        console.error(`Network error: ${networkError}.`);
+      })
+      .then(this._validateResponse)
+      .then(async (response) => ({
+        id: response.headers.get("user-id"),
+        name: response.headers.get("user-name"),
+        email: response.headers.get("user-email"),
+        password: response.headers.get("user-password"),
+        birthDate: response.headers.get("user-birthDate"),
+        // avatar: new File(, `avatar-${response.headers.get("user-id")}.jpg`),
+        avatar: await response.blob(),
+      }));
+  }
+
+  /**
    * Validates response status code.
    *
    * @param {Response} response - fetch response.

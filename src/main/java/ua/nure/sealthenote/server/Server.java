@@ -10,7 +10,7 @@ public class Server {
 
     public static void main(String[] args) {
 
-        port(801);
+        port(802);
         staticFiles.location("/public");
 
         Spark.post("/login", LogInHandler::handle);
@@ -23,5 +23,7 @@ public class Server {
         Spark.get("/tags/all", GetAllTagsHandler::handle);
         Spark.post("/tag", CreateTagHandler::handle);
         Spark.get("/notes/:name/contentByName", GetNotesByNameHandler::handle);
+        Spark.post("/user", "multipart/form-data", UploadUserHandler::handle);
+        Spark.get("/user", GetUserHandler::handle);
     }
 }
