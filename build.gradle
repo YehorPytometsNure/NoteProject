@@ -20,4 +20,6 @@ dependencies {
 
     def gsonVersion = "2.8.6"
     implementation "com.google.code.gson:gson:$gsonVersion"
+
+    implementation "mysql:mysql-connector-java:8.0.12"
 }
