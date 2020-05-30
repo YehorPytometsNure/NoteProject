@@ -75,14 +75,14 @@ export default class NoteWindow extends Component {
 
       const selectedTag = this._tags.find(({id}) => this._tagChoices.getValue(false).value === id);
       const noteObjectToSend = Object.assign({}, this._note, {
-        name: headerContent,
+        name: headerContent || '',
         content: [
           {
             type: 'text',
             data: windowTextContent,
           },
         ],
-        password: passwordValue,
+        password: passwordValue || '',
         tag: selectedTag,
       });
 
