@@ -58,7 +58,9 @@ export default class ApiService {
       .catch((networkError) => {
         console.error(`Network error: ${networkError}.`);
       })
-      .then(this._validateResponse);
+      .then(this._validateResponse)
+      .then((response) => response.json())
+      .then(({token}) => this.tokenService.setToken(token));
   }
 
   /**
