@@ -19,11 +19,18 @@ import UploadUserAction from '../actions/upload-user-action.js';
 import GetUserAction from '../actions/get-user-action.js';
 import Tag from '../models/note/tag.js';
 import LogOutAction from '../actions/log-out-action.js';
+import AuthenticationError from '../models/errors/authentication-error.js';
+import EventHandlersStorage from '../event/event-handlers-storage.js';
 
 export default class NotesPage extends StateAwareComponent {
 
   constructor(container, stateManager, {titleService}) {
     super(container, stateManager, {titleService});
+  }
+
+  _initComponent() {
+    super._initComponent();
+    this._onAuthenticationErrorHandlers = new EventHandlersStorage();
   }
 
   _markup() {
@@ -270,9 +277,8 @@ export default class NotesPage extends StateAwareComponent {
     });
 
     this.onStateChanged('previouslyVisitedTagsLoadingError', (event) => {
-      // TODO: error handling.
       const error = event.detail.state.previouslyVisitedTagsLoadingError;
-      alert(error);
+      this._handleError(error);
     });
 
     this.onStateChanged('areAllTagsLoading', (event) => {
@@ -287,9 +293,8 @@ export default class NotesPage extends StateAwareComponent {
     });
 
     this.onStateChanged('allTagsLoadingError', (event) => {
-      // TODO: error handling.
       const error = event.detail.state.allTagsLoadingError;
-      alert(error);
+      this._handleError(error);
     });
 
     this.onStateChanged('areCurrentNotesLoading', (event) => {
@@ -308,9 +313,8 @@ export default class NotesPage extends StateAwareComponent {
     });
 
     this.onStateChanged('currentNotesLoadingError', (event) => {
-      // TODO: error handling.
       const error = event.detail.state.currentNotesLoadingError;
-      alert(error);
+      this._handleError(error);
     });
 
     this.onStateChanged('location', async (event) => {
@@ -334,5 +338,36 @@ export default class NotesPage extends StateAwareComponent {
       rootElement.querySelector('[data-type="notes-page-user-name"]').textContent = user.name;
       rootElement.querySelector('[data-type="profile-button"]').src = URL.createObjectURL(user.avatar);
     });
+  }
+
+  /**
+   *
+   * @param {Error} error
+   * @private
+   */
+  _handleError(error) {
+
+    if (error instanceof AuthenticationError) {
+      this._handleAuthenticationError();
+    } else {
+      alert(error.message);
+    }
+  }
+
+  /**
+   * Handles authentication error.
+   * @private
+   */
+  _handleAuthenticationError() {
+    this._onAuthenticationErrorHandlers.executeHandlers();
+  }
+
+  /**
+   * Registers authentication-error handler.
+   *
+   * @param {function()} handler - handler to register.
+   */
+  onAuthenticationError(handler) {
+    this._onAuthenticationErrorHandlers.addEventHandler(handler);
   }
 }

@@ -73,7 +73,12 @@ export default class Application extends Component {
         titleService,
         apiService,
       }),
-      [NOTES_PAGE]: (router) => new NotesPage(rootElement, stateManager, {titleService}),
+      [NOTES_PAGE]: (router) => {
+        const page = new NotesPage(rootElement, stateManager, {titleService});
+        page.onAuthenticationError(() => router.redirectTo(LOGIN));
+
+        return page;
+      },
     };
 
     Router.getBuilder()
