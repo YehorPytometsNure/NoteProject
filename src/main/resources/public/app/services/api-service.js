@@ -220,6 +220,13 @@ export default class ApiService {
   }
 
   /**
+   * @return {Promise<Blob>}
+   */
+  async logOut() {
+    this.tokenService.deleteToken();
+  }
+
+  /**
    * Validates response status code.
    *
    * @param {Response} response - fetch response.

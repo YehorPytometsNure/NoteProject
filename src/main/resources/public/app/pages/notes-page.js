@@ -18,6 +18,7 @@ import ProfileMenu from '../componets/notes/pop-up/profile-menu.js';
 import UploadUserAction from '../actions/upload-user-action.js';
 import GetUserAction from '../actions/get-user-action.js';
 import Tag from '../models/note/tag.js';
+import LogOutAction from '../actions/log-out-action.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -109,6 +110,10 @@ export default class NotesPage extends StateAwareComponent {
       await this.dispatch(new UploadUserAction(user));
       this._profileMenu.hide();
       await this.dispatch(new GetUserAction());
+    });
+
+    this._profileMenu.onLogOutClick(() => {
+      this.dispatch(new LogOutAction());
     });
   }
 

@@ -9,6 +9,7 @@ export default class ProfileMenu extends Component {
   _initComponent() {
     super._initComponent();
     this._onUserSubmitHandlers = new EventHandlersStorage();
+    this._onLogOutClickHandlers = new EventHandlersStorage();
   }
 
   _markup() {
@@ -39,6 +40,7 @@ export default class ProfileMenu extends Component {
                 </div>
             </div>
             <div class="footer_profile">
+                <a href="#/login" data-type="profile-menu-log-out-button">Log Out</a>
                 <img class="footer_profile_ok" src="././././images/ok.png" data-type="profile-menu-ok-button">
             </div>
         </div>
@@ -52,6 +54,7 @@ export default class ProfileMenu extends Component {
 
     this._closeButton = this.rootElement.querySelector('[data-type="profile-menu-close-button"]');
     this._okButton = this.rootElement.querySelector('[data-type="profile-menu-ok-button"]');
+    this._logOutButton = this.rootElement.querySelector('[data-type="profile-menu-log-out-button"]');
 
     this._setUserImageButton = rootElement.querySelector('[data-type="set_profile_picture_button"]');
 
@@ -76,6 +79,10 @@ export default class ProfileMenu extends Component {
       const service = new SelectFileService();
       const file = await service.selectImage();
       this._renderImage(file);
+    });
+
+    this._logOutButton.addEventListener('click', () => {
+      this._onLogOutClickHandlers.executeHandlers();
     });
   }
 
@@ -151,5 +158,9 @@ export default class ProfileMenu extends Component {
 
   onUserSubmit(handler) {
     this._onUserSubmitHandlers.addEventHandler(handler);
+  }
+
+  onLogOutClick(handler) {
+    this._onLogOutClickHandlers.addEventHandler(handler);
   }
 }
