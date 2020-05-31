@@ -14,9 +14,9 @@ public class NoteDeserializer implements JsonDeserializer<Note> {
     @Override
     public Note deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-        //TODO: append existing tag for note, but not create it.
         JsonObject jsonObject = json.getAsJsonObject();
         String header = jsonObject.getAsJsonPrimitive("name").getAsString();
+        String id = jsonObject.getAsJsonPrimitive("id").getAsString();
         JsonObject tagJson = jsonObject.getAsJsonObject("tag");
         String tagId = tagJson.getAsJsonPrimitive("id").getAsString();
         String tagName = tagJson.getAsJsonPrimitive("name").getAsString();
@@ -37,7 +37,7 @@ public class NoteDeserializer implements JsonDeserializer<Note> {
             }
         });
 
-        return new Note(UUID.randomUUID().toString(), header,
+        return new Note(id, header,
                 new Tag(tagId, tagName), noteContents, password);
     }
 }

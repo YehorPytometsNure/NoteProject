@@ -21,7 +21,7 @@ import static ua.nure.sealthenote.server.StatusCode.*;
 
 public class RegistrationHandler {
 
-    public static Object handle(Request request, Response response) throws SQLException {
+    public static Object handle(Request request, Response response) {
 
         GsonBuilder gsonBuilder = setUpGsonBuilder();
         Gson jsonParser = gsonBuilder.create();
@@ -40,24 +40,31 @@ public class RegistrationHandler {
         }
 
         SealTheNoteDataBase dataBase = new SealTheNoteDataBase();
-        ResultSet users = dataBase.executeSql("SELECT * FROM User;");
+        try {
 
-        while (users.next()) {
-            String login = users.getString("userEmail");
+            ResultSet users = dataBase.executeQuery("SELECT * FROM User;");
 
-            if (userCredentials.login().equals(login)) {
+            while (users.next()) {
+                String login = users.getString("userEmail");
 
-                response.status(VALIDATION_ERROR.value());
+                if (userCredentials.login().equals(login)) {
 
-                ValidationError validationError = new ValidationError(
-                        "login",
-                        "Login admin already exists. Please try a new one."
-                );
+                    response.status(VALIDATION_ERROR.value());
 
-                return jsonParser.toJson(new ValidationError[]{
-                        validationError,
-                }, ValidationError[].class);
+                    ValidationError validationError = new ValidationError(
+                            "login",
+                            "Login admin already exists. Please try a new one."
+                    );
+
+                    dataBase.close();
+
+                    return jsonParser.toJson(new ValidationError[]{
+                            validationError,
+                    }, ValidationError[].class);
+                }
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         dataBase.close();
@@ -65,11 +72,16 @@ public class RegistrationHandler {
         String userId = UUID.randomUUID().toString();
 
         dataBase = new SealTheNoteDataBase();
-        dataBase.executeSql(
-                String.format("INSERT INTO User(id, userEmail, userPassword) " +
-                        "VALUES (%s, %s, %s);", userId, userCredentials.login(), userCredentials.password()
-                )
-        );
+        try {
+            dataBase.executeSql(
+                    String.format("INSERT INTO User(id, userEmail, userPassw, avatar) " +
+                            "VALUES ('%s', '%s', '%s', '%s');",
+                            userId, userCredentials.login(), userCredentials.password(), "profile_ava.jpg"
+                    )
+            );
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         dataBase.close();
 
         response.status(OK.value());

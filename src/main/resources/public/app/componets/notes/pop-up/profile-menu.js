@@ -33,7 +33,7 @@ export default class ProfileMenu extends Component {
                     <p class="settings">Birth</p>
                     <input class="birthday" type="date" value="" data-type="user-date">
                     <p class="settings">Login</p>
-                    <input class="login" type="email" value="" data-type="user-login">
+                    <input class="login" type="text" value="" data-type="user-login">
                     <p class="settings">Password</p>
                     <input class="password" type="password" value="" data-type="user-password">
                 </div>

@@ -7,28 +7,42 @@ export default class SearchBar extends Component {
   _initComponent() {
     super._initComponent();
     this._onInputSubmitHandlers = new EventHandlersStorage();
+    this._onInputCloseHandlers = new EventHandlersStorage();
   }
 
   _markup() {
     return `
-        <input class="input" type="text" placeholder="Type in to find a note...">
+        <div>
+            <input class="input" type="text" placeholder="Type in to find a note..." data-type="input-element">
+            <button data-type="clear-input-button" style="display: none;">Clear</button>
+        </div>
     `;
   }
 
   _addEventListeners() {
     super._addEventListeners();
 
-    this.rootElement.addEventListener('keyup', (event) => {
+    this.rootElement.querySelector('[data-type="input-element"]').addEventListener('keyup', (event) => {
 
       if (event.key !== "Enter") {
         return;
       }
 
-      this._onInputSubmitHandlers.executeHandlers(this.rootElement.value);
+      this.rootElement.querySelector('[data-type="clear-input-button"]').style.display = 'block';
+      this._onInputSubmitHandlers.executeHandlers(this.rootElement.querySelector('[data-type="input-element"]').value);
+    });
+
+    this.rootElement.querySelector('[data-type="clear-input-button"]').addEventListener('click', () => {
+      this.rootElement.querySelector('[data-type="clear-input-button"]').style.display = 'none';
+      this._onInputCloseHandlers.executeHandlers();
     });
   }
 
   onInputSubmit(handler) {
     this._onInputSubmitHandlers.addEventHandler(handler);
+  }
+
+  onInputClose(handler) {
+    this._onInputCloseHandlers.addEventHandler(handler);
   }
 }

@@ -4,90 +4,106 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import spark.Request;
 import spark.Response;
+import ua.nure.sealthenote.database.SealTheNoteDataBase;
 import ua.nure.sealthenote.models.note.Note;
 import ua.nure.sealthenote.models.note.NoteSerializer;
 import ua.nure.sealthenote.models.note.NotesSerializer;
-import ua.nure.sealthenote.models.note.content.*;
+import ua.nure.sealthenote.models.note.content.AbstractNoteContentSerializer;
+import ua.nure.sealthenote.models.note.content.NoteContent;
+import ua.nure.sealthenote.models.note.content.NoteContentText;
+import ua.nure.sealthenote.models.note.content.NoteContentTextSerializer;
+import ua.nure.sealthenote.models.note.content.NoteContentsArraySerializer;
 import ua.nure.sealthenote.models.note.tag.Tag;
 import ua.nure.sealthenote.models.note.tag.TagSerializer;
 import ua.nure.sealthenote.models.token.Token;
 
-import static ua.nure.sealthenote.server.StatusCode.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
+import static ua.nure.sealthenote.server.StatusCode.NOT_FOUND_ERROR;
+import static ua.nure.sealthenote.server.StatusCode.OK;
 
 public class GetNotesHandler {
 
-    public static Object handle(Request request, Response response) {
+    public static Object handle(Request request, Response response) throws SQLException {
         GsonBuilder gsonBuilder = setUpGsonBuilder();
         Gson jsonParser = gsonBuilder.create();
         Token token = new Token(request.headers("Authorization"));
+        String userId = token.value().replace("Bearer ", "");
 
-        if (!token.value().equals("Bearer access-token-mock")) {
+        SealTheNoteDataBase dataBase = new SealTheNoteDataBase();
+        ResultSet users = dataBase.executeQuery("SELECT * FROM User;");
+        boolean found = false;
 
+        while (users.next()) {
+            String id = users.getString("id");
+
+            if (id.equals(userId)) {
+
+                found = true;
+
+                break;
+            }
+        }
+
+        dataBase.close();
+
+        if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
             return "Please, log in.";
         }
 
-        if (request.params("tagId").equals("tag1")) {
-            response.status(OK.value());
+        dataBase = new SealTheNoteDataBase();
+        String tagId = request.params("tagId");
+        ResultSet notesByTagResponse = dataBase.executeQuery("SELECT * FROM Note WHERE " +
+                "Note.idUser = '" + userId + "' AND " +
+                "Note.tagId = '" + tagId + "';");
 
-            return jsonParser.toJson(getMusicNotes(), Note[].class);
+        List<Note> notes = new ArrayList<>();
+
+        while (notesByTagResponse.next()) {
+            String noteId = notesByTagResponse.getString("id");
+            String noteName = notesByTagResponse.getString("noteName");
+
+            ResultSet tags = dataBase.executeQuery("SELECT * FROM Tag WHERE id = '" + tagId + "';");
+            String tagName = null;
+
+            while (tags.next()) {
+                tagName = tags.getString("tagName");
+            }
+
+            if (tagName == null) {
+                response.status(NOT_FOUND_ERROR.value());
+
+                return "Tag for note was not found.";
+            }
+
+            Tag tag = new Tag(tagId, tagName);
+            String notePassword = notesByTagResponse.getString("notePassword");
+
+            ResultSet mappedContent = dataBase.executeQuery("SELECT * FROM NoteContent WHERE noteId = '" + noteId + "';");
+
+            List<NoteContentText> contentTexts = new ArrayList<>();
+
+            while (mappedContent.next()) {
+                String noteText = mappedContent.getString("noteText");
+                NoteContentText noteContentText = new NoteContentText(noteText);
+                contentTexts.add(noteContentText);
+            }
+
+            Note note = new Note(noteId, noteName, tag,
+                    contentTexts.toArray(new NoteContent[contentTexts.size()]), notePassword);
+
+            notes.add(note);
         }
 
-        if (request.params("tagId").equals("tag2")) {
-            response.status(OK.value());
+        response.status(OK.value());
 
-            return jsonParser.toJson(getEducationNotes(), Note[].class);
-        }
-
-        if (request.params("tagId").equals("tag3")) {
-            response.status(OK.value());
-
-            return jsonParser.toJson(getJobNotes(), Note[].class);
-        }
-
-        response.status(NOT_FOUND_ERROR.value());
-
-        return "Notes for asked tag don't exist.";
-    }
-
-    private static Note[] getMusicNotes() {
-        Tag musicTag = new Tag("tag1", "Music");
-
-        return new Note[]{
-                new Note("note1", "John Lennon", musicTag, new NoteContent[]{
-                        new NoteContentText("Born at 1940"),
-                        new NoteContentText("Singer of The Beatles."),
-                }, ""),
-                new Note("note2", "Okean Elzy", musicTag, new NoteContent[]{
-                        new NoteContentText("Singer: S. Vakarchuk"),
-                }, ""),
-                new Note("note3", "Skryabin", musicTag, new NoteContent[]{
-                        new NoteContentText("Skryabin (Ukrainian:, also transliterated as Scriabin or Skriabin)" +
-                                " is a famous Ukrainian rock, pop band formed in 1989 in Novoyarivsk, Ukraine. Prominent" +
-                                " Ukrainian musician Andriy \"Kuzma\" Kuzmenko (Ukrainian) was the " +
-                                "band's lead singer until his death in 2015"),
-                }, ""),
-        };
-    }
-
-    private static Note[] getEducationNotes() {
-        Tag educationTag = new Tag("tag2", "Education");
-
-        return new Note[]{
-                new Note("note4", "University Project", educationTag, new NoteContent[]{
-                        new NoteContentText("TODO: todo-list"),
-                        new NoteContentText("Don't break anything!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" +
-                                "Please !!!!!!!!!!!!!!!!"),
-                }, "200"),
-                new Note("note5", "Project Classes", educationTag, new NoteContent[]{
-                        new NoteContentText("Done.\nMark: 200 / 100."),
-                }, ""),
-        };
-    }
-
-    private static Note[] getJobNotes() {
-        return new Note[0];
+        return jsonParser.toJson(notes.toArray(new Note[notes.size()]), Note[].class);
     }
 
     private static GsonBuilder setUpGsonBuilder() {

@@ -65,9 +65,6 @@ export default class NotesPage extends StateAwareComponent {
 
 
   /**
-   * Add following components^
-   * TODO: search bar
-   *
    * @private
    */
   _initNestedComponents() {
@@ -95,6 +92,13 @@ export default class NotesPage extends StateAwareComponent {
     this._searchBar.onInputSubmit(async (input) => {
       await this.dispatch(new GetNotesByNameAction(input));
     });
+    this._searchBar.onInputClose(async () => {
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
+      const tags = this.stateManager.state.previouslyVisitedTags;
+      for (const tag of tags) {
+        await this.dispatch(new GetNotesAction(tag));
+      }
+    });
 
     const profileMenuContainer = this.rootElement.querySelector('[data-type="profile-menu-container"]');
     this._profileMenu = new ProfileMenu(profileMenuContainer);
@@ -115,6 +119,7 @@ export default class NotesPage extends StateAwareComponent {
 
       this._noteEditingWindow.hide();
 
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
       const tags = this.stateManager.state.previouslyVisitedTags;
       for (const tag of tags) {
         await this.dispatch(new GetNotesAction(tag));
@@ -126,6 +131,7 @@ export default class NotesPage extends StateAwareComponent {
 
       this._noteEditingWindow.hide();
 
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
       const tags = this.stateManager.state.previouslyVisitedTags;
       for (const tag of tags) {
         await this.dispatch(new GetNotesAction(tag));
@@ -146,6 +152,8 @@ export default class NotesPage extends StateAwareComponent {
     this._noteEditingWindow.onDeleteButtonClick(async (note) => {
       await this.dispatch(new DeleteNoteAction(note));
 
+
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
       const tags = this.stateManager.state.previouslyVisitedTags;
       for (const tag of tags) {
         await this.dispatch(new GetNotesAction(tag));
@@ -218,6 +226,8 @@ export default class NotesPage extends StateAwareComponent {
     });
 
     this.onStateChanged('previouslyVisitedTags', (event) => {
+
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
       const tags = event.detail.state.previouslyVisitedTags;
       tags.forEach(async (tag) => await this.dispatch(new GetNotesAction(tag)));
     });
@@ -237,11 +247,6 @@ export default class NotesPage extends StateAwareComponent {
       }
 
       _loader.popLoading();
-    });
-
-    this.onStateChanged('allTags', (event) => {
-      const tags = event.detail.state.allTags;
-      //TODO: menu.
     });
 
     this.onStateChanged('allTagsLoadingError', (event) => {

@@ -2,8 +2,8 @@ package ua.nure.sealthenote.server.handlers;
 
 import spark.Request;
 import spark.Response;
+import ua.nure.sealthenote.database.SealTheNoteDataBase;
 import ua.nure.sealthenote.models.token.Token;
-import ua.nure.sealthenote.models.user.User;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
@@ -14,22 +14,42 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
+import static ua.nure.sealthenote.server.StatusCode.OK;
 
 public class UploadUserHandler {
 
-    public static Object handle(Request request, Response response) {
+    public static Object handle(Request request, Response response) throws SQLException {
         Token token = new Token(request.headers("Authorization"));
+        String userId = token.value().replace("Bearer ", "");
 
-        if (!token.value().equals("Bearer access-token-mock")) {
+        SealTheNoteDataBase dataBase = new SealTheNoteDataBase();
+        ResultSet users = dataBase.executeQuery("SELECT * FROM User;");
+        boolean found = false;
 
+        while (users.next()) {
+            String id = users.getString("id");
+
+            if (id.equals(userId)) {
+
+                found = true;
+
+                break;
+            }
+        }
+
+        dataBase.close();
+
+        if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
             return "Please, log in.";
         }
 
-//        TODO: notfound error for not existing id parameter, passed in url.
+        //TODO: test user handling.
 
         String name = request.headers("user-name");
         String id = request.headers("user-id");
@@ -37,27 +57,39 @@ public class UploadUserHandler {
         String password = request.headers("user-password");
         String birthDate = request.headers("user-birthDate");
 
+        dataBase = new SealTheNoteDataBase();
+
         try {
             File uploadDir = new File("upload");
             uploadDir.mkdir(); // create the upload directory if it doesn't exist
             File targetFile = new File(uploadDir.getPath(), "avatar-" + id + ".jpg");
+            Files.deleteIfExists(targetFile.toPath());
             Path imageFile = Files.createFile(targetFile.toPath());
             request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
 
             Part filePart = request.raw().getPart("avatar");
             InputStream input = filePart.getInputStream();
             Files.copy(input, imageFile, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException | ServletException e) {
+
+            dataBase.executeSql(
+                    String.format("UPDATE User " +
+                            "SET userName = '%s', userEmail='%s', userPassw='%s', userBirthDate='%s', avatar='%s' " +
+                            "WHERE id = '%s';", name, email, password, birthDate, "avatar-" + id + ".jpg", id)
+            );
+
+        } catch (IOException | ServletException | SQLException e) {
             e.printStackTrace();
+
+            dataBase.executeSql(
+                    String.format("UPDATE User" +
+                            "SET userName = '%s', userEmail='%s', userPassw='%s', userBirthDate='%s', avatar='%s' " +
+                            "WHERE id = '%s';", name, email, password, birthDate, "profile_ava.jpg", id)
+            );
+        } finally {
+
+            dataBase.close();
         }
 
-        // Find user and set him this image.
-        User user = new User(email, password);
-        user.setName(name);
-        user.setBirthDate(birthDate);
-        user.setId(id);
-        user.setAvatar("avatar-" + id + ".jpg");
-
-        return 200;
+        return OK.value();
     }
 }

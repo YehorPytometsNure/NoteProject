@@ -13,6 +13,8 @@ import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
 import static ua.nure.sealthenote.server.StatusCode.OK;
 
 public class GetPreviouslyVisitedTagsHandler {
+
+    //TODO: think of purpose of it.
     public static Object handle(Request request, Response response) {
         GsonBuilder gsonBuilder = setUpGsonBuilder();
         Gson jsonParser = gsonBuilder.create();

@@ -23,6 +23,7 @@ export default class NotesGrid extends Component {
   renderNotesMap(notesMap, sortOrder = '') {
     const {rootElement} = this;
 
+    //TODO: think of when to clear and when not to clear notes.
     rootElement.innerHTML = '';
 
     let notesArray = Array.from(notesMap);

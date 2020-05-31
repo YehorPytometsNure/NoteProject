@@ -37,7 +37,7 @@ public class LogInHandler {
         }
 
         SealTheNoteDataBase dataBase = new SealTheNoteDataBase();
-        ResultSet users = dataBase.executeSql("SELECT * FROM User;");
+        ResultSet users = dataBase.executeQuery("SELECT * FROM User;");
         String login;
         String password;
         boolean found = false;
@@ -56,6 +56,8 @@ public class LogInHandler {
 
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
+
+            dataBase.close();
 
             return "Password or login is incorrect. Please, try again.";
         }

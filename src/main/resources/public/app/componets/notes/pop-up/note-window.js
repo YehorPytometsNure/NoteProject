@@ -79,7 +79,7 @@ export default class NoteWindow extends Component {
         content: [
           {
             type: 'text',
-            data: windowTextContent,
+            data: windowTextContent || '',
           },
         ],
         password: passwordValue || '',
@@ -253,7 +253,7 @@ export default class NoteWindow extends Component {
     this.rootElement.querySelector('[data-type="note-password"]').style.display = 'none';
     this.rootElement.querySelector('[data-type="note-password"]').value = '';
   }
-
+//TODO: fix password - done, update - done, choices - done, after - fix handlers - done, hosting.
   creatingMode() {
     this._creatingMode = true;
     this._editingMode = false;
@@ -296,7 +296,7 @@ export default class NoteWindow extends Component {
     this.stopPasswordMode();
     this.rootElement.style.display = 'none';
     this.rootElement.querySelector('[data-type="note-window-header"]').value = '';
-    this.rootElement.querySelector('[data-type="note-window-text"]').textContent = '';
+    this.rootElement.querySelector('[data-type="note-window-text"]').value = '';
   }
 
   onAcceptCreating(handler) {
@@ -327,6 +327,7 @@ export default class NoteWindow extends Component {
     this._note = Object.assign({}, note);
     this._header = note.name;
     this._contents = note.contents;
+    this.rootElement.querySelector('[data-type="note-password"]').value = note.password;
   }
 
   set _header(header) {
@@ -339,7 +340,7 @@ export default class NoteWindow extends Component {
     contentContainer.innerHTML = '';
     contents.forEach(({type, data}) => {
       if (type === 'text') {
-        contentContainer.textContent += data;
+        contentContainer.value += data;
       }
     });
   }
@@ -349,6 +350,11 @@ export default class NoteWindow extends Component {
   }
 
   renderTags() {
+
+    if (this._tagChoices) {
+      this._tagChoices.destroy();
+    }
+
     this._tagChoices = new Choices(this.rootElement.querySelector('[data-type="js-choice"]'), {
       choices: this._tags.map(({id, name}) => ({
         value: id,

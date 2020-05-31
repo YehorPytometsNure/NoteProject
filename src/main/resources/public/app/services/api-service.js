@@ -93,7 +93,8 @@ export default class ApiService {
    * @return {Promise} - resulting promise wrapping previously visited tags meta data.
    */
   async getPreviouslyVisitedTags() {
-    return fetch('/tags/previous', this._createInitObject())
+    // return fetch('/tags/previous', this._createInitObject())
+    return fetch('/tags/all', this._createInitObject())
       .catch((networkError) => {
         console.error(`Network error: ${networkError}.`);
       })

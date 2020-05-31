@@ -1,40 +1,73 @@
 package ua.nure.sealthenote.server.handlers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import spark.Request;
 import spark.Response;
-import ua.nure.sealthenote.models.note.Note;
-import ua.nure.sealthenote.models.note.NoteDeserializer;
+import ua.nure.sealthenote.database.SealTheNoteDataBase;
 import ua.nure.sealthenote.models.token.Token;
 
-import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static ua.nure.sealthenote.server.StatusCode.*;
 
 public class DeleteNoteHandler {
 
-    public static Object handle(Request request, Response response) {
-        GsonBuilder gsonBuilder = setUpGsonBuilder();
-        Gson jsonParser = gsonBuilder.create();
+    public static Object handle(Request request, Response response) throws SQLException {
         Token token = new Token(request.headers("Authorization"));
+        String userId = token.value().replace("Bearer ", "");
 
-        if (!token.value().equals("Bearer access-token-mock")) {
+        SealTheNoteDataBase dataBase = new SealTheNoteDataBase();
+        ResultSet users = dataBase.executeQuery("SELECT * FROM User;");
+        boolean found = false;
 
+        while (users.next()) {
+            String id = users.getString("id");
+
+            if (id.equals(userId)) {
+
+                found = true;
+
+                break;
+            }
+        }
+
+        dataBase.close();
+
+        if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
             return "Please, log in.";
         }
 
-        //TODO: notfound error for not existing id parameter, passed in url.
-        // TODO: delete impl with db.
-        String id = request.params("id");
+        dataBase = new SealTheNoteDataBase();
+        ResultSet notes = dataBase.executeQuery(String.format("SELECT * FROM Note WHERE idUser = '%s';", userId));
+        boolean foundNote = false;
+        String requestedId = request.params("id");
 
-        return 200;
-    }
+        while (notes.next()) {
+            String id = notes.getString("id");
 
-    private static GsonBuilder setUpGsonBuilder() {
+            if (id.equals(requestedId)) {
 
-        GsonBuilder builder = new GsonBuilder();
+                foundNote = true;
 
-        return builder;
+                break;
+            }
+        }
+
+        dataBase.close();
+
+        if (!foundNote) {
+            response.status(NOT_FOUND_ERROR.value());
+
+            return "Note was not found";
+        }
+
+        dataBase = new SealTheNoteDataBase();
+        dataBase.executeSql("DELETE FROM NoteContent WHERE noteId = '" + requestedId + "';");
+        dataBase.executeSql("DELETE FROM Note WHERE id = '" + requestedId + "';");
+        dataBase.close();
+
+        return OK.value();
     }
 }

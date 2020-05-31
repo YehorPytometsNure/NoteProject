@@ -13,7 +13,6 @@ import ua.nure.sealthenote.models.token.Token;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.UUID;
 
 import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
@@ -21,25 +20,35 @@ import static ua.nure.sealthenote.server.StatusCode.OK;
 
 public class CreateNoteHandler {
 
-    public static Object handle(Request request, Response response) throws SQLException {
+    public static Object handle(Request request, Response response) {
         GsonBuilder gsonBuilder = setUpGsonBuilder();
         Gson jsonParser = gsonBuilder.create();
         Token token = new Token(request.headers("Authorization"));
+        String userId = token.value().replace("Bearer ", "");
 
         SealTheNoteDataBase dataBase = new SealTheNoteDataBase();
-        ResultSet users = dataBase.executeSql("SELECT * FROM User;");
         boolean found = false;
+
+        try {
+
+        ResultSet users = dataBase.executeQuery("SELECT * FROM User;");
 
         while (users.next()) {
             String id = users.getString("id");
 
-            if (id.equals(token.value())) {
+            if (id.equals(userId)) {
 
                 found = true;
 
                 break;
             }
         }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        dataBase.close();
 
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
@@ -47,31 +56,36 @@ public class CreateNoteHandler {
             return "Please, log in.";
         }
 
-        dataBase.close();
-
         Note note = jsonParser.fromJson(request.body(), Note.class);
 
         dataBase = new SealTheNoteDataBase();
 
         String noteId = UUID.randomUUID().toString();
+        String passwordToSet = note.getPassword() == null || "null".equals(note.getPassword()) ? "" : note.getPassword();
 
-        dataBase.executeSql(
-                String.format("INSERT INTO Note(id, idUser, noteName, tagId, notePassword) " +
-                "VALUES(%s, %s, %s, %s, %s);",
-                noteId, token.value(), note.getName(), note.getTag().getId(), note.getPassword())
-        );
+        try {
+            dataBase.executeSql(
+                    String.format("INSERT INTO Note(id, idUser, noteName, tagId, notePassword) " +
+                                    "VALUES('%s', '%s', '%s', '%s', '%s');",
+                            noteId, userId, note.getName(), note.getTag().getId(), passwordToSet)
+            );
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         dataBase.close();
 
-        NoteContentText[] contents = (NoteContentText[]) note.getContents();
-
         dataBase = new SealTheNoteDataBase();
 
-        for (NoteContentText content : contents) {
-            dataBase.executeSql(
-                    String.format("INSERT INTO NoteContent(id, noteId, noteText, contentType)" +
-                    "VALUES(%s, %s, %s, %s);",
-                            UUID.randomUUID().toString(), noteId, content.getText(), "text"));
+        for (NoteContent content : note.getContents()) {
+            try {
+                dataBase.executeSql(
+                        String.format("INSERT INTO NoteContent(id, noteId, noteText, contentType)" +
+                                        "VALUES('%s', '%s', '%s', '%s');",
+                                UUID.randomUUID().toString(), noteId, ((NoteContentText) content).getText(), "text"));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
         dataBase.close();
