@@ -13,6 +13,7 @@ export default class NotesGrid extends Component {
   _initComponent() {
     super._initComponent();
     this._onNoteClickedHandlers = new EventHandlersStorage();
+    this._onBinDeleteClickHandlers = new EventHandlersStorage();
   }
 
   /**
@@ -56,16 +57,25 @@ export default class NotesGrid extends Component {
         });
       });
     }
+
     notesArray.forEach(([tag, notes]) => {
       const component = new NotesGroup(rootElement, {tag, notes});
 
       component.onGroupItemClick((note) => {
         this._onNoteClickedHandlers.executeHandlers(note);
       });
+
+      component.onBinDeleteClick((notes) => {
+        this._onBinDeleteClickHandlers.executeHandlers(notes);
+      });
     });
   }
 
   onItemSelected(handler) {
     this._onNoteClickedHandlers.addEventHandler(handler);
+  }
+
+  onBinDeleteClick(handler) {
+    this._onBinDeleteClickHandlers.addEventHandler(handler);
   }
 }

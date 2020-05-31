@@ -79,6 +79,12 @@ public class RegistrationHandler {
                             userId, userCredentials.login(), userCredentials.password(), "profile_ava.jpg"
                     )
             );
+            dataBase.executeSql(
+                    String.format("INSERT INTO Tag(id, tagName, idUser) " +
+                            "VALUES ('%s', '%s', '%s');",
+                            "bin", "bin", userId
+                    )
+            );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -21,7 +21,7 @@ export default class NavigationMenu extends Component {
                 <div class="second_menu" data-type="navigation-menu-tags-container"></div>
                 <input class="input" type="text" placeholder="Enter tag name and press Enter" data-type="tag-input">
                 <div class="create_new_tag" data-type="create-new-tag-button">create new tag</div>
-                <p class="bin">Bin</p>
+                <p class="bin" data-type="bin-button">Bin</p>
                 <div class="hide_helper">Hide helper</div>
             </div>
         </div>
@@ -32,6 +32,7 @@ export default class NavigationMenu extends Component {
     super._initComponent();
     this._onTagSelectedHandlers = new EventHandlersStorage();
     this._onTagInputSubmitHandlers = new EventHandlersStorage();
+    this._binButtonClickHandlers = new EventHandlersStorage();
   }
 
   _initNestedComponents() {
@@ -60,6 +61,11 @@ export default class NavigationMenu extends Component {
     const createNewTagButton = this.rootElement.querySelector('[data-type="create-new-tag-button"]');
     createNewTagButton.addEventListener('click', () => {
       this.showTagInput();
+    });
+
+    const binButton = this.rootElement.querySelector('[data-type="bin-button"]');
+    binButton.addEventListener('click', () => {
+      this._binButtonClickHandlers.executeHandlers();
     });
   }
 
@@ -101,5 +107,9 @@ export default class NavigationMenu extends Component {
 
   onTagInputSubmit(handler) {
     this._onTagInputSubmitHandlers.addEventHandler(handler);
+  }
+
+  onBinClick(handler) {
+    this._binButtonClickHandlers.addEventHandler(handler);
   }
 }

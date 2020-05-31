@@ -17,6 +17,7 @@ import GetNotesByNameAction from '../actions/get-notes-by-name-action.js';
 import ProfileMenu from '../componets/notes/pop-up/profile-menu.js';
 import UploadUserAction from '../actions/upload-user-action.js';
 import GetUserAction from '../actions/get-user-action.js';
+import Tag from '../models/note/tag.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -149,9 +150,31 @@ export default class NotesPage extends StateAwareComponent {
       this._noteEditingWindow.editingMode();
     });
 
-    this._noteEditingWindow.onDeleteButtonClick(async (note) => {
-      await this.dispatch(new DeleteNoteAction(note));
+    this._notesGrid.onBinDeleteClick(async (notes) => {
+      for (const note of notes) {
+        await this.dispatch(new DeleteNoteAction(note));
+      }
 
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
+      const tags = this.stateManager.state.previouslyVisitedTags;
+
+      for (const tag of tags) {
+        await this.dispatch(new GetNotesAction(tag));
+      }
+    });
+
+    this._noteEditingWindow.onDeleteButtonClick(async (note) => {
+
+      if (note.tag.id !== 'bin') {
+        await this.dispatch(new UpdateNoteAction(Object.assign({}, note, {
+          tag: {
+            id: 'bin',
+            name: 'bin',
+          },
+        })));
+      } else {
+        await this.dispatch(new DeleteNoteAction(note));
+      }
 
       this.stateManager.mutate(new ClearCurrentNotesMutator());
       const tags = this.stateManager.state.previouslyVisitedTags;
@@ -177,6 +200,15 @@ export default class NotesPage extends StateAwareComponent {
       this._sideNavigationMenu.hideTagInput();
       await this.dispatch(new CreateTagAction(inputValue));
       await this.dispatch(new GetAllTagsAction());
+    });
+
+    this._sideNavigationMenu.onBinClick(async () => {
+      this._sideNavigationMenu.closeMenu();
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
+      await this.dispatch(new GetNotesAction(new Tag({
+        id: 'bin',
+        name: 'bin',
+      })));
     });
 
     this._noteEditingWindow.onRecognizingStart(() => {

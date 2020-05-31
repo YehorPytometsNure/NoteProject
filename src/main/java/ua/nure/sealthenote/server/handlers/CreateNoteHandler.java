@@ -47,7 +47,6 @@ public class CreateNoteHandler {
             throwables.printStackTrace();
         }
 
-
         dataBase.close();
 
         if (!found) {

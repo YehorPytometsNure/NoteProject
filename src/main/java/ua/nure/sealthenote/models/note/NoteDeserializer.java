@@ -16,12 +16,17 @@ public class NoteDeserializer implements JsonDeserializer<Note> {
 
         JsonObject jsonObject = json.getAsJsonObject();
         String header = jsonObject.getAsJsonPrimitive("name").getAsString();
-        String id = jsonObject.getAsJsonPrimitive("id").getAsString();
+        String id = null;
+
+        if (jsonObject.has("id")) {
+            id = jsonObject.getAsJsonPrimitive("id").getAsString();
+        }
+
         JsonObject tagJson = jsonObject.getAsJsonObject("tag");
         String tagId = tagJson.getAsJsonPrimitive("id").getAsString();
         String tagName = tagJson.getAsJsonPrimitive("name").getAsString();
         String password = jsonObject.getAsJsonPrimitive("password").getAsString();
-        JsonArray contentsJson = jsonObject.getAsJsonArray("content");
+        JsonArray contentsJson = jsonObject.getAsJsonArray("contents");
         NoteContent[] noteContents = new NoteContent[contentsJson.size()];
         AtomicInteger i = new AtomicInteger();
         contentsJson.forEach((jsonContent) -> {
