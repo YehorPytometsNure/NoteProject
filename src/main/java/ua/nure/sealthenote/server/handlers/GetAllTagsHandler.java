@@ -46,8 +46,6 @@ public class GetAllTagsHandler {
             throwables.printStackTrace();
         }
 
-        dataBase.close();
-
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
@@ -69,7 +67,6 @@ public class GetAllTagsHandler {
             throwables.printStackTrace();
         }
 
-        dataBase.close();
         response.status(OK.value());
 
         return jsonParser.toJson(tagList.toArray(new Tag[tagList.size()]), Tag[].class);

@@ -31,8 +31,6 @@ public class DeleteNoteHandler {
             }
         }
 
-        dataBase.close();
-
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
@@ -55,8 +53,6 @@ public class DeleteNoteHandler {
             }
         }
 
-        dataBase.close();
-
         if (!foundNote) {
             response.status(NOT_FOUND_ERROR.value());
 
@@ -66,7 +62,6 @@ public class DeleteNoteHandler {
         dataBase = new SealTheNoteDataBase();
         dataBase.executeSql("DELETE FROM NoteContent WHERE noteId = '" + requestedId + "';");
         dataBase.executeSql("DELETE FROM Note WHERE id = '" + requestedId + "';");
-        dataBase.close();
 
         return OK.value();
     }

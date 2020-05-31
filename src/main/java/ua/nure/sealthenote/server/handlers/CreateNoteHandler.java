@@ -47,8 +47,6 @@ public class CreateNoteHandler {
             throwables.printStackTrace();
         }
 
-        dataBase.close();
-
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
@@ -72,8 +70,6 @@ public class CreateNoteHandler {
             throwables.printStackTrace();
         }
 
-        dataBase.close();
-
         dataBase = new SealTheNoteDataBase();
 
         for (NoteContent content : note.getContents()) {
@@ -86,8 +82,6 @@ public class CreateNoteHandler {
                 throwables.printStackTrace();
             }
         }
-
-        dataBase.close();
 
         return OK.value();
     }

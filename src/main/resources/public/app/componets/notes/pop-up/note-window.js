@@ -167,9 +167,9 @@ export default class NoteWindow extends Component {
           .toLowerCase());
 
         if (command) {
-          windowText.textContent += command;
+          windowText.value += command;
         } else {
-          windowText.textContent += result;
+          windowText.value += result;
         }
       });
 

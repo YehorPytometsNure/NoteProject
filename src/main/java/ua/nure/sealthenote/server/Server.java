@@ -10,7 +10,10 @@ public class Server {
 
     public static void main(String[] args) {
 
-        port(802);
+//        port(802);
+        int port = getHerokuAssignedPort();
+        System.out.println(String.format("Post: %d", port));
+        port(port);
         staticFiles.location("/public");
 
         Spark.post("/login", LogInHandler::handle);
@@ -25,5 +28,13 @@ public class Server {
         Spark.get("/notes/:name/contentByName", GetNotesByNameHandler::handle);
         Spark.post("/user", "multipart/form-data", UploadUserHandler::handle);
         Spark.get("/user", GetUserHandler::handle);
+    }
+
+    private static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 }

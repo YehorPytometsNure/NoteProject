@@ -1,4 +1,4 @@
-USE sealthenote;
+USE heroku_be2ff38d4e70fc8;
 
 DROP TABLE IF EXISTS NoteContent;
 DROP TABLE IF EXISTS Note;

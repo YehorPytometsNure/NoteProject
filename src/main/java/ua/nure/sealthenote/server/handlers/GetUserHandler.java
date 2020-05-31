@@ -2,15 +2,19 @@ package ua.nure.sealthenote.server.handlers;
 
 import spark.Request;
 import spark.Response;
+import spark.utils.IOUtils;
 import ua.nure.sealthenote.database.SealTheNoteDataBase;
 import ua.nure.sealthenote.models.token.Token;
 import ua.nure.sealthenote.models.user.User;
+import ua.nure.sealthenote.server.Server;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.prefs.Preferences;
 
 import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
 import static ua.nure.sealthenote.server.StatusCode.OK;
@@ -45,8 +49,6 @@ public class GetUserHandler {
             user.setAvatar(avatar);
         }
 
-        dataBase.close();
-
         if (user == null) {
             response.status(AUTHENTICATION_ERROR.value());
 
@@ -65,11 +67,26 @@ public class GetUserHandler {
             return OK.value();
         }
 
-        File uploadDir = new File("upload");
-        File targetFile = new File(uploadDir.getPath(), avatar);
+        //new 2
+//        String fileName = "upload/" + avatar;
+        ClassLoader classLoader = Server.class.getClassLoader();
+        InputStream imageStream = classLoader.getResourceAsStream("upload/profile_ava.jpg");
+
+        //new 1
+//        File targetFile = new File(classLoader.getResource(fileName).getFile());
+
+        //original
+//        File uploadDir = new File("upload");
+//        File targetFile = new File(uploadDir.getPath(), avatar);
 
         response.status(OK.value());
 
-        return Files.readAllBytes(targetFile.toPath());
+        //original
+//        return Files.readAllBytes(targetFile.toPath());
+
+        //new 1,2
+//        return IOUtils.toByteArray(imageStream);
+
+        return Preferences.userRoot().getByteArray(avatar, IOUtils.toByteArray(imageStream));
     }
 }

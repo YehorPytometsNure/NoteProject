@@ -2,8 +2,10 @@ package ua.nure.sealthenote.server.handlers;
 
 import spark.Request;
 import spark.Response;
+import spark.utils.IOUtils;
 import ua.nure.sealthenote.database.SealTheNoteDataBase;
 import ua.nure.sealthenote.models.token.Token;
+import ua.nure.sealthenote.server.Server;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
@@ -11,11 +13,16 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
 import static ua.nure.sealthenote.server.StatusCode.OK;
@@ -41,8 +48,6 @@ public class UploadUserHandler {
             }
         }
 
-        dataBase.close();
-
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
@@ -60,16 +65,20 @@ public class UploadUserHandler {
         dataBase = new SealTheNoteDataBase();
 
         try {
-            File uploadDir = new File("upload");
-            uploadDir.mkdir(); // create the upload directory if it doesn't exist
-            File targetFile = new File(uploadDir.getPath(), "avatar-" + id + ".jpg");
-            Files.deleteIfExists(targetFile.toPath());
-            Path imageFile = Files.createFile(targetFile.toPath());
+//            File uploadDir = new File("upload");
+//            uploadDir.mkdir(); // create the upload directory if it doesn't exist
+
+//            File targetFile = new File(uploadDir.getPath(), "avatar-" + id + ".jpg");
+//            Files.deleteIfExists(targetFile.toPath());
+//            Path imageFile = Files.createFile(targetFile.toPath());
+
             request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
 
             Part filePart = request.raw().getPart("avatar");
             InputStream input = filePart.getInputStream();
-            Files.copy(input, imageFile, StandardCopyOption.REPLACE_EXISTING);
+            byte[] imageInBytes = IOUtils.toByteArray(input);
+            Preferences.userRoot().putByteArray("avatar-" + id + ".jpg", imageInBytes);
+//            Files.copy(input, imageFile, StandardCopyOption.REPLACE_EXISTING);
 
             dataBase.executeSql(
                     String.format("UPDATE User " +
@@ -85,9 +94,6 @@ public class UploadUserHandler {
                             "SET userName = '%s', userEmail='%s', userPassw='%s', userBirthDate='%s', avatar='%s' " +
                             "WHERE id = '%s';", name, email, password, birthDate, "profile_ava.jpg", id)
             );
-        } finally {
-
-            dataBase.close();
         }
 
         return OK.value();

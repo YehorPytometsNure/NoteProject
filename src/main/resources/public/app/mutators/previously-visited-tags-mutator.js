@@ -11,6 +11,6 @@ export default class PreviouslyVisitedTagsMutator extends Mutator {
   }
 
   apply(state) {
-    state.previouslyVisitedTags = this._tagObjects.tags.map((tagObject) => new Tag(tagObject)).filter((tag) => tag.id !== 'bin');
+    state.previouslyVisitedTags = this._tagObjects.tags.map((tagObject) => new Tag(tagObject));
   }
 }

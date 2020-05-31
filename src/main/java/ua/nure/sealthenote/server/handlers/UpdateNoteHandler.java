@@ -15,8 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import static ua.nure.sealthenote.server.StatusCode.AUTHENTICATION_ERROR;
-import static ua.nure.sealthenote.server.StatusCode.OK;
+import static ua.nure.sealthenote.server.StatusCode.*;
 
 public class UpdateNoteHandler {
 
@@ -48,8 +47,6 @@ public class UpdateNoteHandler {
             throwables.printStackTrace();
         }
 
-        dataBase.close();
-
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
@@ -64,17 +61,31 @@ public class UpdateNoteHandler {
         String passwordToSet = note.getPassword() == null || "null".equals(note.getPassword()) ? "" : note.getPassword();
 
         try {
+            String binTagId = null;
+
+            if ("bin".equals(note.getTag().getName())) {
+                ResultSet tags = dataBase.executeQuery("SELECT * FROM Tag WHERE idUser = '" + userId + "' AND tagName = 'bin';");
+
+                while (tags.next()) {
+                    binTagId = tags.getString("id");
+                }
+
+                if (binTagId == null) {
+                    response.status(NOT_FOUND_ERROR.value());
+
+                    return "Tag for note was not found.";
+                }
+            }
+
             dataBase.executeSql(
                     String.format("UPDATE Note " +
                                     "SET noteName = '%s', tagId='%s', notePassword='%s' " +
                                     "WHERE id = '%s' AND idUser = '%s';",
-                            note.getName(), note.getTag().getId(), passwordToSet, noteId, userId)
+                            note.getName(), binTagId == null ? note.getTag().getId() : binTagId, passwordToSet, noteId, userId)
             );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        dataBase.close();
 
         dataBase = new SealTheNoteDataBase();
 
@@ -94,8 +105,6 @@ public class UpdateNoteHandler {
                 throwables.printStackTrace();
             }
         }
-
-        dataBase.close();
 
         return OK.value();
     }

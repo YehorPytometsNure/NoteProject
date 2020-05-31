@@ -1,4 +1,4 @@
-USE sealthenote;
+USE heroku_be2ff38d4e70fc8;
 
 CREATE TABLE IF NOT EXISTS User (
 id CHAR(60) NOT NULL PRIMARY KEY,

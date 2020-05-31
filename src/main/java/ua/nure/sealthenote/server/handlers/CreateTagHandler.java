@@ -40,9 +40,6 @@ public class CreateTagHandler {
             throwables.printStackTrace();
         }
 
-
-        dataBase.close();
-
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
@@ -61,7 +58,6 @@ public class CreateTagHandler {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        dataBase.close();
 
         return OK.value();
     }

@@ -11,6 +11,6 @@ export default class AllTagsMutator extends Mutator {
   }
 
   apply(state) {
-    state.allTags = this._tagObjects.tags.map((tagObject) => new Tag(tagObject)).filter((tag) => tag.id !== 'bin');
+    state.allTags = this._tagObjects.tags.map((tagObject) => new Tag(tagObject)).filter((tag) => tag.name !== 'bin');
   }
 }

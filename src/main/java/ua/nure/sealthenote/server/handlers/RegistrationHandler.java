@@ -56,8 +56,6 @@ public class RegistrationHandler {
                             "Login admin already exists. Please try a new one."
                     );
 
-                    dataBase.close();
-
                     return jsonParser.toJson(new ValidationError[]{
                             validationError,
                     }, ValidationError[].class);
@@ -66,8 +64,6 @@ public class RegistrationHandler {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        dataBase.close();
 
         String userId = UUID.randomUUID().toString();
 
@@ -82,13 +78,12 @@ public class RegistrationHandler {
             dataBase.executeSql(
                     String.format("INSERT INTO Tag(id, tagName, idUser) " +
                             "VALUES ('%s', '%s', '%s');",
-                            "bin", "bin", userId
+                            UUID.randomUUID().toString(), "bin", userId
                     )
             );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        dataBase.close();
 
         response.status(OK.value());
         Token accessToken = new Token(userId);

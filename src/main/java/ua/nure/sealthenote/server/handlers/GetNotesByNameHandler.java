@@ -49,8 +49,6 @@ public class GetNotesByNameHandler {
             }
         }
 
-        dataBase.close();
-
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 

@@ -57,14 +57,10 @@ public class LogInHandler {
         if (!found) {
             response.status(AUTHENTICATION_ERROR.value());
 
-            dataBase.close();
-
             return "Password or login is incorrect. Please, try again.";
         }
 
         String userId = users.getString("id");
-
-        dataBase.close();
 
         Token accessToken = new Token(userId);
         response.status(OK.value());

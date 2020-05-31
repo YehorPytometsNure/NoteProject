@@ -21,6 +21,7 @@ import Tag from '../models/note/tag.js';
 import LogOutAction from '../actions/log-out-action.js';
 import AuthenticationError from '../models/errors/authentication-error.js';
 import EventHandlersStorage from '../event/event-handlers-storage.js';
+import IdService from '../services/id-service.js';
 
 export default class NotesPage extends StateAwareComponent {
 
@@ -133,10 +134,12 @@ export default class NotesPage extends StateAwareComponent {
       this._noteEditingWindow.hide();
 
       this.stateManager.mutate(new ClearCurrentNotesMutator());
-      const tags = this.stateManager.state.previouslyVisitedTags;
-      for (const tag of tags) {
-        await this.dispatch(new GetNotesAction(tag));
-      }
+      await this.dispatch(new GetPreviouslyVisitedTagsAction());
+
+      // const tags = this.stateManager.state.previouslyVisitedTags;
+      // for (const tag of tags) {
+      //   await this.dispatch(new GetNotesAction(tag));
+      // }
     });
 
     this._noteEditingWindow.onAcceptEditing(async (note) => {
@@ -145,10 +148,12 @@ export default class NotesPage extends StateAwareComponent {
       this._noteEditingWindow.hide();
 
       this.stateManager.mutate(new ClearCurrentNotesMutator());
-      const tags = this.stateManager.state.previouslyVisitedTags;
-      for (const tag of tags) {
-        await this.dispatch(new GetNotesAction(tag));
-      }
+      await this.dispatch(new GetPreviouslyVisitedTagsAction());
+
+      // const tags = this.stateManager.state.previouslyVisitedTags;
+      // for (const tag of tags) {
+      //   await this.dispatch(new GetNotesAction(tag));
+      // }
     });
 
     addNoteButton.addEventListener('click', () => {
@@ -168,19 +173,20 @@ export default class NotesPage extends StateAwareComponent {
       }
 
       this.stateManager.mutate(new ClearCurrentNotesMutator());
-      const tags = this.stateManager.state.previouslyVisitedTags;
+      await this.dispatch(new GetPreviouslyVisitedTagsAction());
 
-      for (const tag of tags) {
-        await this.dispatch(new GetNotesAction(tag));
-      }
+      // const tags = this.stateManager.state.previouslyVisitedTags;
+      // for (const tag of tags) {
+      //   await this.dispatch(new GetNotesAction(tag));
+      // }
     });
 
     this._noteEditingWindow.onDeleteButtonClick(async (note) => {
 
-      if (note.tag.id !== 'bin') {
+      if (note.tag.name !== 'bin') {
         await this.dispatch(new UpdateNoteAction(Object.assign({}, note, {
           tag: {
-            id: 'bin',
+            id: '',
             name: 'bin',
           },
         })));
@@ -188,13 +194,14 @@ export default class NotesPage extends StateAwareComponent {
         await this.dispatch(new DeleteNoteAction(note));
       }
 
-      this.stateManager.mutate(new ClearCurrentNotesMutator());
-      const tags = this.stateManager.state.previouslyVisitedTags;
-      for (const tag of tags) {
-        await this.dispatch(new GetNotesAction(tag));
-      }
-
       this._noteEditingWindow.hide();
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
+      await this.dispatch(new GetPreviouslyVisitedTagsAction());
+
+      // const tags = this.stateManager.state.previouslyVisitedTags;
+      // for (const tag of tags) {
+      //   await this.dispatch(new GetNotesAction(tag));
+      // }
     });
 
     this._sideNavigationMenu.onTagSelected(async (tag) => {
@@ -217,8 +224,9 @@ export default class NotesPage extends StateAwareComponent {
     this._sideNavigationMenu.onBinClick(async () => {
       this._sideNavigationMenu.closeMenu();
       this.stateManager.mutate(new ClearCurrentNotesMutator());
+      const stateManager = this.stateManager;
       await this.dispatch(new GetNotesAction(new Tag({
-        id: 'bin',
+        id: stateManager.state.previouslyVisitedTags.find((tag) => tag.name === 'bin').id,
         name: 'bin',
       })));
     });
@@ -272,7 +280,7 @@ export default class NotesPage extends StateAwareComponent {
     this.onStateChanged('previouslyVisitedTags', (event) => {
 
       this.stateManager.mutate(new ClearCurrentNotesMutator());
-      const tags = event.detail.state.previouslyVisitedTags;
+      const tags = event.detail.state.previouslyVisitedTags.filter((tag) => tag.name !== 'bin');
       tags.forEach(async (tag) => await this.dispatch(new GetNotesAction(tag)));
     });
 
@@ -350,7 +358,7 @@ export default class NotesPage extends StateAwareComponent {
     if (error instanceof AuthenticationError) {
       this._handleAuthenticationError();
     } else {
-      alert(error.message);
+      alert(error);
     }
   }
 
