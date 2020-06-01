@@ -1,8 +1,8 @@
 import Input from '../input.js';
-import Anchor from '../anchor.js';
 import RegistrationFormValidator from './registration-form-validator.js';
 import ValidationUnit from '../../../models/validation-unit.js';
 import Form from '../form.js';
+import FishAnchor from '../fish-anchor.js';
 
 export default class RegistrationForm extends Form {
 
@@ -19,8 +19,8 @@ export default class RegistrationForm extends Form {
 
   _markup() {
     return `
-      <form class="left side registration" data-type="registration-form" data-test="registration-form-rendered">
-        <div class="form-header">Hello! Are you ready to sign up?</div>
+      <form class="left side" data-type="registration-form" data-test="registration-form-rendered">
+        <div class="form-header">Are you ready to sign up?</div>
       </form>
     `;
   }
@@ -30,7 +30,7 @@ export default class RegistrationForm extends Form {
 
     this.loginComponent = new Input(rootElement, {
       inputAttributeId: 'email-input',
-      labelTextContent: 'Email:',
+      labelTextContent: 'Login:',
       inputAttributeType: 'email',
       inputName: 'login',
     });
@@ -51,8 +51,8 @@ export default class RegistrationForm extends Form {
 
     this.inputComponents = [this.loginComponent, this.passwordComponent, this.confirmPasswordComponent];
 
-    this.submitButton = new Anchor(rootElement, {
-      textContent: 'Register',
+    this.submitButton = new FishAnchor(rootElement, {
+      textContent: 'Sign Up',
     });
   }
 

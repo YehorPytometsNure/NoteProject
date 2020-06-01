@@ -78,7 +78,7 @@ export default class Application extends Component {
       }),
       [NOTES_PAGE]: (router) => {
         const page = new NotesPage(rootElement, stateManager, {titleService});
-        page.onAuthenticationError(() => router.redirectTo(LOGIN));
+        page.onAuthenticationError(() => router.redirectTo(WELCOME));
 
         return page;
       },
