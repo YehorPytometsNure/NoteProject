@@ -1,23 +1,72 @@
+.slide_menu {
+  font-family: 'AmaticSC-Bold';
+}
+
+.slide_menu_item {
+  display: inline-block;
+  color: #2d6c90;
+  text-decoration: none;
+  position: relative;
+  padding: 14px 0;
+  font-family: 'AmaticSC-Bold';
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.040em;
+}
+
+.slide_menu_item svg {
+  fill: none;
+  stroke: #70aec9;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke-dasharray: 338;
+  stroke-dashoffset: 338;
+  stroke-linecap: round;
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  width: calc(100%);
+  height: 100%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: stroke-dashoffset 0s 0.2s, opacity 0.2s;
+  z-index: -1;
+}
+
+.slide_menu_item--active svg {
+  stroke: #ff4c4c;
+}
+
+.slide_menu_item--active svg,
+.slide_menu_item:hover svg {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition: opacity 0s, stroke-dashoffset 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
 .sidenav {
     height: 100%;
-    width: 0;
+    width: 250px;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
     background-color: #EB7F00;
     overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+    transition: 0.5s ease-out 0.1s;
+    padding-top: 10px;
+    margin-top: 70px;	
+    font-size: 34px;
+    opacity: 0;
 }
 
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
     color: #ACF0F2;
     display: block;
-    transition: 0.3s;
+    transition: 0.3s ease-out 0.1s;
 }
 
 .sidenav a:hover {
@@ -27,9 +76,8 @@
 .sidenav .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
+    right: 0;
     font-size: 36px;
-    margin-left: 50px;
 }
 
 @media screen and (max-height: 450px) {
@@ -45,19 +93,19 @@
 .slide_menu
 {
     text-indent: 15px;
-    font-family: 'Comic Sans MS', serif;
     font-size: larger;
     color: #F3FFE2;
+    overflow: hidden;
 }
+
 
 .slide_menu_header {
     font-size: 35px;
 }
 
 .slide_menu_subheader {
-    font-size: 25px;
-    font-style: italic;
-    border-bottom: 1px solid;
+    font-size: 30px;
+    margin-bottom: 0px;
 }
 
 .slide_menu_item {
@@ -66,17 +114,40 @@
     color: #ACF0F2;
 }
 
-.create_new_tag {
-    font-weight: bold;
-    color: #1695A3;
-    margin-top: -15px;
-    margin-left: 20px;
+.sidenav .looking-for-note {
+    background: transparent;
+    color: #F3FFE2;
+    border: 0;
+    width: inherit;
+    outline:none;
+    font-size: 28px;
+    margin: -5px 20px;
+    padding: 14px;
 }
 
-.bin {
-    color: #ACF0F2;
-    font-size: 25px;
+.sidenav .looking-for-note::placeholder{
+    color: #F3FFE2;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
 }
+
+.sidenav .looking-for-note:focus::-webkit-input-placeholder {
+    color: #F3FFE2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#create_new_tag {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1695A3;
+}
+
+#bin {
+    color: #ACF0F2;
+    font-size: 30px;
+    margin-left: 20px;
+  }
 
 .hide_helper {
     font-weight: bold;
@@ -85,5 +156,50 @@
     text-align: center;
     border: 2px solid #F3FFE2;
     width: 215px;
-    margin-left: 15px
+    margin-left: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.second_menu{
+    display: grid;
+    font-size: 28px;
+}
+
+.divide_wave{
+    height: 40px;
+    width: 90%;
+    margin-left: 4%;
+}
+
+.scrollbar
+{
+    float: left;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+#style-scroll::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #ACF0F2; 
+}
+
+#style-scroll::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #ACF0F2; 
+}
+
+#style-scroll::-webkit-scrollbar-thumb
+{
+    background-color: #169BD5;
+}
+
+@media screen and (max-width: 1000px)
+{
+	.column-right {
+		width: 50%;
+		margin-top: 0;
+	}
 }

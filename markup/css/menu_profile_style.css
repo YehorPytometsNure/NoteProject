@@ -1,0 +1,156 @@
+@font-face { font-family: AmaticSC-Bold; src: url('../fonts/AmaticSC-Bold.ttf'); } 
+
+textarea{
+	outline: none;
+	font-family: 'AmaticSC-Bold';
+}
+.profile_window
+{
+	width: 600px;
+    height: 600px;
+  background: #FFFFFF;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 150px auto;
+  border-radius: 1px ;
+  border: 1px solid;
+}
+
+#profile_window{
+	width: 600px;
+	margin-left: 100px;
+	opacity: 0;
+}
+
+.module-window-seal{
+	width: 400px;
+	display: block;
+	position: absolute;
+	margin-left: 300px;
+	margin-top: -210px;
+}
+
+.header_profile
+{
+	background: #EB7F00;
+    height: 60px;
+	display: flex;
+    flex-direction: row;
+    border-bottom: 1px;
+}
+.footer_profile
+{
+	background: #EB7F00;
+    border-top: 1px;
+}
+.button1
+{
+  border-radius: 50%; 
+  background:#169BD5; 
+  width: 35px; 
+  height: 35px; 
+  margin-left: 450px;
+  margin-top: 12px;
+  transition: all 0.5s ease;
+  z-index: 20;
+
+}
+.button1:hover {
+  box-shadow: 0 0 15px #666; 
+  transition: all 0.5s ease;
+}
+.info {
+	padding: 10px;
+	font-family: 'AmaticSC-Bold';
+	font-size: 36px;
+	color: #F3FFE2;
+	margin-left: 10px;
+	margin-top: -5px;
+}
+.profile_menu_ava{
+	height: 175px;
+    background: #FFFFF0;
+	display: flex;
+	flex-direction: column;
+}
+.profile_menu_ava_img {
+	width: 60px; 
+	height: 60px; 
+	border-radius: 100px;
+	box-shadow: 0 0 7px #666;
+	margin-left: 260px;
+    margin-top: 30px;
+}
+.set_profile_picture{
+    width: 150px;
+    margin-left: 215px;
+    margin-top: 20px;
+  background: #169BD5;
+  color: white;
+  border-radius: 20px;
+  font-family: 'AmaticSC-Bold';
+  font-size: 20px;
+  outline: none;
+  : all 0.5s ease;
+  z-index: 20;
+
+}
+.set_profile_picture:hover {
+  box-shadow: 0 0 15px #666; 
+  transition: all 0.5s ease;
+}
+.set_profile_picture:focus{
+  outline: none;
+}
+.footer_profile
+{
+  background: #EB7F00;
+    height: 62.5px;
+    display: flex;
+    flex-direction: row;
+}
+.textarea_menu{
+	height: 300px;
+	display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+	align-items: center;
+}
+textarea{
+	width: 200px;
+	height: 30px;
+	 text-align: center;
+	 border-radius: 20px;
+	 resize: none;
+}
+.settings{
+	font-family: 'AmaticSC-Bold';
+	font-size: larger; 
+	font-size: 26px; 
+    margin-bottom: -10px;
+}
+.ok{
+  border-radius: 50%; 
+  background:#169BD5;
+  width: 45px;
+  height: 45px;
+  margin-left: 540px;
+  margin-top: 8px;
+  transition: all 0.5s ease;
+  z-index: 20;
+}
+.ok:hover {
+  box-shadow: 0 0 15px #666; 
+  transition: all 0.5s ease;
+}
+
+.wave-line{
+	    height: 50px;
+}
+
+.name_profile, .birthday, .login, .password{
+	resize: none;
+}

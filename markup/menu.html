@@ -1,69 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
     <link rel="stylesheet" type="text/css" href="./css/menu_style.css">
     <link rel="stylesheet" type="text/css" href="./css/message_bubble_style.css">
     <link rel="stylesheet" type="text/css" href="./css/module_style.css">
+    <link rel="stylesheet" type="text/css" href="./css/profile-menu-style.css">
+    <link rel="stylesheet" type="text/css" href="./css/menu_profile_style.css">
+    <link rel="stylesheet" type="text/css" href="./css/pop-up.css">
     <script src="scripts/side_nav.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/side_nav.css">
-    <title>Menu</title>
+    <link rel="icon" type="image/gif/png" href="mascot/resting.png">
+	<title>Seal the Note</title>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+     </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 </head>
-<body>
-<header class="header">
-    <div class="column-left">
-        <img class="logo" src="./images/logo.png" alt="logo">
-        <div class="find"><input class="input" type="text" placeholder="Type in to find a note..."></div>
-    </div>
-    <div class="column-right">
-        <img class="profile_ava" src="./images/profile_ava.jpg" alt="profile_ava">
-        <img class="arrow_down" src="./images/arrow_down.png" alt="arrow_down">
-        <div class="name">Vasya Pupkin</div>
-        <div>
-            <div class="loadingio-spinner-eclipse-vg05wjn3dtp">
-                <div class="ldio-yftvigrggm8">
-                    <div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<div class="menu">
-    <img class="arrow_right" src="./images/arrow_right.png" alt="arrow_right" onclick="openNav()">
+<body onload="closeNav()">
 
+<header>
+<div class="column-left">
+<img class = "logo" src="./pictures/logo.png" alt="logo">
+<div class="find"><input class="looking-for-note" type="text" placeholder="Type in to find a note..."></div>
+</div>
+</div>
+<div class="column-center"></div>
+<div class="column-right">
+<img class="arrow_down" id="arrow_down" src="pictures/arrow_down.png" alt="arrow_down" style="cursor: url(./pictures/cursor-pointer.png), auto;" onclick="openNavProfile()">
+<div class = "name">Vasya Pupkin</div>
+<img class="profile_ava" src="pictures/profile_ava.jpg" alt="profile_ava">
+
+<div class="loadingio-spinner-eclipse-vg05wjn3dtp">
+    <div class="ldio-yftvigrggm8">
+    	<div></div>
+    </div>
+</div>
+
+<!-- Profile Menu -->
+
+
+<div id="profile_menu">
+    <div class="slide_menu" id="hide-profile-menu" style="font-family: 'AmaticSC-Bold'; font-size: 30px; text-align: left;">
+        <div class = "profile_menu">
+                <p class="slide_menu_item" style="font-size: 28px;" onclick="OpenProfile()">Profile settings<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+                <p class="slide_menu_item" style="font-size: 28px;">Help<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+                <p class="slide_menu_item" style="font-size: 28px;">About us<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/></svg></p>
+</div>
+    </div>
+
+</div>
+</header>
+
+
+<!-- Left Menu -->
+
+
+<div class="menu">
+    <img class="arrow_right" src="./pictures/arrow_right.png" alt="arrow_right" onclick="openNav()">
     <div>
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-        <div class="slide_menu">
+        
+<div class="scrollbar" id="style-scroll">
+        <div class="slide_menu" id="hide-menu" style="font-family: 'AmaticSC-Bold'; font-size: 30px; ">
             <p class="slide_menu_header">Menu</p>
-            <p class="slide_menu_subheader">Tags</p>
+            <img class="arrow_left" src="./pictures/arrow_left.png" alt="arrow_left" onclick="closeNav()">
+ 			<p class="slide_menu_subheader">Notes</p>
+            <img class="divide_wave" src="./pictures/wave.png" alt="divide_wave">
+
             <div class="second_menu">
-                <p class="slide_menu_item">Work</p>
-                <p class="slide_menu_item">Home</p>
-                <p class="slide_menu_item">Unorginized</p>
+                <p class="slide_menu_item">Blank<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+                <p class="slide_menu_item">To-Do List<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+                <p class="slide_menu_item">Calendar<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/></svg></p>
+      
+      			<p class="slide_menu_item">Diary<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
             </div>
-            <input class="input" type="text" placeholder="Type in to find a note...">
-            <div class="create_new_tag">+ create new</div>
-            <p class="bin">Bin</p>
-            <div class="hide_helper">Hide helper</div>
+
+            <p class="slide_menu_subheader">Tags</p>
+            <img class="divide_wave" src="./pictures/wave.png" alt="divide_wave">
+            <div class="second_menu">
+            	<input class="looking-for-note" type="text" onclick="this.placeholder = ''" onblur="this.placeholder = 'Find a tag...'" placeholder="Find a tag...">
+                <p class="slide_menu_item">Work<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+                <p class="slide_menu_item">Home<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+                <p class="slide_menu_item">Unorginized<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/></svg></p>
+      
+      			<p id="create_new_tag" class="slide_menu_item">+ create new<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+    <br>
+            </div>
+            <img class="divide_wave" src="./pictures/wave.png" alt="divide_wave">
+           <div class="second_menu">
+           <p class="slide_menu_item" id="bin">Bin<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+      <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+    </svg></p>
+</div>
+            <div class="hide_helper" id="hide_helper" onclick="hideHelper()">Hide helper</div>
         </div>
     </div>
     </div>
 </div>
+</div>
+
+
+
+<!-- Main Window -->
+
+</div>
+<div id="blur">
 <div class="tags">
     <div class="name_tag">
-        <p>Work</p>
+        <p class="tagname-textarea">Work</p>
     </div>
     <div class="tag">
-        <div class="note_tag">
+        <!-- default note -->
+<div class="" onmouseover="mouseOverNote()" onmouseleave="mouseLeftNote()">
+    <img src="pictures/padlock.png" id="padlock" onclick="sealNote()" onmouseover="mouseOverLock()"
+        >
+        <img src="pictures/close.png" id="delete-note" onclick="deleteNote()" onmouseover="mouseOverLock()">
+        <div class="note_tag" onclick="openNote()">
+
             <div class="name_note_tag">Agenda</div>
             <div class="ex_note passworded">
                 <p>
@@ -74,7 +151,10 @@
                 </p>
             </div>
         </div>
+<!-- -->
+        </div>
         <div class="note_tag">
+            
             <div class="name_note_tag">Meeting</div>
             <div class="ex_note">
                 <p>risks:new competition</p>
@@ -125,39 +205,115 @@
     </div>
 </div>
 
-<img class="plus" src="./images/plus.png" alt="plus">
-<div class="profile_menu"></div>
+<img class="plus" src="./pictures/plus.png" alt="plus" style="cursor: url(./pictures/cursor-pointer.png), auto;">
 
-<div class="module_window">
-    <img src="images/menu-mascot/resting.png" class="module-window-seal"/>
-    <div class="head_module">
-        <input class="name_module" type="text" value="Name this">
-        <img class="button1" src="images/close.png" alt="close">
+<div class="mascot-container" id="mascot-container">
+    <div class="bubble" id="bubble">
+    <div class="message-tutorial" id="message">I'm gonna tell you about everything you can do here! Click on me to continue</div>
+   <!-- <img class="arrow_right" id="got-it-button" src="./pictures/arrow_right.png" alt="Got it!" onclick="document.getElementById('bubble').style.visibility = 'none'"> -->
     </div>
-    <textarea class="text_module">Write your text here...</textarea>
-    <div class="footer_module">
-        <div class="images1">
-            <img class="button2" src="images/goru.jpg">
-            <img class="button3" src="images/micro.png">
-            <img class="button4" src="images/planner.png">
-            <img class="button5" src="images/calendar.png">
-            <img class="button6" src="images/paint.png">
-        </div>
-        <div class="images2">
-            <img class="button7" src="images/network.png">
-            <img class="button8" src="images/mail.png">
-            <img class="button9" src="images/ok.png">
-        </div>
-    </div>
-    <input class="note_password" type="text" placeholder="Type password for your note...">
+    <img src="./pictures/menu-mascot/tutorial.png" class="tutorial-seal" alt="mascot" onclick="tutorial()"/>
 </div>
 
-<div>
-<div class="mascot-container">
-    <div class="message-bubble">Login component should not be less than 3.</div>
-    <img src="./images/menu-mascot/tutorial.png" class="tutorial-seal" alt="mascot"/>
+</div>
+
+
+
+<!-- Profile window -->
+
+
+
+<div class="profile_window" id="profile_window" style=" width: 600px;
+    margin-left: 400px;
+    position: fixed;
+    margin-top: -1020px;
+    z-index: 11;
+    background: white;">
+<img src="mascot/resting.png" class="module-window-seal"/>
+<div class="header_profile">
+<p class = "info">Profile</p>
+<img class = "button1" src="pictures/close.png" onclick="document.getElementById('profile_window').style.opacity = '0'" alt="close">
+</div>
+<div class = "info_profile">
+<div class = "profile_menu_ava">
+<img class="profile_menu_ava_img" src="pictures/profile_ava.jpg" alt="profile_ava">
+<button class = "set_profile_picture">Set profile picture</button> 
+<img class="wave-line" src="pictures/wave.png"> 
+</div>
+<div class = "textarea_menu">
+<p class = "settings" >Name</p>
+<textarea class = "name_profile">Vasya Pupkin</textarea>
+<p  class = "settings"> Birth </p>
+<textarea class = "birthday"> 19/09/2007 </textarea>
+<p  class = "settings">Login</p>
+<textarea class = "login"> vasya.pupkin@nure.ua </textarea>
+<p  class = "settings">Password</p>
+<textarea class = "password"> ******* </textarea> 
+
 </div>
 </div>
+<div class = "footer_profile">
+<img class = "ok" src = "pictures/ok.png">
+</div> 
+</div>
+
+    <!-- Pop-Up Window -->
+
+
+
+<div class="module_window" id="module_window">
+        <img src="mascot/resting.png" class="module-window-seal"/>
+            <div class="head_module">
+                <input class = "name_module" type = "text" onclick="this.placeholder = ''" onblur="this.placeholder = 'New note'" placeholder="New note" maxlength = "20">
+                <img class = "button1" src="pictures/close.png" alt="close" onclick="closeNote()">
+                </div>
+                    <textarea class="text_module" onclick="this.placeholder = ''" onblur="this.placeholder = 'Write your thoughts here...'" placeholder="Write your thoughts here..."></textarea>
+                <div>
+                <div class="footer_module">
+                    <div class="images1">
+                        <img class = "element" style="margin-left: 30px;" src="pictures/goru.png">
+                        <img class = "element" src="pictures/micro.png">
+                        <img class = "element" src="pictures/table.png">
+                        <img class = "element" src="pictures/planner.png">
+                        <img class = "element" src="pictures/calendar.png">
+                        <img class = "element" src="pictures/paint.png">
+                        <img class = "element" src="pictures/network.png">
+                        <img class = "element" src="pictures/mail.png">
+                    </div>
+                <div class="images2">
+                    <img class = "right-element" style="margin-right: 30px;" src="pictures/ok.png">
+                </div>
+            </div>
+            <!--<div>
+                <input class="note_password" type="text" placeholder="Type password for your note...">
+            </div>-->
+        </div>
+</div>
+
+
+<!-- Pop up submission -->
+<div class="pop-window" id="pop-window">
+            <div class="head_pop">
+                <p class="mess-header">Are you sure?</p>
+                <img class = "button1" src="pictures/close.png" alt="close" onclick="" style="margin-left: 250px;
+    margin-top: 8px;">
+                </div>
+                <div class="mess">
+                    <p>Do you want to save this note?</p>
+                    <!--<input type="text" name="pass-for-note">-->
+                </div>
+                <div style="margin-left: 65px;">
+                    <div class="button-div">
+                <a class="buttons" href='' style=" margin-right: 30px; float: left">Cancel</a>
+                    <a class="buttons" href='' style=" margin-left: 30px; float: left" >Ok</a>
+                </div>
+            <!--<div>
+                <input class="note_password" type="text" placeholder="Type password for your note...">
+            </div>-->
+        </div>
+</div>
+
+
 </body>
 </html>
 

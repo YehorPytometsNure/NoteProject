@@ -52,11 +52,11 @@ a.buttons
     -webkit-transition: background-color 0.1s linear;
     -moz-transition: background-color 0.1s linear;
     -o-transition: background-color 0.1s linear;
-    transition: background-color 0.1s linear;
+    transition: background-color 0.1s linear;   
     margin-top: -7px;
     border: solid 1px;
 }
-a.buttons:hover
+a.buttons:hover 
 {
     cursor: url(../pictures/cursor-pointer.png), auto;
     background-color: #ACF0F2;
