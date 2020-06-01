@@ -1,0 +1,183 @@
+@font-face {
+	font-family: AmaticSC-Bold;
+	src: url('../fonts/AmaticSC-Bold.ttf');
+}
+
+html
+	{
+		height: 100%;
+		width: 100%;
+	}
+
+body
+	{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		background-color: #EB7F00;
+		overflow: hidden;
+		background-image: url('../pictures/back.png');
+
+	}
+
+.content
+	{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		font-family: 'AmaticSC-Bold';
+	}
+
+.logo{
+	width: 100px;
+	margin-top: -50px;
+}
+
+.left.side
+{
+	background-color: orange;
+	float:left;
+	height: 170px;
+	display: flex;
+	border: 5px dashed white;
+	border-radius: 15px;
+	flex-direction: column;
+	margin-left: 100px;
+	padding: 100px;
+	justify-content: space-between;
+	align-items: center;
+/*	background-image: url('../pictures/wave.png');
+	background-repeat: no-repeat;
+    background-size: 400px 120px;*/
+}
+
+.left.side > div
+{
+	align-items: center;
+	color: white;
+	width: max-content;
+}
+
+.left.side > div input
+{
+	margin-left: 10px;
+	border: 0;
+	background-color: orange;
+	font-size: 36px;
+	text-indent: 5px;
+	flex-direction: row;
+	font-family: 'AmaticSC-Bold';
+	color: #ACF0F2;
+}
+
+.button-div{
+	display: table-row;
+}
+
+input::placeholder{
+	color: white;
+	opacity: 0.5;
+	transition: opacity 0.3s ease;
+}
+
+input:focus::-webkit-input-placeholder {
+	color: white;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.right.side
+{
+	width:600px;
+	margin-top: -10px;
+}
+
+.login{
+	 font-family: 'AmaticSC-Bold';
+	 font-size: 50px;
+	 font-style: bold;
+	  margin-top: -50px;
+}
+
+.input-fields{
+	margin-left: -100px;
+	font-size: 36px;
+	display: grid;
+	width: 400px;
+    margin-bottom: 50px;
+}
+
+.bottom.side .login
+{
+	text-align: center;
+	font-size: 48px;
+	font-weight: bold;
+	color: white;
+	margin-bottom: 40px;
+}
+
+.fish{
+	width: 50px;
+	float: right;
+}
+
+.buttons{
+	border-radius: 4px;
+	border-color: white;
+	border: dashed;
+	float: left;
+}
+
+a.buttons
+{
+	background-color: #1695A3;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+	color: #fff;
+	display:block;
+	width:100px;
+	text-align: center;
+	font-family: 'AmaticSC-Bold';
+	font-size: 26px;
+	padding: 8px 16px;
+	margin: 20px auto;
+	text-decoration: none;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: background-color 0.1s linear;
+	-moz-transition: background-color 0.1s linear;
+	-o-transition: background-color 0.1s linear;
+	transition: background-color 0.1s linear;
+	margin-top: -7px;
+}
+a.buttons:hover
+{
+	background-color: #ACF0F2;
+}
+
+form{
+outline: none;
+color: white;
+}
+
+input{
+	outline:none;
+}
+
+input:focus{
+	outline:none;
+}
+
+.email-input, .password-input{
+	outline: none;
+	background-color: transparent;
+	border: none;
+	font-size: 36px;
+	font-family: 'AmaticSC-Bold';
+	color: #ACF0F2;
+}

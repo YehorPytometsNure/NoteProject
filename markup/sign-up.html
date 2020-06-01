@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Oleo Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main_style.css">
+    <script src="scripts/validation.js"></script>
+    <link rel="icon" type="image/gif/png" href="mascot/resting.png">
+    <title>Seal the Note: Log In</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="bottom side">
+    <div class="content">
+
+        <div class="left side" style="height: 300px; width: 400px; padding: 80px;">
+            <div class="login" style="margin-top: -70px">Start planning your day!</div>
+            <form name="login" onsubmit="return formValidationSignUp();">
+                <div class="input-fields">
+                    <div class="email">Name:<input class="email-input" name="username" type="text" onclick="this.placeholder = ''" onblur="this.placeholder = 'Seal Fishman'" placeholder="Seal Fishman"></div>
+                    <div class="email">Date of birth:<input class="email-input" name="dateofbirth" type="date"></div>
+                    <div class="email">Email:<input class="email-input" name="email" type="email" onclick="this.placeholder = ''" onblur="this.placeholder = 'seal@gmail.com'" placeholder="seal@gmail.com"></div>
+                    <div class="password">Password: <input class="password-input" name="password" type="password" onclick="this.placeholder = ''" onblur="this.placeholder = '••••••'" placeholder="••••••"></div>
+                    <div class="password">Repeat Password: <input class="password-input" name="password2" type="password" onclick="this.placeholder = ''" onblur="this.placeholder = '••••••'" placeholder="••••••"></div>
+                </div>
+                <div class="button-div">
+                    <a class="buttons" href='welcome-page.html' style="text-align: right; margin-right: 30px"><img class="fish" src="./pictures/arrow_left.png" style="margin-left: -5px; float: left;">Return</a>
+                    <a class="buttons" href='main.html' style="text-align: left; margin-left: 30px" >Sign Up<img class="fish" style="margin-right: -10px; float: right;" src="./pictures/arrow_right.png"></a>
+                </div>
+            </form>
+        </div>
+        <img class="right side" style="float: left;" src = "mascot/tutorial.png">
+    </div>
+</div>
+</body>
+</html>
+
