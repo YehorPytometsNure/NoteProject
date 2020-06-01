@@ -12,8 +12,8 @@ export default class SearchBar extends Component {
 
   _markup() {
     return `
-        <div>
-            <input class="input" type="text" placeholder="Type in to find a note..." data-type="input-element">
+        <div style="display: flex; flex-direction: row;">
+            <input class="looking-for-note" type="text" placeholder="Type in to find a note..." data-type="input-element">
             <button data-type="clear-input-button" style="display: none;">Clear</button>
         </div>
     `;

@@ -49,15 +49,30 @@ body {
 .find {
     margin-top: -15px;
     margin-left: 20px;
-    font-family: 'Comic Sans MS', serif;
-    font-size: 26px;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 34px;
     color: #eaba82;
+    width: 100%;
 }
 
-.find .input {
-    background: #EB7F00;
-    border: 0;
+.find .looking-for-note {
+     background: #EB7F00;
+     border: 0;
+     color: #F3FFE2;
+     width: inherit;
+     outline:none;
+ }
+
+.find .looking-for-note::placeholder{
     color: #F3FFE2;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.find .looking-for-note:focus::-webkit-input-placeholder {
+    color: #F3FFE2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .name {
