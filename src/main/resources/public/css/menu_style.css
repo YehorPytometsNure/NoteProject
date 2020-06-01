@@ -57,6 +57,8 @@ body {
 }
 
 .find .looking-for-note {
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 34px;
     background: #EB7F00;
     border: 0;
     color: #F3FFE2;
