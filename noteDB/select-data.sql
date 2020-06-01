@@ -4,4 +4,4 @@ SELECT * FROM note
 WHERE noteName = "" AND idUser = (SELECT id FROM user);
 SELECT * FROM note
 WHERE idUser = (SELECT id FROM user);
-SELECT * FROM user WHERE userEmail = “*” AND userPassw = “*”;
+SELECT * FROM user WHERE userEmail = "*" AND userPassw = "*";
