@@ -11,6 +11,7 @@ import State from './state/state.js';
 import TitleService from './services/title-service.js';
 import fetchMockMode from './mocks/fetch-mock-mode.js';
 import NotesPage from './pages/notes-page.js';
+import WelcomePage from './pages/welcome-page.js';
 
 /**
  * Enumeration of possible url templates.
@@ -18,6 +19,7 @@ import NotesPage from './pages/notes-page.js';
  * @type {Readonly<{LOGIN: string, REGISTRATION: string}>}
  */
 const UrlTemplates = Object.freeze({
+  WELCOME: '/welcome',
   LOGIN: '/login',
   REGISTRATION: '/registration',
   NOTES_PAGE: '/notes',
@@ -55,7 +57,7 @@ export default class Application extends Component {
 
   _initNestedComponents() {
     const {rootElement} = this;
-    const {LOGIN, REGISTRATION, NOTES_PAGE} = UrlTemplates;
+    const {LOGIN, REGISTRATION, NOTES_PAGE, WELCOME} = UrlTemplates;
     const tokenService = new TokenService(window.localStorage);
     const apiService = new ApiService(tokenService);
     const state = new State();
@@ -63,6 +65,7 @@ export default class Application extends Component {
     const titleService = new TitleService(document);
 
     const pageMappings = {
+      [WELCOME]: () => new WelcomePage(rootElement),
       [LOGIN]: (router) => new LoginPage(rootElement, {
         successfulResponseHandler: () => router.redirectTo(NOTES_PAGE),
         titleService,
@@ -85,7 +88,7 @@ export default class Application extends Component {
       .withWindow(window)
       .withPageContainer(rootElement)
       .withPageMappings(pageMappings)
-      .withDefaultUrlHash(LOGIN)
+      .withDefaultUrlHash(WELCOME)
       .withNotFoundPageCreator(() => new NotFoundPage(rootElement))
       .withHashChangeHandler((staticPart, dynamicPart) => {
         stateManager.dispatchAction(new RouteChangedAction(staticPart, dynamicPart));

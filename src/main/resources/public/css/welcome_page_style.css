@@ -1,0 +1,140 @@
+@font-face {
+    font-family: AmaticSC-Bold;
+    src: url('../fonts/AmaticSC-Bold.ttf');
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #EB7F00;
+    overflow: hidden;
+    background-image: url('../images/back.png');
+}
+
+.welcome-page .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'AmaticSC-Bold';
+}
+
+.welcome-page .logo {
+    width: 100px;
+    margin-top: -50px;
+}
+
+.welcome-page .left.side.left-side-welcome-page {
+    background-color: orange;
+    float: left;
+    height: 170px;
+    display: flex;
+    border: 5px dashed white;
+    border-radius: 15px;
+    flex-direction: column;
+    margin-left: 100px;
+    padding: 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.welcome-page .left.side.left-side-welcome-page > .left-side-inner-div {
+    align-items: center;
+    color: white;
+    width: max-content;
+    margin-top: 20px;
+}
+
+.welcome-page .button-div {
+    display: table-row;
+
+}
+
+.welcome-page .right.side {
+    width: 600px;
+    margin-top: -10px;
+}
+
+.welcome-page .login {
+    font-family: 'AmaticSC-Bold';
+    font-size: 50px;
+    font-style: bold;
+    margin-top: -50px;
+}
+
+.welcome-page .input-fields {
+    margin-left: -100px;
+    font-size: 36px;
+    display: grid;
+    width: 400px;
+    margin-bottom: 50px;
+}
+
+.welcome-page.bottom.side .login {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    line-height: 45px;
+}
+
+.welcome-page .fish-button-text {
+    margin-top: 2px;
+}
+
+.welcome-page .fish {
+    width: 50px;
+    float: right;
+}
+
+.welcome-page .buttons {
+    border-radius: 4px;
+    border-color: white;
+    border: dashed;
+    float: left;
+}
+
+.welcome-page a.buttons {
+    background-color: #1695A3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    color: #fff;
+    display: block;
+    width: 140px;
+    text-align: center;
+    font-family: 'AmaticSC-Bold';
+    font-size: 26px;
+    padding: 8px 16px;
+    /*margin: auto auto;*/
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: background-color 0.1s linear;
+    -moz-transition: background-color 0.1s linear;
+    -o-transition: background-color 0.1s linear;
+    transition: background-color 0.1s linear;
+    /*margin-top: -7px;*/
+}
+
+.welcome-page a.buttons:hover {
+    background-color: #ACF0F2;
+}
+
+.welcome-page .email-input, .welcome-page .password-input {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    font-size: 36px;
+    font-family: 'AmaticSC-Bold';
+    color: #ACF0F2;
+}

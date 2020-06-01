@@ -12,7 +12,7 @@ body {
 /*    height: 100%;*/
     background-color: #EB7F00;
 /*    overflow: hidden;*/
-    font-family: 'Oleo Script', cursive;
+/*    font-family: 'Oleo Script', cursive;*/
 }
 
 .form-header {
@@ -50,7 +50,7 @@ body {
     display: flex;
     flex-direction: row;
     font-size: 25px;
-    font-family: 'Oleo Script', cursive;
+    /*font-family: 'Oleo Script', cursive;*/
     align-items: center;
     color: white;
     margin-bottom: 20px;
@@ -90,7 +90,7 @@ a.buttons {
     display: block;
     width: 100px;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     font-size: 14px;
     padding: 8px 16px;
     text-decoration: none;
