@@ -8,12 +8,14 @@ body {
     margin: 0;
     min-height: 100vh;
     height: 100%;
+    cursor: url(../images/cursor.png), auto;
 }
 
 .menu {
     background-color: #EB7F00;
     position: fixed;
     top: 70px;
+    left: 0;
     width: 86px;
     height: 100%;
     font-family: 'AmaticSC-Bold', serif;
@@ -26,6 +28,7 @@ body {
     height: 70px;
     position: fixed;
     top: 0;
+    left: 0;
     overflow: hidden;
     background-color: #EB7F00;
 }
@@ -116,12 +119,22 @@ body {
     cursor: url(../images/cursor-pointer.png), auto;
 }
 
+/*.tags {*/
+/*    height: 100%;*/
+/*    font-family: 'Comic Sans MS', serif;*/
+/*    font-size: 30px;*/
+/*    padding: 100px;*/
+/*    background: #fff;*/
+/*}*/
+
 .tags {
-    height: 100%;
-    font-family: 'Comic Sans MS', serif;
+    font-family: 'AmaticSC-Bold', serif;
     font-size: 30px;
-    padding: 100px;
-    background: #fff;
+    padding: 25px;
+    position: fixed;
+    top: 70px;
+    left: 86px;
+    right: 0;
 }
 
 .tag {
