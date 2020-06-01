@@ -18,7 +18,7 @@ export default class NotesGroup extends Component {
     return `
         <div data-type="notes-group">
             <div class="name_tag">
-                <p data-type="notes-group-tag-name">${this.tag.name}</p>
+                <p class="tagname-textarea" data-type="notes-group-tag-name">${this.tag.name}</p>
             </div>
             <div class="name_tag" style="display: ${this.tag.name === 'bin' ? 'block' : 'none'}">
                 <p data-type="notes-group-bin-delete-action">Delete</p>

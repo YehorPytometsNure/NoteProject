@@ -8,7 +8,7 @@ body {
     margin: 0;
     min-height: 100vh;
     height: 100%;
-    cursor: url(../images/cursor.png), auto;
+    cursor: url('../images/cursor.png'), auto;
 }
 
 .menu {
@@ -148,25 +148,57 @@ body {
 .name_tag {
     color: #169BD5;
     text-align: center;
+
     display: inline-block;
     min-width: 160px;
     width: auto;
     max-width: 250px;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 10px;
+
+
+    width:160px;
     height: 60px;
-    border: 3px groove #ACF0F2;
-    background: #ACF0F2;
+    background: url('../images/tag.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 140px;
     margin-left: 30px;
     margin-top: 10px;
+
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+/*.tagname-textarea {*/
+/*    margin-top: -10px;*/
+/*    font-size: 36px;*/
+/*    color: #225378;*/
+/*}*/
+
+/*.name_tag {*/
+/*    color: #169BD5;*/
+/*    text-align: center;*/
+/*    display: inline-block;*/
+/*    min-width: 160px;*/
+/*    width: auto;*/
+/*    max-width: 250px;*/
+/*    padding-left: 10px;*/
+/*    padding-right: 10px;*/
+/*    padding-top: 10px;*/
+/*    height: 60px;*/
+/*    border: 3px groove #ACF0F2;*/
+/*    background: #ACF0F2;*/
+/*    margin-left: 30px;*/
+/*    margin-top: 10px;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*}*/
+
 .name_tag.tags_actions_name {
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     color: #225378;
     border: 0;
     font-size: 30px;
@@ -177,10 +209,10 @@ body {
     min-width: 50px;
     padding-left: 5px;
     padding-right: 5px;
-    padding-top: 13px;
+    /*padding-top: 13px;*/
     font-size: 30px;
     text-decoration: underline;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border: 0;
     color: #225378;
     margin-left: 10px;
