@@ -291,13 +291,20 @@ body {
 
 .plus {
     border-radius: 50%;
-    background: #225378;
+    background: radial-gradient(40% 40%, #225378, #ACF0F2, white);
     box-shadow: 0 0 7px #666;
     width: 60px;
     position: fixed;
     bottom: 50px;
     right: 50px;
-    cursor: pointer;
+    cursor: url(../images/cursor-pointer.png), auto;
+    transition: all 0.5s ease;
+    z-index: 20;
+}
+
+.plus:hover {
+    box-shadow: 0 0 15px #666;
+    transition: all 0.5s ease;
 }
 
 .module_window {
