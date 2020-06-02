@@ -18,10 +18,31 @@
     flex-direction: row;
 }
 
+.logout-button {
+    height: 50px;
+    margin-left: 5px;
+    margin-top: 5px;
+    cursor: url(../images/cursor-pointer.png), auto;
+    width: 100px;
+    background: rgba(0,0,0,0);
+    color: white;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 30px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    border-radius: 4px;
+    transition: all 0.5s;
+}
+
+.logout-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.5s;
+}
+
 .profile_info_header {
     padding: 10px;
-    font-family: 'Comic Sans MS';
-    font-size: 30px;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 34px;
     color: #F3FFE2;
 }
 
@@ -30,7 +51,7 @@
     background: #225378;
     width: 35px;
     height: 35px;
-    margin-left: 450px;
+    margin-left: 490px;
     margin-top: 12px;
     cursor: pointer;
 }
@@ -58,6 +79,8 @@
     background: #225378;
     color: white;
     border-radius: 20px;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 20px;
 }
 
 .textarea_menu {
@@ -68,21 +91,28 @@
     align-items: center;
 }
 
+.textarea_menu > input {
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 20px;
+}
+
 .settings {
-    font-family: 'Comic Sans MS';
-    font-size: larger;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 20px;
 }
 
 .footer_profile {
     background: #EB7F00;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .footer_profile_ok {
     width: 50px;
     height: 50px;
-    margin-left: 540px;
-    margin-top: 6px;
-    cursor: pointer;
+    margin: 5px;
+    cursor: url(../images/cursor-pointer.png), auto;
 }
 
 

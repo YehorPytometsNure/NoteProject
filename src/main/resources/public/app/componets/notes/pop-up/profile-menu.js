@@ -40,7 +40,7 @@ export default class ProfileMenu extends Component {
                 </div>
             </div>
             <div class="footer_profile">
-                <a href="#/login" data-type="profile-menu-log-out-button">Log Out</a>
+                <button class="logout-button" href="#/login" data-type="profile-menu-log-out-button">Log Out</button>
                 <img class="footer_profile_ok" src="././././images/ok.png" data-type="profile-menu-ok-button">
             </div>
         </div>
