@@ -181,6 +181,43 @@ export default class NotesPage extends StateAwareComponent {
       // }
     });
 
+    this._notesGrid.onDeleteButtonClick(async (note) => {
+
+      if (note.tag.name !== 'bin') {
+        await this.dispatch(new UpdateNoteAction(Object.assign({}, note, {
+          tag: {
+            id: '',
+            name: 'bin',
+          },
+        })));
+      } else {
+        await this.dispatch(new DeleteNoteAction(note));
+      }
+
+      this.stateManager.mutate(new ClearCurrentNotesMutator());
+      await this.dispatch(new GetPreviouslyVisitedTagsAction());
+    });
+
+    this._notesGrid.onPadlockClick(async (note) => {
+
+      const self = this;
+      vex.dialog.prompt({
+        message: 'Add password to your note:',
+        placeholder: 'Password...',
+        type: 'password',
+        callback: async (password) => {
+
+          await self.dispatch(new UpdateNoteAction(Object.assign({}, note, {
+            password,
+          })));
+
+          self.stateManager.mutate(new ClearCurrentNotesMutator());
+          await self.dispatch(new GetPreviouslyVisitedTagsAction());
+        },
+      });
+      
+    });
+
     this._noteEditingWindow.onDeleteButtonClick(async (note) => {
 
       if (note.tag.name !== 'bin') {

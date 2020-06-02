@@ -253,7 +253,7 @@ export default class NoteWindow extends Component {
     this.rootElement.querySelector('[data-type="note-password"]').style.display = 'none';
     this.rootElement.querySelector('[data-type="note-password"]').value = '';
   }
-//TODO: fix password - done, update - done, choices - done, after - fix handlers - done, hosting.
+
   creatingMode() {
     this._creatingMode = true;
     this._editingMode = false;

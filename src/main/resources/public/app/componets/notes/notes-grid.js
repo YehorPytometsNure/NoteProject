@@ -14,6 +14,8 @@ export default class NotesGrid extends Component {
     super._initComponent();
     this._onNoteClickedHandlers = new EventHandlersStorage();
     this._onBinDeleteClickHandlers = new EventHandlersStorage();
+    this._onDeleteButtonClickHandlers = new EventHandlersStorage();
+    this._onPadlockClickhandlers = new EventHandlersStorage();
   }
 
   /**
@@ -68,6 +70,14 @@ export default class NotesGrid extends Component {
       component.onBinDeleteClick((notes) => {
         this._onBinDeleteClickHandlers.executeHandlers(notes);
       });
+
+      component.onDeleteButtonClick((note) => {
+        this._onDeleteButtonClickHandlers.executeHandlers(note);
+      });
+
+      component.onPadlockClick((note) => {
+        this._onPadlockClickhandlers.executeHandlers(note);
+      });
     });
   }
 
@@ -77,5 +87,13 @@ export default class NotesGrid extends Component {
 
   onBinDeleteClick(handler) {
     this._onBinDeleteClickHandlers.addEventHandler(handler);
+  }
+
+  onDeleteButtonClick(handler) {
+    this._onDeleteButtonClickHandlers.addEventHandler(handler);
+  }
+
+  onPadlockClick(handler) {
+    this._onPadlockClickhandlers.addEventHandler(handler);
   }
 }
