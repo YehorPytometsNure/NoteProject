@@ -14,7 +14,7 @@ export default class SearchBar extends Component {
     return `
         <div style="display: flex; flex-direction: row;">
             <input class="looking-for-note" type="text" placeholder="Type in to find a note..." data-type="input-element">
-            <button data-type="clear-input-button" style="display: none;">Clear</button>
+            <button class="clear-search-button" data-type="clear-input-button" style="display: none;">Clear</button>
         </div>
     `;
   }

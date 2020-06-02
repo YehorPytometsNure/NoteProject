@@ -104,10 +104,12 @@ export default class NotesPage extends StateAwareComponent {
     });
     this._searchBar.onInputClose(async () => {
       this.stateManager.mutate(new ClearCurrentNotesMutator());
-      const tags = this.stateManager.state.previouslyVisitedTags;
-      for (const tag of tags) {
-        await this.dispatch(new GetNotesAction(tag));
-      }
+      await this.dispatch(new GetPreviouslyVisitedTagsAction());
+
+      // const tags = this.stateManager.state.previouslyVisitedTags;
+      // for (const tag of tags) {
+      //   await this.dispatch(new GetNotesAction(tag));
+      // }
     });
 
     const profileMenuContainer = this.rootElement.querySelector('[data-type="profile-menu-container"]');
@@ -215,7 +217,7 @@ export default class NotesPage extends StateAwareComponent {
           await self.dispatch(new GetPreviouslyVisitedTagsAction());
         },
       });
-      
+
     });
 
     this._noteEditingWindow.onDeleteButtonClick(async (note) => {

@@ -443,3 +443,24 @@ body {
     -5px 25px 0 -10px #fff;
     border: 1px solid black;
 }
+
+.clear-search-button {
+    height: 50px;
+    margin-left: 5px;
+    margin-top: 5px;
+    cursor: url(../images/cursor-pointer.png), auto;
+    width: 100px;
+    background: rgba(0,0,0,0);
+    color: white;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 30px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    border-radius: 4px;
+    transition: all 0.5s;
+}
+
+.clear-search-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.5s;
+}
