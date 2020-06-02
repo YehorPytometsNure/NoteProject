@@ -2,6 +2,11 @@ import Component from '../componets/component.js';
 
 export default class WelcomePage extends Component {
 
+  _initComponent() {
+    document.title = "Notes";
+    super._initComponent();
+  }
+
   _markup() {
     return `
         <div class="welcome-page bottom side">

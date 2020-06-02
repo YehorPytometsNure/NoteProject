@@ -31,6 +31,7 @@ export default class NotesPage extends StateAwareComponent {
 
   _initComponent() {
     super._initComponent();
+    document.title = "Notes";
     this._onAuthenticationErrorHandlers = new EventHandlersStorage();
   }
 
