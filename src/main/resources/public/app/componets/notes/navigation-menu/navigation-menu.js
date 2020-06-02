@@ -116,6 +116,7 @@ export default class NavigationMenu extends Component {
       document.getElementById("mySidenav").style.opacity = "0";
     }, 500);
     document.getElementById("mySidenav").style.pointerEvents = "none";
+    document.querySelector(".menu .arrow_right").style.display = 'block';
   }
 
   openMenu() {
@@ -123,6 +124,7 @@ export default class NavigationMenu extends Component {
     document.getElementById("mySidenav").style.transform = "translateX(0)";
     document.getElementById("mySidenav").style.pointerEvents = "auto";
     document.getElementById("mySidenav").style.opacity = "1";
+    document.querySelector(".menu .arrow_right").style.display = 'none';
   }
 
   hideTagInput() {

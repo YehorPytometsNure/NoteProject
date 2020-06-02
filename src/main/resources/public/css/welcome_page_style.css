@@ -15,9 +15,10 @@ body {
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #EB7F00;
+    /*background-color: #EB7F00;*/
     overflow: hidden;
     background-image: url('../images/back.png');
+    background-color: #fff;
 }
 
 .welcome-page .content {

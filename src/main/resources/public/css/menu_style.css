@@ -107,6 +107,8 @@ body {
 }
 
 .arrow_right {
+    position: fixed;
+    z-index: 101;
     width: 85px;
     margin-top: 8px;
     cursor: url(../images/cursor-pointer.png), auto;
@@ -130,7 +132,7 @@ body {
 .tags {
     font-family: 'AmaticSC-Bold', serif;
     font-size: 30px;
-    padding: 25px;
+    margin: 25px 25px 25px 130px;
     position: fixed;
     top: 70px;
     left: 86px;
@@ -221,6 +223,7 @@ body {
 
 .note_tag {
     border: 1px solid;
+    border-radius: 5px;
     flex-basis: 250px;
     width: 250px;
     max-height: 290px;
@@ -229,7 +232,46 @@ body {
     margin-top: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
-    background: #fff;
+    background-color: white;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.5);
+    cursor: url(../images/cursor.png), auto;
+}
+
+.note_tag:hover{
+    transition: opacity 0.3s ease;
+    opacity: 0.5;
+}
+
+.note_tag .padlock {
+    display: none;
+    width: 40px;
+    margin-top: 80px;
+    margin-left: 70px;
+}
+
+.note_tag:hover .padlock {
+    display: inline;
+}
+
+.note_tag .delete-note {
+    display: none;
+    width: 40px;
+    margin-top: 80px;
+    margin-left: 30px;
+}
+
+.note_tag:hover .delete-note {
+    display: inline;
+}
+
+.note_tag:hover .delete-note:hover {
+    border-radius: 50%;
+    box-shadow: 0 0 15px #666;
+    transition: all 0.5s ease;
+}
+
+.note_tag:hover .ex_note {
+    display: none;
 }
 
 .note_tag:first-child {
@@ -241,7 +283,6 @@ body {
     background: #225378;
     border: 1px solid #225378;
     text-align: center;
-    padding: 10px;
 }
 
 .note-content-text {
@@ -266,7 +307,10 @@ body {
 }
 
 .ex_note {
-    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 25px;
+    margin: 10px;
 }
 
 .ex_note.passworded {
