@@ -3,6 +3,8 @@
     height: 600px;
     background: #FFFFFF;
     border: 1px solid;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     position: absolute;
     top: 0;
     right: 0;
@@ -26,20 +28,21 @@
 }
 
 .name_module {
-    font-size: 30px;
-    font-family: 'Comic Sans MS';
+    font-size: 36px;
+    font-family: 'AmaticSC-Bold', serif;
     color: #F3FFE2;
     margin-top: 10px;
+    margin-left: 6px;
     width: 300px;
     border: 0;
     background: #EB7F00;
 }
 
 .button1, .button2, .button3, .button4, .button5, .button6, .button7, .button8, .button9, .button10 {
-    cursor: pointer;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    cursor: url(../images/cursor-pointer.png), auto;
+    margin-right: 5px;
 }
 
 .button1 {
@@ -52,10 +55,33 @@
     z-index: 1000;
 }
 
+.button10-delete {
+    height: 50px;
+    margin-right: 5px;
+    cursor: url(../images/cursor-pointer.png), auto;
+    width: 80px;
+    background: rgba(0,0,0,0);
+    color: white;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 30px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 9px;
+    left: 135px;
+    transition: all 0.5s;
+}
+
+.button10-delete:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.5s;
+}
+
 .text_module {
     height: 458px;
-    font-family: 'Comic Sans MS';
-    font-size: 20px;
+    font-family: 'AmaticSC-Bold', serif;
+    font-size: 30px;
     padding: 20px;
     overflow: auto;
     width: 598px;
@@ -67,18 +93,17 @@
     height: 71px;
     background: #EB7F00;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-top: 7px;
 }
 
 .images1 {
-    margin-left: -100px;
+    margin-left: 10px;
     margin-top: 10px;
 }
 
 .images2 {
     margin-top: 10px;
-    margin-right: -100px;
 }
 
 .note_password {

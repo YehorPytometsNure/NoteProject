@@ -34,24 +34,29 @@ export default class NoteWindow extends Component {
         <div class="module_window" data-type="note-window">
             <img src="././././images/menu-mascot/resting.png" class="module-window-seal"/>
             <div class="head_module">
-                <input class="name_module" type="text" value="Name this" maxlength="9" data-type="note-window-header">
+                <input class="name_module" type="text" value="Name this" maxlength="25" data-type="note-window-header">
                 <img class="button1" src="././././images/close.png" alt="close" data-type="close-note-window-button">
             </div>
             <textarea class="text_module" data-type="note-window-text">Write your text here...</textarea>
             <div class="footer_module">
                 <div class="images1">
-                    <img class="button2" src="././././images/goru.jpg">
+<!--                    <img class="button2" src="././././images/goru.jpg">-->
                     <img class="button3" src="././././images/micro.png" data-type="micro-button">
-                    <img class="button4" src="././././images/planner.png">
-                    <img class="button5" src="././././images/calendar.png">
-                    <img class="button6" src="././././images/paint.png" data-type="seal-the-note-button">
-                    <img class="button10" src="././././images/paint.png" data-type="delete-button">
+<!--                    <img class="button4" src="././././images/planner.png">-->
+<!--                    <img class="button5" src="././././images/calendar.png">-->
+                    <img class="button6" src="././././images/mail.png" data-type="seal-the-note-button">
+                    
+<!--                    <img class="button10" src="././././images/paint.png" data-type="delete-button">-->
+                    <button class="button10-delete" data-type="delete-button">DELETE</button>
+                </div>
+                <div style="width: 200px; margin-top: 12px;">
+                    <select id="cars" data-type="js-choice"></select>
                 </div>
                 <div class="images2">
-                    <img class="button7" src="././././images/network.png">
-                    <img class="button8" src="././././images/mail.png">
+<!--                    <img class="button7" src="././././images/network.png">-->
+<!--                    <img class="button8" src="././././images/mail.png">-->
+
                     <img class="button9" src="././././images/ok.png" data-type="ok-button">
-                    <select id="cars" data-type="js-choice"></select>
                 </div>
             </div>
             <input class="note_password" data-type="note-password" type="text" placeholder="Type password for your note...">
