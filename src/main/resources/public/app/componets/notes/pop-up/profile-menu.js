@@ -82,6 +82,7 @@ export default class ProfileMenu extends Component {
     });
 
     this._logOutButton.addEventListener('click', () => {
+      window.location = '#/welcome';
       this._onLogOutClickHandlers.executeHandlers();
     });
   }
